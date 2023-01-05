@@ -38,7 +38,7 @@ public class JanelaAgendarConsulta {
 	private JLabel especialidadeLbl;
 	private JLabel dataDaConsultaLbl;
 	private JTextField codigoDoPacienteTextField;
-	private JComboBox especialidadeComboBox_1;
+	private JComboBox medicoComboBox;
 	private JLabel medicoLbl;
 	private JLabel horarioLbl;
 	private JTextField horarioTextField;
@@ -292,13 +292,13 @@ public class JanelaAgendarConsulta {
 		limparBtn.setBounds(898, 582, 89, 34);
 		frmClinicsystem.getContentPane().add(limparBtn);
 		
-		especialidadeComboBox_1 = new JComboBox();
-		especialidadeComboBox_1.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM(A) MÉDICO(A)"}));
-		especialidadeComboBox_1.setForeground(Color.GRAY);
-		especialidadeComboBox_1.setFont(new Font("Arial", Font.PLAIN, 12));
-		especialidadeComboBox_1.setBackground(Color.WHITE);
-		especialidadeComboBox_1.setBounds(422, 388, 380, 50);
-		frmClinicsystem.getContentPane().add(especialidadeComboBox_1);
+		medicoComboBox = new JComboBox();
+		medicoComboBox.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM(A) MÉDICO(A)"}));
+		medicoComboBox.setForeground(Color.GRAY);
+		medicoComboBox.setFont(new Font("Arial", Font.PLAIN, 12));
+		medicoComboBox.setBackground(Color.WHITE);
+		medicoComboBox.setBounds(422, 388, 380, 50);
+		frmClinicsystem.getContentPane().add(medicoComboBox);
 		
 		medicoLbl = new JLabel("*Médico(a):");
 		medicoLbl.setHorizontalAlignment(SwingConstants.LEFT);
