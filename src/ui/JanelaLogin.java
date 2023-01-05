@@ -70,7 +70,7 @@ public class JanelaLogin {
 		frmClinicsystem.getContentPane().add(usuarioLbl);
 		
 		JLabel logoInicial = new JLabel("");
-		logoInicial.setIcon(new ImageIcon("C:\\Users\\paulo\\Downloads\\logo_inicio.png"));
+		logoInicial.setIcon(new ImageIcon("C:\\Users\\paulo\\Documents\\GitHub\\ClinicSystem--LPOO--Project\\src\\midia\\logo_inicio.png"));
 		logoInicial.setBounds(688, 79, 380, 120);
 		frmClinicsystem.getContentPane().add(logoInicial);
 		
@@ -87,7 +87,7 @@ public class JanelaLogin {
 		frmClinicsystem.getContentPane().add(usuarioTextField);
 		
 		fotoInicial = new JLabel("");
-		fotoInicial.setIcon(new ImageIcon("C:\\Users\\paulo\\Downloads\\midia\\foto_inicio.png"));
+		fotoInicial.setIcon(new ImageIcon(JanelaLogin.class.getResource("/midia/foto_inicio.png")));
 		fotoInicial.setBounds(37, 110, 588, 434);
 		frmClinicsystem.getContentPane().add(fotoInicial);
 		

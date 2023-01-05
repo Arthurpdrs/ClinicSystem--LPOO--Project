@@ -22,7 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
 
-public class JanelaCadastrarPaciente {
+public class JanelaAgendarConsulta {
 
 	private JFrame frmClinicsystem;
 	private JTextField nomeTextField;
@@ -31,28 +31,29 @@ public class JanelaCadastrarPaciente {
 	private JLabel barraAzul;
 	private JLabel logoMenu;
 	private JLabel titulodapaginaLbl;
-	private JLabel enderecoLbl;
-	private JTextField enderecoTextField;
 	private JLabel cpfLbl;
 	private JTextField cpfTextField;
 	private JLabel emailLbl;
 	private JTextField emailTextField;
 	private JLabel CelularLbl;
 	private JTextField celularTextField;
-	private JLabel alergiaLbl;
-	private JTextField alergiaTextField;
+	private JLabel responsavelLbl;
+	private JTextField responsavelTextField;
 	private JLabel observacaoLbl;
 	private JTextField observacaoTextField;
-	private JLabel tipoSanguineoLbl;
-	private JLabel dataDeNascimentoLbl;
-	private JTextField responsavelNomeCompletoTextField;
-	private JLabel NomeCompletoResponsavelLbl;
-	private JTextField responsavelCelularTextField;
-	private JLabel celularResponsavelLbl;
-	private JTextField responsavelCpfTextField;
-	private JLabel cpfResponsavelLbl;
+	private JLabel especialidadeLbl;
+	private JLabel dataDaConsultaLbl;
 	private JTextField codigoDoPacienteTextField;
 	private JLabel codigoDoPacienteLbl;
+	private JComboBox especialidadeComboBox_1;
+	private JLabel medicoLbl;
+	private JLabel horarioLbl;
+	private JTextField horarioTextField;
+	private JTextField valorTextField;
+	private JLabel valorLbl;
+	private JComboBox estadoComboBox;
+	private JLabel estadoLbl;
+	private JButton pesquisarBtn;
 
 	/**
 	 * Launch the application.
@@ -61,7 +62,7 @@ public class JanelaCadastrarPaciente {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JanelaCadastrarPaciente window = new JanelaCadastrarPaciente();
+					JanelaAgendarConsulta window = new JanelaAgendarConsulta();
 					window.frmClinicsystem.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -73,7 +74,7 @@ public class JanelaCadastrarPaciente {
 	/**
 	 * Create the application.
 	 */
-	public JanelaCadastrarPaciente() {
+	public JanelaAgendarConsulta() {
 		initialize();
 	}
 
@@ -86,7 +87,7 @@ public class JanelaCadastrarPaciente {
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
 		
-		titulodapaginaLbl = new JLabel("Cadastrar paciente");
+		titulodapaginaLbl = new JLabel("Agendar consulta");
 		titulodapaginaLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		titulodapaginaLbl.setForeground(Color.WHITE);
 		titulodapaginaLbl.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -95,7 +96,7 @@ public class JanelaCadastrarPaciente {
 		frmClinicsystem.getContentPane().add(titulodapaginaLbl);
 		
 		logoMenu = new JLabel("");
-		logoMenu.setIcon(new ImageIcon(JanelaCadastrarPaciente.class.getResource("/midia/logo_menu.png")));
+		logoMenu.setIcon(new ImageIcon(JanelaAgendarConsulta.class.getResource("/midia/logo_menu.png")));
 		logoMenu.setBounds(919, -1, 160, 55);
 		frmClinicsystem.getContentPane().add(logoMenu);
 		
@@ -104,7 +105,7 @@ public class JanelaCadastrarPaciente {
 		nomeLbl.setBackground(Color.WHITE);
 		nomeLbl.setForeground(Color.GRAY);
 		nomeLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		nomeLbl.setBounds(22, 65, 380, 24);
+		nomeLbl.setBounds(32, 161, 380, 24);
 		frmClinicsystem.getContentPane().add(nomeLbl);
 		
 		barraAzul = new JLabel("");
@@ -121,18 +122,18 @@ public class JanelaCadastrarPaciente {
 		nomeTextField.setForeground(Color.GRAY);
 		nomeTextField.setMargin(new Insets(10, 10, 10, 10));
 		nomeTextField.setHorizontalAlignment(SwingConstants.LEFT);
-		nomeTextField.setBounds(22, 100, 380, 50);
+		nomeTextField.setBounds(32, 196, 380, 50);
 		nomeTextField.setColumns(10);
 		frmClinicsystem.getContentPane().add(nomeTextField);
 		
-		erroLbl = new JLabel("Preencha todos os campos obrigatórios (Indicados pelo * )");
+		erroLbl = new JLabel("Consulta agendada com sucesso");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		erroLbl.setForeground(new Color(0, 102, 255));
 		erroLbl.setFont(new Font("Arial", Font.PLAIN, 14));
 		erroLbl.setBackground(Color.WHITE);
-		erroLbl.setBounds(415, 508, 664, 14);
+		erroLbl.setBounds(422, 545, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
 		JButton enviarBtn = new JButton("Enviar");
@@ -141,36 +142,16 @@ public class JanelaCadastrarPaciente {
 		enviarBtn.setBackground(new Color(255, 255, 255));
 		enviarBtn.setForeground(new Color(0, 102, 255));
 		enviarBtn.setFont(new Font("Arial", Font.PLAIN, 16));
-		enviarBtn.setBounds(990, 553, 89, 34);
+		enviarBtn.setBounds(997, 582, 89, 34);
 		enviarBtn.setContentAreaFilled(false);
 		frmClinicsystem.getContentPane().add(enviarBtn);
-		
-		enderecoLbl = new JLabel("Endereço:");
-		enderecoLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		enderecoLbl.setForeground(Color.GRAY);
-		enderecoLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		enderecoLbl.setBackground(Color.WHITE);
-		enderecoLbl.setBounds(412, 65, 380, 24);
-		frmClinicsystem.getContentPane().add(enderecoLbl);
-		
-		enderecoTextField = new JTextField();
-		enderecoTextField.setToolTipText("");
-		enderecoTextField.setMargin(new Insets(10, 10, 10, 10));
-		enderecoTextField.setHorizontalAlignment(SwingConstants.LEFT);
-		enderecoTextField.setForeground(Color.GRAY);
-		enderecoTextField.setFont(new Font("Arial", Font.PLAIN, 12));
-		enderecoTextField.setColumns(10);
-		enderecoTextField.setBackground(Color.WHITE);
-		enderecoTextField.setActionCommand("");
-		enderecoTextField.setBounds(412, 100, 380, 50);
-		frmClinicsystem.getContentPane().add(enderecoTextField);
 		
 		cpfLbl = new JLabel("*CPF:");
 		cpfLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		cpfLbl.setForeground(Color.GRAY);
 		cpfLbl.setFont(new Font("Arial", Font.PLAIN, 16));
 		cpfLbl.setBackground(Color.WHITE);
-		cpfLbl.setBounds(802, 65, 277, 24);
+		cpfLbl.setBounds(812, 161, 277, 24);
 		frmClinicsystem.getContentPane().add(cpfLbl);
 		
 		cpfTextField = new JTextField();
@@ -182,7 +163,7 @@ public class JanelaCadastrarPaciente {
 		cpfTextField.setColumns(10);
 		cpfTextField.setBackground(Color.WHITE);
 		cpfTextField.setActionCommand("");
-		cpfTextField.setBounds(802, 100, 277, 50);
+		cpfTextField.setBounds(812, 196, 277, 50);
 		frmClinicsystem.getContentPane().add(cpfTextField);
 		
 		emailLbl = new JLabel("*E-mail:");
@@ -190,7 +171,7 @@ public class JanelaCadastrarPaciente {
 		emailLbl.setForeground(Color.GRAY);
 		emailLbl.setFont(new Font("Arial", Font.PLAIN, 16));
 		emailLbl.setBackground(Color.WHITE);
-		emailLbl.setBounds(22, 161, 380, 24);
+		emailLbl.setBounds(422, 161, 380, 24);
 		frmClinicsystem.getContentPane().add(emailLbl);
 		
 		emailTextField = new JTextField();
@@ -202,7 +183,7 @@ public class JanelaCadastrarPaciente {
 		emailTextField.setColumns(10);
 		emailTextField.setBackground(Color.WHITE);
 		emailTextField.setActionCommand("");
-		emailTextField.setBounds(22, 196, 380, 50);
+		emailTextField.setBounds(422, 196, 380, 50);
 		frmClinicsystem.getContentPane().add(emailTextField);
 		
 		CelularLbl = new JLabel("*Celular:");
@@ -210,7 +191,7 @@ public class JanelaCadastrarPaciente {
 		CelularLbl.setForeground(Color.GRAY);
 		CelularLbl.setFont(new Font("Arial", Font.PLAIN, 16));
 		CelularLbl.setBackground(Color.WHITE);
-		CelularLbl.setBounds(412, 161, 380, 24);
+		CelularLbl.setBounds(32, 257, 380, 24);
 		frmClinicsystem.getContentPane().add(CelularLbl);
 		
 		celularTextField = new JTextField();
@@ -222,35 +203,35 @@ public class JanelaCadastrarPaciente {
 		celularTextField.setColumns(10);
 		celularTextField.setBackground(Color.WHITE);
 		celularTextField.setActionCommand("");
-		celularTextField.setBounds(412, 196, 380, 50);
+		celularTextField.setBounds(32, 292, 380, 50);
 		frmClinicsystem.getContentPane().add(celularTextField);
 		
-		alergiaLbl = new JLabel("Alergia:");
-		alergiaLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		alergiaLbl.setForeground(Color.GRAY);
-		alergiaLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		alergiaLbl.setBackground(Color.WHITE);
-		alergiaLbl.setBounds(22, 257, 380, 24);
-		frmClinicsystem.getContentPane().add(alergiaLbl);
+		responsavelLbl = new JLabel("Responsável");
+		responsavelLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		responsavelLbl.setForeground(Color.GRAY);
+		responsavelLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		responsavelLbl.setBackground(Color.WHITE);
+		responsavelLbl.setBounds(32, 353, 380, 24);
+		frmClinicsystem.getContentPane().add(responsavelLbl);
 		
-		alergiaTextField = new JTextField();
-		alergiaTextField.setToolTipText("");
-		alergiaTextField.setMargin(new Insets(10, 10, 10, 10));
-		alergiaTextField.setHorizontalAlignment(SwingConstants.LEFT);
-		alergiaTextField.setForeground(Color.GRAY);
-		alergiaTextField.setFont(new Font("Arial", Font.PLAIN, 12));
-		alergiaTextField.setColumns(10);
-		alergiaTextField.setBackground(Color.WHITE);
-		alergiaTextField.setActionCommand("");
-		alergiaTextField.setBounds(22, 292, 380, 50);
-		frmClinicsystem.getContentPane().add(alergiaTextField);
+		responsavelTextField = new JTextField();
+		responsavelTextField.setToolTipText("");
+		responsavelTextField.setMargin(new Insets(10, 10, 10, 10));
+		responsavelTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		responsavelTextField.setForeground(Color.GRAY);
+		responsavelTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		responsavelTextField.setColumns(10);
+		responsavelTextField.setBackground(Color.WHITE);
+		responsavelTextField.setActionCommand("");
+		responsavelTextField.setBounds(32, 388, 380, 50);
+		frmClinicsystem.getContentPane().add(responsavelTextField);
 		
 		observacaoLbl = new JLabel("Observação:");
 		observacaoLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		observacaoLbl.setForeground(Color.GRAY);
 		observacaoLbl.setFont(new Font("Arial", Font.PLAIN, 16));
 		observacaoLbl.setBackground(Color.WHITE);
-		observacaoLbl.setBounds(412, 257, 380, 24);
+		observacaoLbl.setBounds(422, 257, 380, 24);
 		frmClinicsystem.getContentPane().add(observacaoLbl);
 		
 		observacaoTextField = new JTextField();
@@ -262,97 +243,37 @@ public class JanelaCadastrarPaciente {
 		observacaoTextField.setColumns(10);
 		observacaoTextField.setBackground(Color.WHITE);
 		observacaoTextField.setActionCommand("");
-		observacaoTextField.setBounds(412, 292, 380, 50);
+		observacaoTextField.setBounds(422, 292, 380, 50);
 		frmClinicsystem.getContentPane().add(observacaoTextField);
 		
-		tipoSanguineoLbl = new JLabel("Tipo sanguíneo:");
-		tipoSanguineoLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		tipoSanguineoLbl.setForeground(Color.GRAY);
-		tipoSanguineoLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		tipoSanguineoLbl.setBackground(Color.WHITE);
-		tipoSanguineoLbl.setBounds(802, 161, 277, 24);
-		frmClinicsystem.getContentPane().add(tipoSanguineoLbl);
+		especialidadeLbl = new JLabel("*Especialidade:");
+		especialidadeLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		especialidadeLbl.setForeground(Color.GRAY);
+		especialidadeLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		especialidadeLbl.setBackground(Color.WHITE);
+		especialidadeLbl.setBounds(812, 257, 277, 24);
+		frmClinicsystem.getContentPane().add(especialidadeLbl);
 		
-		dataDeNascimentoLbl = new JLabel("*Data de nascimento:");
-		dataDeNascimentoLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		dataDeNascimentoLbl.setForeground(Color.GRAY);
-		dataDeNascimentoLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		dataDeNascimentoLbl.setBackground(Color.WHITE);
-		dataDeNascimentoLbl.setBounds(802, 257, 277, 24);
-		frmClinicsystem.getContentPane().add(dataDeNascimentoLbl);
+		dataDaConsultaLbl = new JLabel("*Data da consulta:");
+		dataDaConsultaLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		dataDaConsultaLbl.setForeground(Color.GRAY);
+		dataDaConsultaLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		dataDaConsultaLbl.setBackground(Color.WHITE);
+		dataDaConsultaLbl.setBounds(812, 353, 277, 24);
+		frmClinicsystem.getContentPane().add(dataDaConsultaLbl);
 		
-		JComboBox tipoSanguineoComboBox = new JComboBox();
-		tipoSanguineoComboBox.setFont(new Font("Arial", Font.PLAIN, 12));
-		tipoSanguineoComboBox.setForeground(new Color(128, 128, 128));
-		tipoSanguineoComboBox.setBackground(Color.WHITE);
-		tipoSanguineoComboBox.setModel(new DefaultComboBoxModel(new String[] {"A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"}));
-		tipoSanguineoComboBox.setBounds(802, 196, 277, 50);
-		frmClinicsystem.getContentPane().add(tipoSanguineoComboBox);
+		JComboBox especialidadeComboBox = new JComboBox();
+		especialidadeComboBox.setFont(new Font("Arial", Font.PLAIN, 12));
+		especialidadeComboBox.setForeground(new Color(128, 128, 128));
+		especialidadeComboBox.setBackground(Color.WHITE);
+		especialidadeComboBox.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UMA ESPECIALIDADE", "CLÍNICA MÉDICA", "PEDIATRIA", "GINECOLOGIA", "UROLOGIA", "PSIQUIATRIA", "ANGIOLOGIA", "OFTALMOLOGIA", "OTORRINOLARINGOLOGIA", "GASTROENTEROLOGIA"}));
+		especialidadeComboBox.setBounds(812, 292, 277, 50);
+		frmClinicsystem.getContentPane().add(especialidadeComboBox);
 		
-		JDateChooser dataDeNascimentoDateChooser = new JDateChooser();
-		dataDeNascimentoDateChooser.setDateFormatString("dd/MM/yyyy");
-		dataDeNascimentoDateChooser.setBounds(802, 292, 277, 50);
-		frmClinicsystem.getContentPane().add(dataDeNascimentoDateChooser);
-		
-		responsavelNomeCompletoTextField = new JTextField();
-		responsavelNomeCompletoTextField.setToolTipText("Do responsável");
-		responsavelNomeCompletoTextField.setMargin(new Insets(10, 10, 10, 10));
-		responsavelNomeCompletoTextField.setHorizontalAlignment(SwingConstants.LEFT);
-		responsavelNomeCompletoTextField.setForeground(Color.GRAY);
-		responsavelNomeCompletoTextField.setFont(new Font("Arial", Font.PLAIN, 12));
-		responsavelNomeCompletoTextField.setColumns(10);
-		responsavelNomeCompletoTextField.setBackground(Color.WHITE);
-		responsavelNomeCompletoTextField.setActionCommand("");
-		responsavelNomeCompletoTextField.setBounds(22, 388, 380, 50);
-		frmClinicsystem.getContentPane().add(responsavelNomeCompletoTextField);
-		
-		NomeCompletoResponsavelLbl = new JLabel("Nome completo (Responsável):");
-		NomeCompletoResponsavelLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		NomeCompletoResponsavelLbl.setForeground(Color.GRAY);
-		NomeCompletoResponsavelLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		NomeCompletoResponsavelLbl.setBackground(Color.WHITE);
-		NomeCompletoResponsavelLbl.setBounds(22, 353, 380, 24);
-		frmClinicsystem.getContentPane().add(NomeCompletoResponsavelLbl);
-		
-		responsavelCelularTextField = new JTextField();
-		responsavelCelularTextField.setToolTipText("Do responsável");
-		responsavelCelularTextField.setMargin(new Insets(10, 10, 10, 10));
-		responsavelCelularTextField.setHorizontalAlignment(SwingConstants.LEFT);
-		responsavelCelularTextField.setForeground(Color.GRAY);
-		responsavelCelularTextField.setFont(new Font("Arial", Font.PLAIN, 12));
-		responsavelCelularTextField.setColumns(10);
-		responsavelCelularTextField.setBackground(Color.WHITE);
-		responsavelCelularTextField.setActionCommand("");
-		responsavelCelularTextField.setBounds(412, 388, 380, 50);
-		frmClinicsystem.getContentPane().add(responsavelCelularTextField);
-		
-		celularResponsavelLbl = new JLabel("Celular (Responsável):");
-		celularResponsavelLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		celularResponsavelLbl.setForeground(Color.GRAY);
-		celularResponsavelLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		celularResponsavelLbl.setBackground(Color.WHITE);
-		celularResponsavelLbl.setBounds(412, 353, 380, 24);
-		frmClinicsystem.getContentPane().add(celularResponsavelLbl);
-		
-		responsavelCpfTextField = new JTextField();
-		responsavelCpfTextField.setToolTipText("Do responsável");
-		responsavelCpfTextField.setMargin(new Insets(10, 10, 10, 10));
-		responsavelCpfTextField.setHorizontalAlignment(SwingConstants.LEFT);
-		responsavelCpfTextField.setForeground(Color.GRAY);
-		responsavelCpfTextField.setFont(new Font("Arial", Font.PLAIN, 12));
-		responsavelCpfTextField.setColumns(10);
-		responsavelCpfTextField.setBackground(Color.WHITE);
-		responsavelCpfTextField.setActionCommand("");
-		responsavelCpfTextField.setBounds(802, 388, 277, 50);
-		frmClinicsystem.getContentPane().add(responsavelCpfTextField);
-		
-		cpfResponsavelLbl = new JLabel("CPF (Responsável):");
-		cpfResponsavelLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		cpfResponsavelLbl.setForeground(Color.GRAY);
-		cpfResponsavelLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		cpfResponsavelLbl.setBackground(Color.WHITE);
-		cpfResponsavelLbl.setBounds(802, 353, 277, 24);
-		frmClinicsystem.getContentPane().add(cpfResponsavelLbl);
+		JDateChooser dataDaConsultaDateChooser = new JDateChooser();
+		dataDaConsultaDateChooser.setDateFormatString("dd/MM/yyyy");
+		dataDaConsultaDateChooser.setBounds(812, 388, 277, 50);
+		frmClinicsystem.getContentPane().add(dataDaConsultaDateChooser);
 		
 		codigoDoPacienteTextField = new JTextField();
 		codigoDoPacienteTextField.setEditable(false);
@@ -364,15 +285,15 @@ public class JanelaCadastrarPaciente {
 		codigoDoPacienteTextField.setColumns(10);
 		codigoDoPacienteTextField.setBackground(Color.WHITE);
 		codigoDoPacienteTextField.setActionCommand("");
-		codigoDoPacienteTextField.setBounds(22, 537, 380, 50);
+		codigoDoPacienteTextField.setBounds(32, 100, 955, 50);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteTextField);
 		
-		codigoDoPacienteLbl = new JLabel("Código do paciente (gerado):");
+		codigoDoPacienteLbl = new JLabel("Pesquisar código do paciente:");
 		codigoDoPacienteLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		codigoDoPacienteLbl.setForeground(Color.GRAY);
 		codigoDoPacienteLbl.setFont(new Font("Arial", Font.PLAIN, 16));
 		codigoDoPacienteLbl.setBackground(Color.WHITE);
-		codigoDoPacienteLbl.setBounds(22, 502, 380, 24);
+		codigoDoPacienteLbl.setBounds(32, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
 		JButton limparBtn = new JButton("Limpar");
@@ -382,8 +303,90 @@ public class JanelaCadastrarPaciente {
 		limparBtn.setContentAreaFilled(false);
 		limparBtn.setBorderPainted(false);
 		limparBtn.setBackground(Color.WHITE);
-		limparBtn.setBounds(891, 553, 89, 34);
+		limparBtn.setBounds(898, 582, 89, 34);
 		frmClinicsystem.getContentPane().add(limparBtn);
+		
+		especialidadeComboBox_1 = new JComboBox();
+		especialidadeComboBox_1.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM(A) MÉDICO(A)"}));
+		especialidadeComboBox_1.setForeground(Color.GRAY);
+		especialidadeComboBox_1.setFont(new Font("Arial", Font.PLAIN, 12));
+		especialidadeComboBox_1.setBackground(Color.WHITE);
+		especialidadeComboBox_1.setBounds(422, 388, 380, 50);
+		frmClinicsystem.getContentPane().add(especialidadeComboBox_1);
+		
+		medicoLbl = new JLabel("*Médico(a):");
+		medicoLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		medicoLbl.setForeground(Color.GRAY);
+		medicoLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		medicoLbl.setBackground(Color.WHITE);
+		medicoLbl.setBounds(422, 360, 380, 24);
+		frmClinicsystem.getContentPane().add(medicoLbl);
+		
+		horarioLbl = new JLabel("*Horário:");
+		horarioLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		horarioLbl.setForeground(Color.GRAY);
+		horarioLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		horarioLbl.setBackground(Color.WHITE);
+		horarioLbl.setBounds(32, 449, 380, 24);
+		frmClinicsystem.getContentPane().add(horarioLbl);
+		
+		horarioTextField = new JTextField();
+		horarioTextField.setToolTipText("");
+		horarioTextField.setMargin(new Insets(10, 10, 10, 10));
+		horarioTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		horarioTextField.setForeground(Color.GRAY);
+		horarioTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		horarioTextField.setColumns(10);
+		horarioTextField.setBackground(Color.WHITE);
+		horarioTextField.setActionCommand("");
+		horarioTextField.setBounds(32, 484, 380, 50);
+		frmClinicsystem.getContentPane().add(horarioTextField);
+		
+		valorTextField = new JTextField();
+		valorTextField.setToolTipText("");
+		valorTextField.setMargin(new Insets(10, 10, 10, 10));
+		valorTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		valorTextField.setForeground(Color.GRAY);
+		valorTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		valorTextField.setColumns(10);
+		valorTextField.setBackground(Color.WHITE);
+		valorTextField.setActionCommand("");
+		valorTextField.setBounds(422, 484, 380, 50);
+		frmClinicsystem.getContentPane().add(valorTextField);
+		
+		valorLbl = new JLabel("Valor:");
+		valorLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		valorLbl.setForeground(Color.GRAY);
+		valorLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		valorLbl.setBackground(Color.WHITE);
+		valorLbl.setBounds(422, 449, 380, 24);
+		frmClinicsystem.getContentPane().add(valorLbl);
+		
+		estadoComboBox = new JComboBox();
+		estadoComboBox.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM ESTADO", "PAGO", "PENDENTE", "AUTORIZADA", "CANCELADA"}));
+		estadoComboBox.setForeground(Color.GRAY);
+		estadoComboBox.setFont(new Font("Arial", Font.PLAIN, 12));
+		estadoComboBox.setBackground(Color.WHITE);
+		estadoComboBox.setBounds(812, 484, 277, 50);
+		frmClinicsystem.getContentPane().add(estadoComboBox);
+		
+		estadoLbl = new JLabel("Estado:");
+		estadoLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		estadoLbl.setForeground(Color.GRAY);
+		estadoLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		estadoLbl.setBackground(Color.WHITE);
+		estadoLbl.setBounds(812, 449, 277, 24);
+		frmClinicsystem.getContentPane().add(estadoLbl);
+		
+		pesquisarBtn = new JButton("");
+		pesquisarBtn.setIcon(new ImageIcon(JanelaAgendarConsulta.class.getResource("/midia/lupa.png")));
+		pesquisarBtn.setForeground(new Color(0, 102, 255));
+		pesquisarBtn.setFont(new Font("Arial", Font.PLAIN, 16));
+		pesquisarBtn.setContentAreaFilled(false);
+		pesquisarBtn.setBorderPainted(false);
+		pesquisarBtn.setBackground(Color.WHITE);
+		pesquisarBtn.setBounds(997, 100, 97, 50);
+		frmClinicsystem.getContentPane().add(pesquisarBtn);
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);
