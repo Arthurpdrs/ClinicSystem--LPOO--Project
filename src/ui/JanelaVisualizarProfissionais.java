@@ -15,6 +15,7 @@ import java.awt.Cursor;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import java.awt.Toolkit;
 
 public class JanelaVisualizarProfissionais {
 
@@ -27,7 +28,7 @@ public class JanelaVisualizarProfissionais {
 	private JLabel codigoDoProfissionalLbl;
 	private JButton pesquisarBtn;
 	private JScrollPane scrollPane;
-	private JTable table;
+	private JTable profissionaisTable;
 
 	/**
 	 * Launch the application.
@@ -57,18 +58,18 @@ public class JanelaVisualizarProfissionais {
 	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
+		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaVisualizarProfissionais.class.getResource("/midia/icone.png")));
 		frmClinicsystem.setTitle("ClinicSystem");
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
 		
 		
 
-		scrollPane = new JScrollPane(table = new JTable());
-		table.setForeground(Color.GRAY);
-		table.setFont(new Font("Arial", Font.PLAIN, 12));
-		table.setModel(new DefaultTableModel(
+		scrollPane = new JScrollPane(profissionaisTable = new JTable());
+		profissionaisTable.setForeground(Color.GRAY);
+		profissionaisTable.setFont(new Font("Arial", Font.PLAIN, 12));
+		profissionaisTable.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null},
 			},
 			new String[] {
 				"Nome completo", "Usu\u00E1rio", "Senha", "Fun\u00E7\u00E3o", "Especialidade", "E-mail"
@@ -82,7 +83,7 @@ public class JanelaVisualizarProfissionais {
 		titulodapaginaLbl.setForeground(Color.WHITE);
 		titulodapaginaLbl.setFont(new Font("Arial", Font.PLAIN, 16));
 		titulodapaginaLbl.setBackground(Color.WHITE);
-		titulodapaginaLbl.setBounds(22, -1, 380, 55);
+		titulodapaginaLbl.setBounds(31, -1, 371, 55);
 		frmClinicsystem.getContentPane().add(titulodapaginaLbl);
 		
 		logoMenu = new JLabel("");
