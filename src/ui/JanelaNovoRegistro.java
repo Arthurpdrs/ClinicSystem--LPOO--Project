@@ -15,6 +15,7 @@ import java.awt.Cursor;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Toolkit;
 
 public class JanelaNovoRegistro {
 
@@ -66,6 +67,7 @@ public class JanelaNovoRegistro {
 	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
+		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaNovoRegistro.class.getResource("/midia/icone.png")));
 		frmClinicsystem.setTitle("ClinicSystem");
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
@@ -119,7 +121,7 @@ public class JanelaNovoRegistro {
 		nomeTextField.setColumns(10);
 		frmClinicsystem.getContentPane().add(nomeTextField);
 		
-		erroLbl = new JLabel("Dados atualizados com sucesso");
+		erroLbl = new JLabel("Registrado com sucesso");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.RIGHT);

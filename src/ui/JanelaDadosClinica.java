@@ -13,6 +13,7 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Cursor;
+import java.awt.Toolkit;
 public class JanelaDadosClinica {
 
 	private JFrame frmClinicsystem;
@@ -59,6 +60,7 @@ public class JanelaDadosClinica {
 	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
+		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaDadosClinica.class.getResource("/midia/icone.png")));
 		frmClinicsystem.setTitle("ClinicSystem");
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);

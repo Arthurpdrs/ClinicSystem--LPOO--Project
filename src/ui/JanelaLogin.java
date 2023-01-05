@@ -13,6 +13,7 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Cursor;
+import java.awt.Toolkit;
 
 public class JanelaLogin {
 
@@ -51,6 +52,7 @@ public class JanelaLogin {
 	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
+		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaLogin.class.getResource("/midia/icone.png")));
 		frmClinicsystem.setTitle("ClinicSystem");
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
