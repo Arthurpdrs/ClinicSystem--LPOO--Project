@@ -96,7 +96,7 @@ public class JanelaVisualizarProfissionais {
 		barraAzul.setOpaque(true);
 		frmClinicsystem.getContentPane().add(barraAzul);
 		
-		erroLbl = new JLabel("Consulta agendada com sucesso");
+		erroLbl = new JLabel("Excluído com sucesso");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.RIGHT);
