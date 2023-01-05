@@ -276,7 +276,6 @@ public class JanelaAgendarConsulta {
 		frmClinicsystem.getContentPane().add(dataDaConsultaDateChooser);
 		
 		codigoDoPacienteTextField = new JTextField();
-		codigoDoPacienteTextField.setEditable(false);
 		codigoDoPacienteTextField.setToolTipText("");
 		codigoDoPacienteTextField.setMargin(new Insets(10, 10, 10, 10));
 		codigoDoPacienteTextField.setHorizontalAlignment(SwingConstants.LEFT);

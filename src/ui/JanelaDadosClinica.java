@@ -6,22 +6,13 @@ import java.awt.Insets;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.DropMode;
-import java.awt.Rectangle;
-import java.awt.Component;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
-import java.awt.SystemColor;
 import java.awt.Cursor;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import com.toedter.calendar.JDateChooser;
-
 public class JanelaDadosClinica {
 
 	private JFrame frmClinicsystem;
