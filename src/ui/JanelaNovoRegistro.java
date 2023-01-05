@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import java.awt.Cursor;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+import com.toedter.calendar.JDateChooser;
 
 public class JanelaNovoRegistro {
 
@@ -35,6 +36,7 @@ public class JanelaNovoRegistro {
 	private JTextField especialidadeTextField;
 	private JLabel especialidadeLbl;
 	private JLabel queixaLbl;
+	private JLabel dataLbl;
 
 	/**
 	 * Launch the application.
@@ -75,10 +77,10 @@ public class JanelaNovoRegistro {
 		pesquisarBtn.setContentAreaFilled(false);
 		pesquisarBtn.setBorderPainted(false);
 		pesquisarBtn.setBackground(Color.WHITE);
-		pesquisarBtn.setBounds(987, 100, 97, 50);
+		pesquisarBtn.setBounds(678, 100, 97, 50);
 		frmClinicsystem.getContentPane().add(pesquisarBtn);
 		
-		titulodapaginaLbl = new JLabel("Alterar dados da clínica");
+		titulodapaginaLbl = new JLabel("Novo registro");
 		titulodapaginaLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		titulodapaginaLbl.setForeground(Color.WHITE);
 		titulodapaginaLbl.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -176,7 +178,7 @@ public class JanelaNovoRegistro {
 		pesquisarTextField.setColumns(10);
 		pesquisarTextField.setBackground(Color.WHITE);
 		pesquisarTextField.setActionCommand("");
-		pesquisarTextField.setBounds(22, 100, 955, 50);
+		pesquisarTextField.setBounds(22, 100, 646, 50);
 		frmClinicsystem.getContentPane().add(pesquisarTextField);
 		
 		codigoDoPacienteLbl = new JLabel("Pesquisar código do paciente:");
@@ -184,7 +186,7 @@ public class JanelaNovoRegistro {
 		codigoDoPacienteLbl.setForeground(Color.GRAY);
 		codigoDoPacienteLbl.setFont(new Font("Arial", Font.PLAIN, 16));
 		codigoDoPacienteLbl.setBackground(Color.WHITE);
-		codigoDoPacienteLbl.setBounds(22, 65, 380, 24);
+		codigoDoPacienteLbl.setBounds(22, 65, 602, 24);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
 		nomeMedicoTextField = new JTextField();
@@ -271,6 +273,20 @@ public class JanelaNovoRegistro {
 		observacaoLbl.setBackground(Color.WHITE);
 		observacaoLbl.setBounds(788, 361, 291, 24);
 		frmClinicsystem.getContentPane().add(observacaoLbl);
+		
+		dataLbl = new JLabel("Data:");
+		dataLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		dataLbl.setForeground(Color.GRAY);
+		dataLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		dataLbl.setBackground(Color.WHITE);
+		dataLbl.setBounds(777, 65, 302, 24);
+		frmClinicsystem.getContentPane().add(dataLbl);
+		
+		JDateChooser dataDateChooser = new JDateChooser();
+		dataDateChooser.setDateFormatString("dd/MM/yyyy");
+		dataDateChooser.setForeground(Color.GRAY);
+		dataDateChooser.setBounds(777, 100, 302, 50);
+		frmClinicsystem.getContentPane().add(dataDateChooser);
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);
