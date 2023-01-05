@@ -12,6 +12,9 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Cursor;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class JanelaVisualizarProfissionais {
 
@@ -23,6 +26,8 @@ public class JanelaVisualizarProfissionais {
 	private JTextField codigoDoProfissionalTextField;
 	private JLabel codigoDoProfissionalLbl;
 	private JButton pesquisarBtn;
+	private JScrollPane scrollPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -56,6 +61,22 @@ public class JanelaVisualizarProfissionais {
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
 		
+		
+
+		scrollPane = new JScrollPane(table = new JTable());
+		table.setForeground(Color.GRAY);
+		table.setFont(new Font("Arial", Font.PLAIN, 12));
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null},
+			},
+			new String[] {
+				"Nome completo", "Usu\u00E1rio", "Senha", "Fun\u00E7\u00E3o", "Especialidade", "E-mail"
+			}
+		));
+		scrollPane.setBounds(31, 162, 1048, 356);
+		frmClinicsystem.getContentPane().add(scrollPane);
+		
 		titulodapaginaLbl = new JLabel("Visualizar profissionais");
 		titulodapaginaLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		titulodapaginaLbl.setForeground(Color.WHITE);
@@ -85,15 +106,15 @@ public class JanelaVisualizarProfissionais {
 		erroLbl.setBounds(422, 545, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
-		JButton enviarBtn = new JButton("Enviar");
-		enviarBtn.setBorderPainted(false);
-		enviarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		enviarBtn.setBackground(new Color(255, 255, 255));
-		enviarBtn.setForeground(new Color(0, 102, 255));
-		enviarBtn.setFont(new Font("Arial", Font.PLAIN, 16));
-		enviarBtn.setBounds(997, 582, 89, 34);
-		enviarBtn.setContentAreaFilled(false);
-		frmClinicsystem.getContentPane().add(enviarBtn);
+		JButton editarBtn = new JButton("Editar");
+		editarBtn.setBorderPainted(false);
+		editarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		editarBtn.setBackground(new Color(255, 255, 255));
+		editarBtn.setForeground(new Color(0, 102, 255));
+		editarBtn.setFont(new Font("Arial", Font.PLAIN, 16));
+		editarBtn.setBounds(997, 582, 89, 34);
+		editarBtn.setContentAreaFilled(false);
+		frmClinicsystem.getContentPane().add(editarBtn);
 		
 		codigoDoProfissionalTextField = new JTextField();
 		codigoDoProfissionalTextField.setToolTipText("");
@@ -115,15 +136,15 @@ public class JanelaVisualizarProfissionais {
 		codigoDoProfissionalLbl.setBounds(32, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(codigoDoProfissionalLbl);
 		
-		JButton limparBtn = new JButton("Limpar");
-		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		limparBtn.setForeground(Color.GRAY);
-		limparBtn.setFont(new Font("Arial", Font.PLAIN, 16));
-		limparBtn.setContentAreaFilled(false);
-		limparBtn.setBorderPainted(false);
-		limparBtn.setBackground(Color.WHITE);
-		limparBtn.setBounds(898, 582, 89, 34);
-		frmClinicsystem.getContentPane().add(limparBtn);
+		JButton excluirBtn = new JButton("Excluir");
+		excluirBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		excluirBtn.setForeground(Color.GRAY);
+		excluirBtn.setFont(new Font("Arial", Font.PLAIN, 16));
+		excluirBtn.setContentAreaFilled(false);
+		excluirBtn.setBorderPainted(false);
+		excluirBtn.setBackground(Color.WHITE);
+		excluirBtn.setBounds(898, 582, 89, 34);
+		frmClinicsystem.getContentPane().add(excluirBtn);
 		
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarProfissionais.class.getResource("/midia/lupa.png")));
@@ -134,6 +155,8 @@ public class JanelaVisualizarProfissionais {
 		pesquisarBtn.setBackground(Color.WHITE);
 		pesquisarBtn.setBounds(997, 100, 97, 50);
 		frmClinicsystem.getContentPane().add(pesquisarBtn);
+		
+		
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);
