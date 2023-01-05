@@ -6,17 +6,11 @@ import java.awt.Insets;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.DropMode;
-import java.awt.Rectangle;
-import java.awt.Component;
-import javax.swing.JPasswordField;
 import javax.swing.JButton;
-import java.awt.SystemColor;
 import java.awt.Cursor;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -44,7 +38,6 @@ public class JanelaAgendarConsulta {
 	private JLabel especialidadeLbl;
 	private JLabel dataDaConsultaLbl;
 	private JTextField codigoDoPacienteTextField;
-	private JLabel codigoDoPacienteLbl;
 	private JComboBox especialidadeComboBox_1;
 	private JLabel medicoLbl;
 	private JLabel horarioLbl;
@@ -54,6 +47,8 @@ public class JanelaAgendarConsulta {
 	private JComboBox estadoComboBox;
 	private JLabel estadoLbl;
 	private JButton pesquisarBtn;
+	private JLabel avisoLbl;
+	private JLabel codigoDoPacienteLbl;
 
 	/**
 	 * Launch the application.
@@ -287,14 +282,6 @@ public class JanelaAgendarConsulta {
 		codigoDoPacienteTextField.setBounds(32, 100, 955, 50);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteTextField);
 		
-		codigoDoPacienteLbl = new JLabel("Pesquisar código do paciente:");
-		codigoDoPacienteLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		codigoDoPacienteLbl.setForeground(Color.GRAY);
-		codigoDoPacienteLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		codigoDoPacienteLbl.setBackground(Color.WHITE);
-		codigoDoPacienteLbl.setBounds(32, 65, 380, 24);
-		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
-		
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		limparBtn.setForeground(Color.GRAY);
@@ -386,6 +373,24 @@ public class JanelaAgendarConsulta {
 		pesquisarBtn.setBackground(Color.WHITE);
 		pesquisarBtn.setBounds(997, 100, 97, 50);
 		frmClinicsystem.getContentPane().add(pesquisarBtn);
+		
+		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
+		avisoLbl.setVerticalAlignment(SwingConstants.BOTTOM);
+		avisoLbl.setOpaque(true);
+		avisoLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		avisoLbl.setForeground(new Color(0, 102, 255));
+		avisoLbl.setFont(new Font("Arial", Font.PLAIN, 14));
+		avisoLbl.setBackground(Color.WHITE);
+		avisoLbl.setBounds(236, 65, 751, 24);
+		frmClinicsystem.getContentPane().add(avisoLbl);
+		
+		codigoDoPacienteLbl = new JLabel("Pesquisar CPF do paciente:");
+		codigoDoPacienteLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		codigoDoPacienteLbl.setForeground(Color.GRAY);
+		codigoDoPacienteLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		codigoDoPacienteLbl.setBackground(Color.WHITE);
+		codigoDoPacienteLbl.setBounds(32, 67, 221, 24);
+		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);

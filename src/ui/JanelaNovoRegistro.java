@@ -10,7 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import javax.swing.JTextArea;
@@ -37,6 +36,7 @@ public class JanelaNovoRegistro {
 	private JLabel especialidadeLbl;
 	private JLabel queixaLbl;
 	private JLabel dataLbl;
+	private JLabel avisoLbl;
 
 	/**
 	 * Launch the application.
@@ -181,12 +181,12 @@ public class JanelaNovoRegistro {
 		pesquisarTextField.setBounds(22, 100, 646, 50);
 		frmClinicsystem.getContentPane().add(pesquisarTextField);
 		
-		codigoDoPacienteLbl = new JLabel("Pesquisar código do paciente:");
+		codigoDoPacienteLbl = new JLabel("Pesquisar CPF do paciente:");
 		codigoDoPacienteLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		codigoDoPacienteLbl.setForeground(Color.GRAY);
 		codigoDoPacienteLbl.setFont(new Font("Arial", Font.PLAIN, 16));
 		codigoDoPacienteLbl.setBackground(Color.WHITE);
-		codigoDoPacienteLbl.setBounds(22, 65, 602, 24);
+		codigoDoPacienteLbl.setBounds(22, 65, 221, 24);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
 		nomeMedicoTextField = new JTextField();
@@ -287,6 +287,16 @@ public class JanelaNovoRegistro {
 		dataDateChooser.setForeground(Color.GRAY);
 		dataDateChooser.setBounds(777, 100, 302, 50);
 		frmClinicsystem.getContentPane().add(dataDateChooser);
+		
+		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
+		avisoLbl.setVerticalAlignment(SwingConstants.BOTTOM);
+		avisoLbl.setOpaque(true);
+		avisoLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		avisoLbl.setForeground(new Color(0, 102, 255));
+		avisoLbl.setFont(new Font("Arial", Font.PLAIN, 14));
+		avisoLbl.setBackground(Color.WHITE);
+		avisoLbl.setBounds(228, 63, 440, 24);
+		frmClinicsystem.getContentPane().add(avisoLbl);
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);

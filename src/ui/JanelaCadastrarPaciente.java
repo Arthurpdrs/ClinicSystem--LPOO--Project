@@ -45,8 +45,6 @@ public class JanelaCadastrarPaciente {
 	private JLabel celularResponsavelLbl;
 	private JTextField responsavelCpfTextField;
 	private JLabel cpfResponsavelLbl;
-	private JTextField codigoDoPacienteTextField;
-	private JLabel codigoDoPacienteLbl;
 
 	/**
 	 * Launch the application.
@@ -347,27 +345,6 @@ public class JanelaCadastrarPaciente {
 		cpfResponsavelLbl.setBackground(Color.WHITE);
 		cpfResponsavelLbl.setBounds(802, 353, 277, 24);
 		frmClinicsystem.getContentPane().add(cpfResponsavelLbl);
-		
-		codigoDoPacienteTextField = new JTextField();
-		codigoDoPacienteTextField.setEditable(false);
-		codigoDoPacienteTextField.setToolTipText("");
-		codigoDoPacienteTextField.setMargin(new Insets(10, 10, 10, 10));
-		codigoDoPacienteTextField.setHorizontalAlignment(SwingConstants.LEFT);
-		codigoDoPacienteTextField.setForeground(Color.GRAY);
-		codigoDoPacienteTextField.setFont(new Font("Arial", Font.PLAIN, 12));
-		codigoDoPacienteTextField.setColumns(10);
-		codigoDoPacienteTextField.setBackground(Color.WHITE);
-		codigoDoPacienteTextField.setActionCommand("");
-		codigoDoPacienteTextField.setBounds(22, 537, 380, 50);
-		frmClinicsystem.getContentPane().add(codigoDoPacienteTextField);
-		
-		codigoDoPacienteLbl = new JLabel("Código do paciente (gerado):");
-		codigoDoPacienteLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		codigoDoPacienteLbl.setForeground(Color.GRAY);
-		codigoDoPacienteLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		codigoDoPacienteLbl.setBackground(Color.WHITE);
-		codigoDoPacienteLbl.setBounds(22, 502, 380, 24);
-		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
