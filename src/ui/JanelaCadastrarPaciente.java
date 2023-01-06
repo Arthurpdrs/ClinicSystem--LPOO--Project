@@ -50,6 +50,11 @@ public class JanelaCadastrarPaciente {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -139,6 +144,12 @@ public class JanelaCadastrarPaciente {
 		enviarBtn.setBounds(990, 553, 89, 34);
 		enviarBtn.setContentAreaFilled(false);
 		frmClinicsystem.getContentPane().add(enviarBtn);
+		
+		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		enderecoLbl = new JLabel("Endereço:");
 		enderecoLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -359,6 +370,12 @@ public class JanelaCadastrarPaciente {
 		limparBtn.setBackground(Color.WHITE);
 		limparBtn.setBounds(891, 553, 89, 34);
 		frmClinicsystem.getContentPane().add(limparBtn);
+		
+		limparBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);

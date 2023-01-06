@@ -40,6 +40,11 @@ public class JanelaPrincipalRecepcionista {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -142,6 +147,13 @@ public class JanelaPrincipalRecepcionista {
 		menuCadastrarBtn.setBounds(-1, 100, 276, 34);
 		frmClinicsystem.getContentPane().add(menuCadastrarBtn);
 		
+		menuCadastrarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	JanelaCadastrarPaciente janelaCadastrarPaciente = new JanelaCadastrarPaciente();
+		    	janelaCadastrarPaciente.getJanela().setVisible(true);
+		    }
+		});
+		
 		//Botão
 		menuVisualizarPacientesBtn = new JButton("  Visualizar pacientes");
 		menuVisualizarPacientesBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -154,6 +166,13 @@ public class JanelaPrincipalRecepcionista {
 		menuVisualizarPacientesBtn.setBounds(-1, 145, 276, 34);
 		frmClinicsystem.getContentPane().add(menuVisualizarPacientesBtn);
 		
+		menuVisualizarPacientesBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	JanelaVisualizarPacientes janelaVerPacientes = new JanelaVisualizarPacientes();
+		    	janelaVerPacientes.getJanela().setVisible(true);
+		    }
+		});
+		
 		//Botão
 		menuAgendarConsultaBtn = new JButton("  Agendar consulta");
 		menuAgendarConsultaBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -165,6 +184,13 @@ public class JanelaPrincipalRecepcionista {
 		menuAgendarConsultaBtn.setBackground(Color.WHITE);
 		menuAgendarConsultaBtn.setBounds(-1, 190, 276, 34);
 		frmClinicsystem.getContentPane().add(menuAgendarConsultaBtn);
+		
+		menuAgendarConsultaBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	JanelaAgendarConsulta janelaAgendar = new JanelaAgendarConsulta();
+		    	janelaAgendar.getJanela().setVisible(true);
+		    }
+		});
 		
 		textoConsultasLbl = new JLabel("Número de consultas\r\n do dia");
 		textoConsultasLbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -265,8 +291,16 @@ public class JanelaPrincipalRecepcionista {
 		menuSairBtn.setBounds(-1, 280, 276, 34);
 		frmClinicsystem.getContentPane().add(menuSairBtn);
 		
+		menuSairBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	JanelaLogin janelaLogin = new JanelaLogin();
+		    	janelaLogin.getJanela().setVisible(true);
+		    }
+		});
+		
 		//Botão
 		menuVisualizarConsultasBtn = new JButton("  Visualizar consultas");
+		menuVisualizarConsultasBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuVisualizarConsultasBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		menuVisualizarConsultasBtn.setForeground(new Color(0, 102, 255));
 		menuVisualizarConsultasBtn.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -275,6 +309,13 @@ public class JanelaPrincipalRecepcionista {
 		menuVisualizarConsultasBtn.setBackground(Color.WHITE);
 		menuVisualizarConsultasBtn.setBounds(-1, 235, 276, 34);
 		frmClinicsystem.getContentPane().add(menuVisualizarConsultasBtn);
+		
+		menuVisualizarConsultasBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	JanelaVisualizarConsultas janelaVisualizarConsultas = new JanelaVisualizarConsultas();
+		    	janelaVisualizarConsultas.getJanela().setVisible(true);
+		    }
+		});
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);

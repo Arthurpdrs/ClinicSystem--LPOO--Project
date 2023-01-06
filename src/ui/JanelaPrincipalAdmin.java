@@ -39,6 +39,11 @@ public class JanelaPrincipalAdmin {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -142,6 +147,13 @@ public class JanelaPrincipalAdmin {
 		menuCadastrarBtn.setBounds(-1, 100, 276, 34);
 		frmClinicsystem.getContentPane().add(menuCadastrarBtn);
 		
+		menuCadastrarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	JanelaCadastrarProfissional janelaCadastrar = new JanelaCadastrarProfissional();
+		    	janelaCadastrar.getJanela().setVisible(true);
+		    }
+		});
+		
 		//Botão
 		menuVisualizarProfissionaisBtn = new JButton("  Visualizar profissionais");
 		menuVisualizarProfissionaisBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -154,6 +166,13 @@ public class JanelaPrincipalAdmin {
 		menuVisualizarProfissionaisBtn.setBounds(-1, 145, 276, 34);
 		frmClinicsystem.getContentPane().add(menuVisualizarProfissionaisBtn);
 		
+		menuVisualizarProfissionaisBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	JanelaVisualizarProfissionais janelaVisualizarProfissionais = new JanelaVisualizarProfissionais();
+		    	janelaVisualizarProfissionais.getJanela().setVisible(true);
+		    }
+		});
+		
 		//Botão
 		menuConfiguracoesBtn = new JButton("  Configurações");
 		menuConfiguracoesBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -165,6 +184,13 @@ public class JanelaPrincipalAdmin {
 		menuConfiguracoesBtn.setBackground(Color.WHITE);
 		menuConfiguracoesBtn.setBounds(-1, 190, 276, 34);
 		frmClinicsystem.getContentPane().add(menuConfiguracoesBtn);
+		
+		menuConfiguracoesBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	JanelaDadosClinica janelaDados = new JanelaDadosClinica();
+		    	janelaDados.getJanela().setVisible(true);
+		    }
+		});
 		
 		textoFuncionariosLbl = new JLabel("Total de funcionários");
 		textoFuncionariosLbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -264,6 +290,14 @@ public class JanelaPrincipalAdmin {
 		menuSairBtn.setBackground(Color.WHITE);
 		menuSairBtn.setBounds(-1, 235, 276, 34);
 		frmClinicsystem.getContentPane().add(menuSairBtn);
+		
+		menuSairBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    	JanelaLogin janelaLogin = new JanelaLogin();
+		    	janelaLogin.getJanela().setVisible(true);
+		    }
+		});
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);

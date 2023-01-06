@@ -35,6 +35,11 @@ public class JanelaDadosClinica {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -126,6 +131,12 @@ public class JanelaDadosClinica {
 		enviarBtn.setContentAreaFilled(false);
 		frmClinicsystem.getContentPane().add(enviarBtn);
 		
+		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
+		
 		senhaLbl = new JLabel("Senha do e-mail:");
 		senhaLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		senhaLbl.setForeground(Color.GRAY);
@@ -172,6 +183,12 @@ public class JanelaDadosClinica {
 		limparBtn.setBackground(Color.WHITE);
 		limparBtn.setBounds(891, 553, 89, 34);
 		frmClinicsystem.getContentPane().add(limparBtn);
+		
+		limparBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		emailTextField = new JTextField();
 		emailTextField.setText("clinicsystem@hotmail.com");

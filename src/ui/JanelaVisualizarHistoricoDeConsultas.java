@@ -31,6 +31,11 @@ public class JanelaVisualizarHistoricoDeConsultas {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -133,6 +138,11 @@ public class JanelaVisualizarHistoricoDeConsultas {
 		pesquisarBtn.setBounds(997, 100, 97, 50);
 		frmClinicsystem.getContentPane().add(pesquisarBtn);
 		
+		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));

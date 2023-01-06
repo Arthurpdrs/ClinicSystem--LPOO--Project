@@ -40,6 +40,11 @@ public class JanelaCadastrarProfissional {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -130,6 +135,12 @@ public class JanelaCadastrarProfissional {
 		enviarBtn.setContentAreaFilled(false);
 		frmClinicsystem.getContentPane().add(enviarBtn);
 		
+		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
+		
 		usuarioLbl = new JLabel("*Usuário:");
 		usuarioLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		usuarioLbl.setForeground(Color.GRAY);
@@ -204,6 +215,12 @@ public class JanelaCadastrarProfissional {
 		limparBtn.setBackground(Color.WHITE);
 		limparBtn.setBounds(891, 553, 89, 34);
 		frmClinicsystem.getContentPane().add(limparBtn);
+		
+		limparBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		emailTextField = new JTextField();
 		emailTextField.setToolTipText("");

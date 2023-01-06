@@ -42,6 +42,11 @@ public class JanelaNovoRegistro {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -82,6 +87,12 @@ public class JanelaNovoRegistro {
 		pesquisarBtn.setBackground(Color.WHITE);
 		pesquisarBtn.setBounds(678, 100, 97, 50);
 		frmClinicsystem.getContentPane().add(pesquisarBtn);
+		
+		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		titulodapaginaLbl = new JLabel("Novo registro");
 		titulodapaginaLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -143,6 +154,12 @@ public class JanelaNovoRegistro {
 		enviarBtn.setContentAreaFilled(false);
 		frmClinicsystem.getContentPane().add(enviarBtn);
 		
+		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
+		
 		cpfLbl = new JLabel("CPF do Paciente:");
 		cpfLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		cpfLbl.setForeground(Color.GRAY);
@@ -173,6 +190,12 @@ public class JanelaNovoRegistro {
 		limparBtn.setBackground(Color.WHITE);
 		limparBtn.setBounds(891, 596, 89, 34);
 		frmClinicsystem.getContentPane().add(limparBtn);
+		
+		limparBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		pesquisarTextField = new JTextField();
 		pesquisarTextField.setToolTipText("");

@@ -15,6 +15,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import java.awt.Toolkit;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import com.toedter.calendar.JCalendar;
 
 public class JanelaVisualizarAgenda {
@@ -29,6 +35,11 @@ public class JanelaVisualizarAgenda {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -100,6 +111,7 @@ public class JanelaVisualizarAgenda {
 		barraAzul.setOpaque(true);
 		frmClinicsystem.getContentPane().add(barraAzul);
 		
+		//Calendário
 		JCalendar calendar = new JCalendar();
 		calendar.getMonthChooser().getSpinner().setFont(new Font("Arial", Font.PLAIN, 12));
 		calendar.getMonthChooser().setBackground(Color.WHITE);
@@ -107,7 +119,26 @@ public class JanelaVisualizarAgenda {
 		calendar.setBounds(31, 65, 1048, 346);
 		frmClinicsystem.getContentPane().add(calendar);
 		
+		JLabel erroLbl = new JLabel("Ocorreu um erro inesperado. Tente novamente.");
+		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
+		erroLbl.setOpaque(true);
+		erroLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		erroLbl.setForeground(new Color(0, 102, 255));
+		erroLbl.setFont(new Font("Arial", Font.PLAIN, 14));
+		erroLbl.setBackground(Color.WHITE);
+		erroLbl.setBounds(31, 606, 751, 24);
+		frmClinicsystem.getContentPane().add(erroLbl);
 		
+		calendar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+		       public void propertyChange(java.beans.PropertyChangeEvent evt) {
+		    	   //Pega qual é a data selecionada no calendário
+		    	   Date dataInicial = calendar.getDate();
+		    	   //Formata a data
+		           SimpleDateFormat FormatadorDaData = new SimpleDateFormat("dd/MM/yyyy");
+		           //Data Formatada
+		           String dataFormatada = FormatadorDaData.format(dataInicial);	       
+		       }
+		});
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);

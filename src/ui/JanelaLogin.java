@@ -27,6 +27,11 @@ public class JanelaLogin {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -123,6 +128,25 @@ public class JanelaLogin {
 		entrarBtn.setBounds(839, 507, 89, 34);
 		entrarBtn.setContentAreaFilled(false);
 		frmClinicsystem.getContentPane().add(entrarBtn);
+		
+		entrarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		 
+		    	//Janela principal Admin
+		    	JanelaPrincipalAdmin janelaAdministrador = new JanelaPrincipalAdmin();
+		    	janelaAdministrador.getJanela().setVisible(true);
+		    	
+		    	//Janela principal Recepcionista
+		    	JanelaPrincipalRecepcionista janelaRecepcionista = new JanelaPrincipalRecepcionista();
+		    	janelaRecepcionista.getJanela().setVisible(true);
+		    	
+		    	//Janela principal Médico
+		    	JanelaPrincipalMedico janelaMedico = new JanelaPrincipalMedico();
+		    	janelaMedico.getJanela().setVisible(true);
+		    	
+		    }
+		});
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);

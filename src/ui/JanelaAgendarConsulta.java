@@ -15,6 +15,7 @@ import java.awt.Cursor;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Toolkit;
 
 public class JanelaAgendarConsulta {
 
@@ -53,6 +54,11 @@ public class JanelaAgendarConsulta {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,6 +84,7 @@ public class JanelaAgendarConsulta {
 	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
+		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaAgendarConsulta.class.getResource("/midia/icone.png")));
 		frmClinicsystem.setTitle("ClinicSystem");
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
@@ -141,6 +148,12 @@ public class JanelaAgendarConsulta {
 		enviarBtn.setBounds(997, 582, 89, 34);
 		enviarBtn.setContentAreaFilled(false);
 		frmClinicsystem.getContentPane().add(enviarBtn);
+		
+		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		cpfLbl = new JLabel("*CPF:");
 		cpfLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -294,6 +307,12 @@ public class JanelaAgendarConsulta {
 		limparBtn.setBounds(898, 582, 89, 34);
 		frmClinicsystem.getContentPane().add(limparBtn);
 		
+		limparBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
+		
 		medicoComboBox = new JComboBox();
 		medicoComboBox.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM(A) MÉDICO(A)"}));
 		medicoComboBox.setForeground(Color.GRAY);
@@ -377,6 +396,12 @@ public class JanelaAgendarConsulta {
 		pesquisarBtn.setBounds(997, 100, 97, 50);
 		frmClinicsystem.getContentPane().add(pesquisarBtn);
 		
+		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
+		
 		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
 		avisoLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		avisoLbl.setOpaque(true);
@@ -394,6 +419,7 @@ public class JanelaAgendarConsulta {
 		codigoDoPacienteLbl.setBackground(Color.WHITE);
 		codigoDoPacienteLbl.setBounds(32, 67, 221, 24);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
+		logoMenu.setBounds(919, -1, 160, 55);
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);

@@ -33,6 +33,11 @@ public class JanelaVisualizarProfissionais {
 	/**
 	 * Launch the application.
 	 */
+
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -118,6 +123,13 @@ public class JanelaVisualizarProfissionais {
 		editarBtn.setContentAreaFilled(false);
 		frmClinicsystem.getContentPane().add(editarBtn);
 		
+		editarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
+		
+		
 		codigoDoProfissionalTextField = new JTextField();
 		codigoDoProfissionalTextField.setToolTipText("");
 		codigoDoProfissionalTextField.setMargin(new Insets(10, 10, 10, 10));
@@ -149,6 +161,12 @@ public class JanelaVisualizarProfissionais {
 		excluirBtn.setBounds(898, 582, 89, 34);
 		frmClinicsystem.getContentPane().add(excluirBtn);
 		
+		excluirBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
+		
 		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarProfissionais.class.getResource("/midia/lupa.png")));
@@ -160,6 +178,11 @@ public class JanelaVisualizarProfissionais {
 		pesquisarBtn.setBounds(997, 100, 97, 50);
 		frmClinicsystem.getContentPane().add(pesquisarBtn);
 		
+		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));

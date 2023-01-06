@@ -33,6 +33,11 @@ public class JanelaVisualizarConsultas {
 	/**
 	 * Launch the application.
 	 */
+	
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -125,6 +130,12 @@ public class JanelaVisualizarConsultas {
 		editarBtn.setContentAreaFilled(false);
 		frmClinicsystem.getContentPane().add(editarBtn);
 		
+		editarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
+		
 		codigoDoPacienteTextField = new JTextField();
 		codigoDoPacienteTextField.setToolTipText("");
 		codigoDoPacienteTextField.setMargin(new Insets(10, 10, 10, 10));
@@ -156,6 +167,12 @@ public class JanelaVisualizarConsultas {
 		excluirBtn.setBounds(898, 582, 89, 34);
 		frmClinicsystem.getContentPane().add(excluirBtn);
 		
+		excluirBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
+		
 		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarConsultas.class.getResource("/midia/lupa.png")));
@@ -166,6 +183,12 @@ public class JanelaVisualizarConsultas {
 		pesquisarBtn.setBackground(Color.WHITE);
 		pesquisarBtn.setBounds(997, 100, 97, 50);
 		frmClinicsystem.getContentPane().add(pesquisarBtn);
+		
+		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		//Botão
 		JButton lembrarBtn = new JButton("");
@@ -180,6 +203,12 @@ public class JanelaVisualizarConsultas {
 		lembrarBtn.setBounds(31, 567, 89, 49);
 		frmClinicsystem.getContentPane().add(lembrarBtn);
 		
+		lembrarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
+		
 		//Botão
 		JButton cancelarBtn = new JButton("");
 		cancelarBtn.setIcon(new ImageIcon(JanelaVisualizarConsultas.class.getResource("/midia/block.png")));
@@ -193,6 +222,11 @@ public class JanelaVisualizarConsultas {
 		cancelarBtn.setBounds(130, 567, 89, 49);
 		frmClinicsystem.getContentPane().add(cancelarBtn);
 		
+		cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		        //Inserir ação aqui
+		    }
+		});
 		
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
