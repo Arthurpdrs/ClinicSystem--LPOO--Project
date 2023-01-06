@@ -130,6 +130,7 @@ public class JanelaPrincipalAdmin {
 		mensagemJanelaPrincipalLbl.setBounds(300, 65, 586, 24);
 		frmClinicsystem.getContentPane().add(mensagemJanelaPrincipalLbl);
 		
+		//Botão
 		menuCadastrarBtn = new JButton("  Cadastrar profissionais");
 		menuCadastrarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuCadastrarBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -141,6 +142,7 @@ public class JanelaPrincipalAdmin {
 		menuCadastrarBtn.setBounds(-1, 100, 276, 34);
 		frmClinicsystem.getContentPane().add(menuCadastrarBtn);
 		
+		//Botão
 		menuVisualizarProfissionaisBtn = new JButton("  Visualizar profissionais");
 		menuVisualizarProfissionaisBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuVisualizarProfissionaisBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -152,6 +154,7 @@ public class JanelaPrincipalAdmin {
 		menuVisualizarProfissionaisBtn.setBounds(-1, 145, 276, 34);
 		frmClinicsystem.getContentPane().add(menuVisualizarProfissionaisBtn);
 		
+		//Botão
 		menuConfiguracoesBtn = new JButton("  Configurações");
 		menuConfiguracoesBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuConfiguracoesBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -250,6 +253,7 @@ public class JanelaPrincipalAdmin {
 		medicosBoxLbl.setBounds(300, 235, 276, 124);
 		frmClinicsystem.getContentPane().add(medicosBoxLbl);
 		
+		//Botão
 		JButton menuSairBtn = new JButton("  Sair");
 		menuSairBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuSairBtn.setHorizontalAlignment(SwingConstants.LEFT);

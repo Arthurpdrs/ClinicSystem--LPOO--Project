@@ -114,6 +114,7 @@ public class JanelaVisualizarPacientes {
 		erroLbl.setBounds(415, 544, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
+		//Botão
 		JButton editarBtn = new JButton("Editar");
 		editarBtn.setBorderPainted(false);
 		editarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -144,6 +145,7 @@ public class JanelaVisualizarPacientes {
 		codigoDoPacienteLbl.setBounds(32, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
+		//Botão
 		JButton excluirBtn = new JButton("Excluir");
 		excluirBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		excluirBtn.setForeground(Color.GRAY);
@@ -154,6 +156,7 @@ public class JanelaVisualizarPacientes {
 		excluirBtn.setBounds(898, 582, 89, 34);
 		frmClinicsystem.getContentPane().add(excluirBtn);
 		
+		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarPacientes.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));

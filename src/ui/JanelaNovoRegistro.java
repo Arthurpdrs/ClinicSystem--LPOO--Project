@@ -72,6 +72,7 @@ public class JanelaNovoRegistro {
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
 		
+		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaNovoRegistro.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));
@@ -131,6 +132,7 @@ public class JanelaNovoRegistro {
 		erroLbl.setBounds(415, 551, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
+		//Botão
 		JButton enviarBtn = new JButton("Enviar");
 		enviarBtn.setBorderPainted(false);
 		enviarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -161,6 +163,7 @@ public class JanelaNovoRegistro {
 		cpfTextField.setBounds(22, 292, 380, 50);
 		frmClinicsystem.getContentPane().add(cpfTextField);
 		
+		//Botão
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		limparBtn.setForeground(Color.GRAY);

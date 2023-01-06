@@ -131,6 +131,7 @@ public class JanelaAgendarConsulta {
 		erroLbl.setBounds(422, 545, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
+		//Botão
 		JButton enviarBtn = new JButton("Enviar");
 		enviarBtn.setBorderPainted(false);
 		enviarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -282,6 +283,7 @@ public class JanelaAgendarConsulta {
 		codigoDoPacienteTextField.setBounds(32, 100, 955, 50);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteTextField);
 		
+		//Botão
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		limparBtn.setForeground(Color.GRAY);
@@ -364,6 +366,7 @@ public class JanelaAgendarConsulta {
 		estadoLbl.setBounds(812, 449, 277, 24);
 		frmClinicsystem.getContentPane().add(estadoLbl);
 		
+		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaAgendarConsulta.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));

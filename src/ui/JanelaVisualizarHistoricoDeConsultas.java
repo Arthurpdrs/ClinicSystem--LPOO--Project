@@ -122,6 +122,7 @@ public class JanelaVisualizarHistoricoDeConsultas {
 		codigoDoPacienteLbl.setBounds(32, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
+		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarHistoricoDeConsultas.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));

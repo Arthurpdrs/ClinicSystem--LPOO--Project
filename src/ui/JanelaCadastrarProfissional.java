@@ -119,6 +119,7 @@ public class JanelaCadastrarProfissional {
 		erroLbl.setBounds(415, 508, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
+		//Botão
 		JButton enviarBtn = new JButton("Enviar");
 		enviarBtn.setBorderPainted(false);
 		enviarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -193,6 +194,7 @@ public class JanelaCadastrarProfissional {
 		emailLbl.setBounds(802, 161, 277, 24);
 		frmClinicsystem.getContentPane().add(emailLbl);
 		
+		//Botão
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		limparBtn.setForeground(Color.GRAY);

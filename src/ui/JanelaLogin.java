@@ -113,6 +113,7 @@ public class JanelaLogin {
 		senhaLbl.setBounds(699, 376, 380, 14);
 		frmClinicsystem.getContentPane().add(senhaLbl);
 		
+		//Botão
 		JButton entrarBtn = new JButton("Entrar");
 		entrarBtn.setBorderPainted(false);
 		entrarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

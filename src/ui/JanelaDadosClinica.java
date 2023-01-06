@@ -115,6 +115,7 @@ public class JanelaDadosClinica {
 		erroLbl.setBounds(415, 508, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
+		//Botão
 		JButton enviarBtn = new JButton("Enviar");
 		enviarBtn.setBorderPainted(false);
 		enviarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -161,6 +162,7 @@ public class JanelaDadosClinica {
 		emailLbl.setBounds(412, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(emailLbl);
 		
+		//Botão
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		limparBtn.setForeground(Color.GRAY);

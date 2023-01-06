@@ -107,6 +107,7 @@ public class JanelaVisualizarProfissionais {
 		erroLbl.setBounds(422, 545, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
+		//Botão
 		JButton editarBtn = new JButton("Editar");
 		editarBtn.setBorderPainted(false);
 		editarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -137,6 +138,7 @@ public class JanelaVisualizarProfissionais {
 		codigoDoProfissionalLbl.setBounds(32, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(codigoDoProfissionalLbl);
 		
+		//Botão
 		JButton excluirBtn = new JButton("Excluir");
 		excluirBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		excluirBtn.setForeground(Color.GRAY);
@@ -147,6 +149,7 @@ public class JanelaVisualizarProfissionais {
 		excluirBtn.setBounds(898, 582, 89, 34);
 		frmClinicsystem.getContentPane().add(excluirBtn);
 		
+		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarProfissionais.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));

@@ -114,6 +114,7 @@ public class JanelaVisualizarConsultas {
 		erroLbl.setBounds(31, 545, 1055, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
+		//Botão
 		JButton editarBtn = new JButton("Editar");
 		editarBtn.setBorderPainted(false);
 		editarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -144,6 +145,7 @@ public class JanelaVisualizarConsultas {
 		codigoDoPacienteLbl.setBounds(32, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
+		//Botão
 		JButton excluirBtn = new JButton("Excluir");
 		excluirBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		excluirBtn.setForeground(Color.GRAY);
@@ -154,6 +156,7 @@ public class JanelaVisualizarConsultas {
 		excluirBtn.setBounds(898, 582, 89, 34);
 		frmClinicsystem.getContentPane().add(excluirBtn);
 		
+		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarConsultas.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));
@@ -164,6 +167,7 @@ public class JanelaVisualizarConsultas {
 		pesquisarBtn.setBounds(997, 100, 97, 50);
 		frmClinicsystem.getContentPane().add(pesquisarBtn);
 		
+		//Botão
 		JButton lembrarBtn = new JButton("");
 		lembrarBtn.setToolTipText("Enviar lembrete de consulta via e-mail");
 		lembrarBtn.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -176,6 +180,7 @@ public class JanelaVisualizarConsultas {
 		lembrarBtn.setBounds(31, 567, 89, 49);
 		frmClinicsystem.getContentPane().add(lembrarBtn);
 		
+		//Botão
 		JButton cancelarBtn = new JButton("");
 		cancelarBtn.setIcon(new ImageIcon(JanelaVisualizarConsultas.class.getResource("/midia/block.png")));
 		cancelarBtn.setVerticalAlignment(SwingConstants.BOTTOM);
