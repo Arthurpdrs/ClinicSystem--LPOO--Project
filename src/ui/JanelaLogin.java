@@ -63,6 +63,12 @@ public class JanelaLogin {
 		frmClinicsystem.setTitle("ClinicSystem");
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
+		frmClinicsystem.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmClinicsystem.dispose();
+			}
+		});
 		
 		usuarioLbl = new JLabel("Usuário:");
 		usuarioLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -148,13 +154,13 @@ public class JanelaLogin {
 		    	janelaMedico.getJanela().setVisible(true);
 		    	
 		    	//Esconde a janela de login
-		    	frmClinicsystem.setVisible(false);
+		    	frmClinicsystem.dispose();
 		    }
 		});
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
-		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 }

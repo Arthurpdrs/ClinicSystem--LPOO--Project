@@ -301,6 +301,7 @@ public class JanelaPrincipalAdmin {
 		        //Inserir ação aqui
 		    	JanelaLogin janelaLogin = new JanelaLogin();
 		    	janelaLogin.getJanela().setVisible(true);
+		    	frmClinicsystem.dispose();
 		    }
 		});
 		

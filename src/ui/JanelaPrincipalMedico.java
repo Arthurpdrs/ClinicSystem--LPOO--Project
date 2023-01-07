@@ -233,6 +233,7 @@ public class JanelaPrincipalMedico {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		    	JanelaLogin janelaLogin = new JanelaLogin();
 		    	janelaLogin.getJanela().setVisible(true);
+		    	frmClinicsystem.dispose();
 		    }
 		});
 		

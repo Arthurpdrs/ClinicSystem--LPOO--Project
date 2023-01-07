@@ -1,20 +1,15 @@
 package ui;
 
 import java.awt.EventQueue;
-import java.awt.Insets;
-
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.Toolkit;
-import javax.swing.border.LineBorder;
 public class JanelaPrincipalRecepcionista {
 
 	private JFrame frmClinicsystem;
@@ -295,6 +290,7 @@ public class JanelaPrincipalRecepcionista {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		    	JanelaLogin janelaLogin = new JanelaLogin();
 		    	janelaLogin.getJanela().setVisible(true);
+		    	frmClinicsystem.dispose();
 		    }
 		});
 		

@@ -16,6 +16,8 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class JanelaNovoRegistro {
 
@@ -76,24 +78,11 @@ public class JanelaNovoRegistro {
 		frmClinicsystem.setTitle("ClinicSystem");
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
-		
-		
-		//Botão
-		JButton fecharBtn = new JButton("Fechar");
-		fecharBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		fecharBtn.setToolTipText("Fechar janela");
-		fecharBtn.setForeground(Color.WHITE);
-		fecharBtn.setFont(new Font("Arial", Font.PLAIN, 16));
-		fecharBtn.setContentAreaFilled(false);
-		fecharBtn.setBorderPainted(false);
-		fecharBtn.setBackground(Color.WHITE);
-		fecharBtn.setBounds(779, -1, 130, 55);
-		frmClinicsystem.getContentPane().add(fecharBtn);
-		
-		fecharBtn.addActionListener(new java.awt.event.ActionListener() {
-		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		    	frmClinicsystem.setVisible(false);
-		    }
+		frmClinicsystem.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmClinicsystem.dispose();
+			}
 		});
 		
 		//Botão
