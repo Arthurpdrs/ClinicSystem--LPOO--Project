@@ -16,6 +16,8 @@ import java.awt.Cursor;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class JanelaCadastrarProfissional {
 
@@ -74,24 +76,11 @@ public class JanelaCadastrarProfissional {
 		frmClinicsystem.setTitle("ClinicSystem");
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
-		
-		
-		//Botão
-		JButton fecharBtn = new JButton("Fechar");
-		fecharBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		fecharBtn.setToolTipText("Fechar janela");
-		fecharBtn.setForeground(Color.WHITE);
-		fecharBtn.setFont(new Font("Arial", Font.PLAIN, 16));
-		fecharBtn.setContentAreaFilled(false);
-		fecharBtn.setBorderPainted(false);
-		fecharBtn.setBackground(Color.WHITE);
-		fecharBtn.setBounds(779, -1, 130, 55);
-		frmClinicsystem.getContentPane().add(fecharBtn);
-		
-		fecharBtn.addActionListener(new java.awt.event.ActionListener() {
-		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		    	frmClinicsystem.setVisible(false);
-		    }
+		frmClinicsystem.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmClinicsystem.dispose();
+			}
 		});
 		
 		titulodapaginaLbl = new JLabel("Cadastrar profissional");
