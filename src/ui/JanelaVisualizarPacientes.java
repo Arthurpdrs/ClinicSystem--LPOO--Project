@@ -68,7 +68,23 @@ public class JanelaVisualizarPacientes {
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
 		
+		//Botão
+		JButton fecharBtn = new JButton("Fechar");
+		fecharBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		fecharBtn.setToolTipText("Fechar janela");
+		fecharBtn.setForeground(Color.WHITE);
+		fecharBtn.setFont(new Font("Arial", Font.PLAIN, 16));
+		fecharBtn.setContentAreaFilled(false);
+		fecharBtn.setBorderPainted(false);
+		fecharBtn.setBackground(Color.WHITE);
+		fecharBtn.setBounds(779, -1, 130, 55);
+		frmClinicsystem.getContentPane().add(fecharBtn);
 		
+		fecharBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	frmClinicsystem.setVisible(false);
+		    }
+		});
 
 		scrollPane = new JScrollPane(pacientesTable = new JTable());
 		pacientesTable.setForeground(Color.GRAY);

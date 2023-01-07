@@ -14,6 +14,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class JanelaLogin {
 
@@ -72,7 +74,7 @@ public class JanelaLogin {
 		frmClinicsystem.getContentPane().add(usuarioLbl);
 		
 		JLabel logoInicial = new JLabel("");
-		logoInicial.setIcon(new ImageIcon("/midia/logo_inicio.png"));
+		logoInicial.setIcon(new ImageIcon(JanelaLogin.class.getResource("/midia/logo_inicio.png")));
 		logoInicial.setBounds(688, 79, 380, 120);
 		frmClinicsystem.getContentPane().add(logoInicial);
 		
@@ -145,6 +147,8 @@ public class JanelaLogin {
 		    	JanelaPrincipalMedico janelaMedico = new JanelaPrincipalMedico();
 		    	janelaMedico.getJanela().setVisible(true);
 		    	
+		    	//Esconde a janela de login
+		    	frmClinicsystem.setVisible(false);
 		    }
 		});
 		

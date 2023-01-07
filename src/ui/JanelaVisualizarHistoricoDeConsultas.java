@@ -5,6 +5,8 @@ import java.awt.Insets;
 
 import javax.swing.JFrame;
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -65,8 +67,24 @@ public class JanelaVisualizarHistoricoDeConsultas {
 		frmClinicsystem.setTitle("ClinicSystem");
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
+			
+		//Botão
+		JButton fecharBtn = new JButton("Fechar");
+		fecharBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		fecharBtn.setToolTipText("Fechar janela");
+		fecharBtn.setForeground(Color.WHITE);
+		fecharBtn.setFont(new Font("Arial", Font.PLAIN, 16));
+		fecharBtn.setContentAreaFilled(false);
+		fecharBtn.setBorderPainted(false);
+		fecharBtn.setBackground(Color.WHITE);
+		fecharBtn.setBounds(779, -1, 130, 55);
+		frmClinicsystem.getContentPane().add(fecharBtn);
 		
-		
+		fecharBtn.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	frmClinicsystem.setVisible(false);
+		    }
+		});	
 
 		scrollPane = new JScrollPane(historicoDeConsultasTable = new JTable());
 		historicoDeConsultasTable.setForeground(Color.GRAY);
@@ -148,6 +166,6 @@ public class JanelaVisualizarHistoricoDeConsultas {
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
-		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 }
