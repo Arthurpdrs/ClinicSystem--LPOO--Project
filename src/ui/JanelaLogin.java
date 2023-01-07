@@ -30,10 +30,6 @@ public class JanelaLogin {
 	 * Launch the application.
 	 */
 	
-	public JFrame getJanela() {
-		return this.frmClinicsystem;
-	}
-	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

@@ -288,9 +288,8 @@ public class JanelaPrincipalRecepcionista {
 		
 		menuSairBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		    	JanelaLogin janelaLogin = new JanelaLogin();
-		    	janelaLogin.getJanela().setVisible(true);
-		    	frmClinicsystem.dispose();
+		    	//Inserir ação aqui
+		    	System.exit(0);
 		    }
 		});
 		

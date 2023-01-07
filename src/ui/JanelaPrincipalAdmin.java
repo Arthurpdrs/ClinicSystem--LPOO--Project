@@ -1,24 +1,15 @@
 package ui;
 
 import java.awt.EventQueue;
-import java.awt.Insets;
-
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-
 import java.awt.Font;
-import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.Toolkit;
-import javax.swing.border.LineBorder;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 public class JanelaPrincipalAdmin {
 
 	private JFrame frmClinicsystem;
@@ -299,9 +290,7 @@ public class JanelaPrincipalAdmin {
 		menuSairBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		        //Inserir ação aqui
-		    	JanelaLogin janelaLogin = new JanelaLogin();
-		    	janelaLogin.getJanela().setVisible(true);
-		    	frmClinicsystem.dispose();
+		    	System.exit(0);
 		    }
 		});
 		
