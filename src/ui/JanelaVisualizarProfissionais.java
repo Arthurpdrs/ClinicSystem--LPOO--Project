@@ -84,7 +84,7 @@ public class JanelaVisualizarProfissionais {
 			new Object[][] {
 			},
 			new String[] {
-				"Nome completo", "Usu\u00E1rio", "Senha", "Fun\u00E7\u00E3o", "Especialidade", "E-mail"
+				"Nome completo", "Usu\u00E1rio", "Senha", "CPF", "CRM", "Fun\u00E7\u00E3o", "Especialidade", "E-mail"
 			}
 		));
 		scrollPane.setBounds(31, 162, 1048, 356);
