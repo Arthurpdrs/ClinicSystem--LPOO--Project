@@ -191,7 +191,7 @@ public class JanelaVisualizarProfissionais {
 		    }
 		});
 		
-		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
+		avisoLbl = new JLabel("Não foi possível encontrar o profissional");
 		avisoLbl.setOpaque(true);
 		avisoLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		avisoLbl.setForeground(new Color(0, 102, 255));
