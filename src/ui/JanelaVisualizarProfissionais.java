@@ -31,6 +31,7 @@ public class JanelaVisualizarProfissionais {
 	private JButton pesquisarBtn;
 	private JScrollPane scrollPane;
 	private JTable profissionaisTable;
+	private JLabel avisoLbl;
 
 	/**
 	 * Launch the application.
@@ -190,6 +191,14 @@ public class JanelaVisualizarProfissionais {
 		    }
 		});
 		
+		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
+		avisoLbl.setOpaque(true);
+		avisoLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		avisoLbl.setForeground(new Color(0, 102, 255));
+		avisoLbl.setFont(new Font("Arial", Font.PLAIN, 14));
+		avisoLbl.setBackground(Color.WHITE);
+		avisoLbl.setBounds(257, 65, 730, 24);
+		frmClinicsystem.getContentPane().add(avisoLbl);
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);

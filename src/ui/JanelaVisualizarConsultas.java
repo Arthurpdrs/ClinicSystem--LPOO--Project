@@ -31,6 +31,7 @@ public class JanelaVisualizarConsultas {
 	private JButton pesquisarBtn;
 	private JScrollPane scrollPane;
 	private JTable consultasTable;
+	private JLabel avisoLbl;
 
 	/**
 	 * Launch the application.
@@ -227,6 +228,15 @@ public class JanelaVisualizarConsultas {
 		cancelarBtn.setBackground(Color.WHITE);
 		cancelarBtn.setBounds(130, 567, 89, 49);
 		frmClinicsystem.getContentPane().add(cancelarBtn);
+		
+		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
+		avisoLbl.setOpaque(true);
+		avisoLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		avisoLbl.setForeground(new Color(0, 102, 255));
+		avisoLbl.setFont(new Font("Arial", Font.PLAIN, 14));
+		avisoLbl.setBackground(Color.WHITE);
+		avisoLbl.setBounds(240, 65, 747, 24);
+		frmClinicsystem.getContentPane().add(avisoLbl);
 		
 		cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {

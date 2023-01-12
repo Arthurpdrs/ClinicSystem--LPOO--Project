@@ -38,6 +38,7 @@ public class JanelaCadastrarProfissional {
 	private JTextField emailTextField;
 	private JComboBox funcaoComboBox;
 	private JPasswordField senhaPasswordField;
+	private JTextField crmTextField;
 
 	/**
 	 * Launch the application.
@@ -256,6 +257,26 @@ public class JanelaCadastrarProfissional {
 		senhaPasswordField.setFont(new Font("Arial", Font.PLAIN, 12));
 		senhaPasswordField.setBounds(802, 100, 277, 50);
 		frmClinicsystem.getContentPane().add(senhaPasswordField);
+		
+		crmTextField = new JTextField();
+		crmTextField.setToolTipText("");
+		crmTextField.setMargin(new Insets(10, 10, 10, 10));
+		crmTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		crmTextField.setForeground(Color.GRAY);
+		crmTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		crmTextField.setColumns(10);
+		crmTextField.setBackground(Color.WHITE);
+		crmTextField.setActionCommand("");
+		crmTextField.setBounds(22, 292, 380, 50);
+		frmClinicsystem.getContentPane().add(crmTextField);
+		
+		JLabel crmLbl = new JLabel("CRM:");
+		crmLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		crmLbl.setForeground(Color.GRAY);
+		crmLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		crmLbl.setBackground(Color.WHITE);
+		crmLbl.setBounds(22, 257, 380, 24);
+		frmClinicsystem.getContentPane().add(crmLbl);
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);

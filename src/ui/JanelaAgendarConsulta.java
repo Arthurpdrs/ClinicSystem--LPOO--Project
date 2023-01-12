@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 
 import java.awt.Font;
 import javax.swing.JButton;
