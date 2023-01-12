@@ -39,6 +39,7 @@ public class JanelaCadastrarProfissional {
 	private JComboBox funcaoComboBox;
 	private JPasswordField senhaPasswordField;
 	private JTextField crmTextField;
+	private JTextField telefoneTextField;
 
 	/**
 	 * Launch the application.
@@ -191,7 +192,7 @@ public class JanelaCadastrarProfissional {
 		especialidadeLbl.setForeground(Color.GRAY);
 		especialidadeLbl.setFont(new Font("Arial", Font.PLAIN, 16));
 		especialidadeLbl.setBackground(Color.WHITE);
-		especialidadeLbl.setBounds(412, 161, 380, 24);
+		especialidadeLbl.setBounds(415, 257, 380, 24);
 		frmClinicsystem.getContentPane().add(especialidadeLbl);
 		
 		especialidadeTextField = new JTextField();
@@ -203,7 +204,7 @@ public class JanelaCadastrarProfissional {
 		especialidadeTextField.setColumns(10);
 		especialidadeTextField.setBackground(Color.WHITE);
 		especialidadeTextField.setActionCommand("");
-		especialidadeTextField.setBounds(412, 196, 380, 50);
+		especialidadeTextField.setBounds(415, 292, 380, 50);
 		frmClinicsystem.getContentPane().add(especialidadeTextField);
 		
 		emailLbl = new JLabel("*E-mail:");
@@ -277,6 +278,26 @@ public class JanelaCadastrarProfissional {
 		crmLbl.setBackground(Color.WHITE);
 		crmLbl.setBounds(22, 257, 380, 24);
 		frmClinicsystem.getContentPane().add(crmLbl);
+		
+		telefoneTextField = new JTextField();
+		telefoneTextField.setToolTipText("");
+		telefoneTextField.setMargin(new Insets(10, 10, 10, 10));
+		telefoneTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		telefoneTextField.setForeground(Color.GRAY);
+		telefoneTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		telefoneTextField.setColumns(10);
+		telefoneTextField.setBackground(Color.WHITE);
+		telefoneTextField.setActionCommand("");
+		telefoneTextField.setBounds(415, 196, 380, 50);
+		frmClinicsystem.getContentPane().add(telefoneTextField);
+		
+		JLabel telefoneLbl = new JLabel("*Telefone:");
+		telefoneLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		telefoneLbl.setForeground(Color.GRAY);
+		telefoneLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		telefoneLbl.setBackground(Color.WHITE);
+		telefoneLbl.setBounds(415, 161, 380, 24);
+		frmClinicsystem.getContentPane().add(telefoneLbl);
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);
