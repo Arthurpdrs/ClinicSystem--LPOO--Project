@@ -4,13 +4,11 @@ public abstract class Funcionario extends Pessoa {
 	
 	private String login;
 	private String senha;
-	private String matricula;
 	
-	public Funcionario(String nome, String telefone, String email, String cpf, String login, String senha, String matricula) {
+	public Funcionario(String nome, String telefone, String email, String cpf, String login, String senha) {
 		
 		super(nome, telefone, email, cpf);
 		this.login = login;
-		this.matricula = matricula;
 		this.senha = senha;
 	}
 
@@ -30,13 +28,6 @@ public abstract class Funcionario extends Pessoa {
 		this.senha = senha;
 	}
 
-	public String getMatricula() {
-		return matricula;
-	}
-
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
 	
 	
 }
