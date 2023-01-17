@@ -1,6 +1,10 @@
 package data;
 
 
+
+import java.sql.PreparedStatement;
+
+
 public class FabricaConexao {
 	
 	private Conexao conexao =null;
@@ -14,9 +18,18 @@ public class FabricaConexao {
 		return this.conexao;
 	}
 	
-	public static void main(String[] args) {
-		FabricaConexao testeconexao = new FabricaConexao();
-		testeconexao.gerarConexao();
+	
 		
+
+	
+	
+	
+	public PreparedStatement prepareStatement(String sql) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+		
+	
+		
+	
 }
