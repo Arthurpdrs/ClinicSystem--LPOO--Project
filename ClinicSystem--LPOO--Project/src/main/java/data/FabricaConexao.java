@@ -16,7 +16,7 @@ public class FabricaConexao {
 	
 		try {
 			Connection conexao = DriverManager.getConnection(url, usuario, senha);
-			PreparedStatement pstm = conexao.prepareStatement("INSERT INTO README(id) VALUES ('123444444444444')");
+			PreparedStatement pstm = conexao.prepareStatement("INSERT INTO README(id) VALUES ('42')");
 
 			pstm.execute();
 
