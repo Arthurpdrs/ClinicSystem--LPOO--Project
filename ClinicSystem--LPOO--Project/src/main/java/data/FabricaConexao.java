@@ -2,8 +2,8 @@ package data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class FabricaConexao {
 	
@@ -12,13 +12,13 @@ public class FabricaConexao {
 	private static final String url = "jdbc:mysql:aws://database-2.ckzqkucrjrxv.us-east-1.rds.amazonaws.com:3306/BancoLPOO"; 
 
 	
-	public String getConnectoin(){
+	public String getConnectoin(String stringSQL){
 	
 		try {
+	
 			Connection conexao = DriverManager.getConnection(url, usuario, senha);
-			PreparedStatement pstm = conexao.prepareStatement("INSERT INTO README(id) VALUES ('42')");
-
-			pstm.execute();
+			Statement requisição = conexao.createStatement();
+			requisição.executeUpdate(stringSQL);
 
 			return "banco conectado";
 		
@@ -34,7 +34,7 @@ public class FabricaConexao {
 	
 	public static void main(String [] args ) {
 		FabricaConexao testeconexao = new FabricaConexao();
-		testeconexao.getConnectoin();
+		testeconexao.getConnectoin("insert into README(id) values ('66666')");
 		
 
 	}
