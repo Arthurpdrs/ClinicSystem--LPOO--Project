@@ -8,10 +8,10 @@ public class Medico extends Funcionario{
 	
 	
 	public Medico(String nome, String telefone, String email, String cpf,
-			String login, String senha, String matricula,
+			String login, String senha,
 			String crm, String especialidade) {
 		
-		super(nome, telefone, email, cpf, login, senha, matricula);
+		super(nome, telefone, email, cpf, login, senha);
 		this.crm = crm;
 		this.especialidade = especialidade;
 		
