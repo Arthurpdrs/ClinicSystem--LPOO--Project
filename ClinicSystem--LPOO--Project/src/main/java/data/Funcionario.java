@@ -1,15 +1,15 @@
 package data;
 
-public class ConexaoLogin extends FabricaConexao{
+public class Funcionario extends FabricaConexao{
 	
-	FabricaConexao conexaoLogin = new FabricaConexao();
+	FabricaConexao funcionario = new FabricaConexao();
 	
 	
 	public void verificarLogin(String senha, String login){
 		String senhaFuncionario = senha;
 		String loginFuncionario = login;
 		String select = "INSERT INTO "+ senhaFuncionario + "(id) "+ "VALUES('"+ loginFuncionario+"')";
-		conexaoLogin.getConexao(select);
+		funcionario.getConexao(select);
 		System.out.print("PEGPU ");
 	
 			
@@ -17,7 +17,7 @@ public class ConexaoLogin extends FabricaConexao{
 	
 	
 	public static void main(String [] args ) {
-		ConexaoLogin testeconlogin = new ConexaoLogin();
+		Funcionario testeconlogin = new Funcionario();
 		testeconlogin.verificarLogin("README", "49");
 
 		

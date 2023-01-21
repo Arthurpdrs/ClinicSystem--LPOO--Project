@@ -1,5 +1,7 @@
 package data;
 
-public class RecepcionistaConexao {
+public class RecepcionistaConexao extends Funcionario {
+	public String excluir
+	
 
 }
