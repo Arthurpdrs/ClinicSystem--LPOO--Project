@@ -40,6 +40,7 @@ public class JanelaCadastrarProfissional {
 	private JPasswordField senhaPasswordField;
 	private JTextField crmTextField;
 	private JTextField telefoneTextField;
+	private JTextField cpfTextField;
 
 	/**
 	 * Launch the application.
@@ -192,7 +193,7 @@ public class JanelaCadastrarProfissional {
 		especialidadeLbl.setForeground(Color.GRAY);
 		especialidadeLbl.setFont(new Font("Arial", Font.PLAIN, 16));
 		especialidadeLbl.setBackground(Color.WHITE);
-		especialidadeLbl.setBounds(415, 257, 380, 24);
+		especialidadeLbl.setBounds(802, 257, 277, 24);
 		frmClinicsystem.getContentPane().add(especialidadeLbl);
 		
 		especialidadeTextField = new JTextField();
@@ -204,7 +205,7 @@ public class JanelaCadastrarProfissional {
 		especialidadeTextField.setColumns(10);
 		especialidadeTextField.setBackground(Color.WHITE);
 		especialidadeTextField.setActionCommand("");
-		especialidadeTextField.setBounds(415, 292, 380, 50);
+		especialidadeTextField.setBounds(802, 292, 277, 50);
 		frmClinicsystem.getContentPane().add(especialidadeTextField);
 		
 		emailLbl = new JLabel("*E-mail:");
@@ -298,6 +299,26 @@ public class JanelaCadastrarProfissional {
 		telefoneLbl.setBackground(Color.WHITE);
 		telefoneLbl.setBounds(415, 161, 380, 24);
 		frmClinicsystem.getContentPane().add(telefoneLbl);
+		
+		cpfTextField = new JTextField();
+		cpfTextField.setToolTipText("");
+		cpfTextField.setMargin(new Insets(10, 10, 10, 10));
+		cpfTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		cpfTextField.setForeground(Color.GRAY);
+		cpfTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		cpfTextField.setColumns(10);
+		cpfTextField.setBackground(Color.WHITE);
+		cpfTextField.setActionCommand("");
+		cpfTextField.setBounds(415, 292, 380, 50);
+		frmClinicsystem.getContentPane().add(cpfTextField);
+		
+		JLabel cpfLbl = new JLabel("*CPF:");
+		cpfLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		cpfLbl.setForeground(Color.GRAY);
+		cpfLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		cpfLbl.setBackground(Color.WHITE);
+		cpfLbl.setBounds(415, 257, 380, 24);
+		frmClinicsystem.getContentPane().add(cpfLbl);
 		
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);
