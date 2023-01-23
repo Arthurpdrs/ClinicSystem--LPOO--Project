@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import java.sql.PreparedStatement;
+
 
 public class FabricaConexao {
 	
@@ -12,28 +12,17 @@ public class FabricaConexao {
 	private static final String senha = "12345678";
 	private static final String url = "jdbc:mysql:aws://database-2.ckzqkucrjrxv.us-east-1.rds.amazonaws.com:3306/BancoLPOO";
 
-
+	Connection conexao = null;
 	
-	public void getConexao(String stringSQL){
+	public Connection getConexao() throws SQLException{
 		
+		return conexao = DriverManager.getConnection(url, usuario, senha);
 	
-		try {	
-			Connection conexao = DriverManager.getConnection(url, usuario, senha);
-			PreparedStatement requisição = conexao.prepareStatement(stringSQL);
-			requisição.execute(stringSQL);
-			conexao.close();
-			
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		
 	}
-
-
-
-
-		
 	
+	public void fecharConexao() throws SQLException {
+		conexao.close();
+		}
 	
 	
 }

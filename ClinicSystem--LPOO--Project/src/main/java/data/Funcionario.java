@@ -1,30 +1,48 @@
 package data;
 
+import java.sql.PreparedStatement;
+
+import java.sql.SQLException;
+
 public class Funcionario extends FabricaConexao{
 	
 	FabricaConexao funcionario = new FabricaConexao();
 	
 	
-	public void verificarLogin(String senha, String login){
-		String senhaFuncionario = senha;
-		String loginFuncionario = login;
-		String select = "INSERT INTO "+ senhaFuncionario + "(id) "+ "VALUES('"+ loginFuncionario+"')";
-		funcionario.getConexao(select);
-		System.out.print("PEGPU ");
+	public boolean verificarLogin(String login, String senha) throws SQLException{
+		
+		
+		try {
+			PreparedStatement select = funcionario.getConexao().prepareStatement("SELECT Login, Senha FROM 	Funcionario u WHERE u.Login = ? AND u.senha = ?");
+			select.setString(1, login);
+			select.setNString(2, senha);
+			return select.execute();
+		} finally {
+			funcionario.fecharConexao();
+		}
 	
 			
 	}
 	
 	
-	public static void main(String [] args ) {
-		Funcionario testeconlogin = new Funcionario();
-		testeconlogin.verificarLogin("README", "49");
-
+	public boolean addCPF(String cpf) throws SQLException {
+		try {
+			PreparedStatement insert = funcionario.getConexao().prepareStatement("INSERT INTO Funcionario(Pessoa_CPF) VALUES(?)");
+			insert.setString(1, cpf);
+			return insert.execute();	
+		} finally {
+			funcionario.fecharConexao();
+		}
 		
 		
 	}
+	
+	public static void main(String [] args ) throws SQLException {
+		Funcionario teste = new Funcionario();
+		teste.addCPF("71590934289");
 
-	
-	
+		
+	}
+
 
 }

@@ -14,17 +14,6 @@ public class AdminConexao extends FabricaConexao {
 			
 	}
 	
-	public String inserirPessoa(String nome, String CPF, String telefone, String email, String Especialidade ) {
-		String cpfFuncionario = CPF ;
-		String nomeFuncionario = nome;
-		String telefoneFuncionario = telefone;
-		String emailFuncionario = email;
-		
-		String insertPessoa= "INSERT INTO Pessoa(CPF, Nome, Telefone, Ema)ALUES('"+ "')";
-		admin.getConexao(insertPessoa);
-		
-		return null;
-		}
 	
 	public String inserirFuncionario(String senha, String login ) {
 		String senhaFuncionario = senha;
