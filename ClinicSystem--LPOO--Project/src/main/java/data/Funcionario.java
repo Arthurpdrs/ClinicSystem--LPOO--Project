@@ -23,23 +23,12 @@ public class Funcionario extends FabricaConexao{
 	
 			
 	}
+
 	
-	
-	public boolean addCPF(String cpf) throws SQLException {
-		try {
-			PreparedStatement insert = funcionario.getConexao().prepareStatement("INSERT INTO Funcionario(Pessoa_CPF) VALUES(?)");
-			insert.setString(1, cpf);
-			return insert.execute();	
-		} finally {
-			funcionario.fecharConexao();
-		}
-		
-		
-	}
 	
 	public static void main(String [] args ) throws SQLException {
 		Funcionario teste = new Funcionario();
-		teste.addCPF("71590934289");
+		teste.verificarLogin("", "");
 
 		
 	}

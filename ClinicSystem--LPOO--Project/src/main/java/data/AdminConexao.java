@@ -8,7 +8,7 @@ public class AdminConexao extends FabricaConexao {
 		String senhaAdmin = senha;
 		String loginAdmin = login;
 		String select = "SELECT "+ senhaAdmin + ", "+ loginAdmin +"FROM README";
-		admin.getConexao(select);
+		admin.getConexao();
 		System.out.print("Pegou ");
 	
 			
