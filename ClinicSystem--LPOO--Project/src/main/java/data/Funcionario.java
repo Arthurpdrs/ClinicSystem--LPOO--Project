@@ -13,7 +13,7 @@ public class Funcionario extends FabricaConexao{
 		
 		
 		try {
-			PreparedStatement select = funcionario.getConexao().prepareStatement("SELECT Login, Senha FROM 	Funcionario u WHERE u.Login = ? AND u.senha = ?");
+			PreparedStatement select = funcionario.getConexao().prepareStatement("SELECT Login, Senha FROM 	Funcionario u WHERE u.Login = ? AND u.Senha = ?");
 			select.setString(1, login);
 			select.setNString(2, senha);
 			return select.execute();

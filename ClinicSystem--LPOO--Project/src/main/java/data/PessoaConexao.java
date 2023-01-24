@@ -6,7 +6,6 @@ import java.sql.SQLException;
 public class PessoaConexao extends FabricaConexao{
 	FabricaConexao pessoa = new FabricaConexao();
 	
-	
 	public boolean addPessoa(String cpf, String nome, String telefone, String email) throws SQLException {
 		try {
 			PreparedStatement insert = pessoa.getConexao().prepareStatement("INSERT INTO Pessoa(CPF, Nome, Telefone, Email) VALUES(?, ?, ?, ?)");
