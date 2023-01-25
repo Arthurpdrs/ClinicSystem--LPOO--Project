@@ -408,7 +408,7 @@ public class JanelaAgendarConsulta {
 		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		        //Inserir ação aqui
-		    }
+		    	}
 		});
 		
 		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
