@@ -1,10 +1,10 @@
-package data;
+package dao;
 
 import java.sql.PreparedStatement;
 
 import java.sql.SQLException;
 
-public class Funcionario extends FabricaConexao{
+public class FuncionarioDAO extends FabricaConexao{
 	
 	FabricaConexao funcionario = new FabricaConexao();
 	
@@ -27,7 +27,7 @@ public class Funcionario extends FabricaConexao{
 	
 	
 	public static void main(String [] args ) throws SQLException {
-		Funcionario teste = new Funcionario();
+		FuncionarioDAO teste = new FuncionarioDAO();
 		teste.verificarLogin("", "");
 
 		

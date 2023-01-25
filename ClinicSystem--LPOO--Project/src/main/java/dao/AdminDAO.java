@@ -1,9 +1,9 @@
-package data;
+package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AdminConexao extends FabricaConexao {
+public class AdminDAO extends FabricaConexao {
 	
 	FabricaConexao admin = new FabricaConexao();
 	

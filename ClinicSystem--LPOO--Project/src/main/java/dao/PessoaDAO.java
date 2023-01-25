@@ -1,9 +1,9 @@
-package data;
+package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PessoaConexao extends FabricaConexao{
+public class PessoaDAO extends FabricaConexao{
 	FabricaConexao pessoa = new FabricaConexao();
 	
 	public boolean addPessoa(String cpf, String nome, String telefone, String email) throws SQLException {
@@ -21,7 +21,7 @@ public class PessoaConexao extends FabricaConexao{
 	}
 	
 	public static void main(String [] args ) throws SQLException{
-		PessoaConexao teste = new PessoaConexao();
+		PessoaDAO teste = new PessoaDAO();
 		teste.addPessoa("71567645634", "Fernando Silveira", "81987574534", "fernado333@gmail.com");
 		
 		

@@ -1,10 +1,10 @@
-package data;
+package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class RecepcionistaConexao extends Funcionario {
-	Funcionario recepcionista = new Funcionario();
+public class RecepcionistaConexao extends FuncionarioDAO {
+	FuncionarioDAO recepcionista = new FuncionarioDAO();
 	
 	public boolean addPaciente(String Tipo_sanguineo, String Alergia, String Data_nascimento) throws SQLException {
 		try {
@@ -56,13 +56,15 @@ public class RecepcionistaConexao extends Funcionario {
 
 	public boolean excluirPaciente(String Pessoa_CPF) throws SQLException {
 		try {
-			PreparedStatement delete = recepcionista.getConexao().prepareStatement("DELETE FROM Paciente WHERE Pessoa_CPF = ?");
+			PreparedStatement delete = recepcionista.getConexao().prepareStatement("DELETE FROM Pessoa WHERE Pessoa_CPF = ?");
 			delete.setString(1, Pessoa_CPF);
 			return delete.execute();	
 		} finally {
 			recepcionista.fecharConexao();
 
 		}
+		
+		
 		
 	}
 	

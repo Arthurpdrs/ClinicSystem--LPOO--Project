@@ -1,6 +1,6 @@
-package data;
+package dao;
 
-public class MedicoConexao extends Funcionario{
+public class MedicoDAO extends FuncionarioDAO{
 	
 	public String visualizarAgenda() {
 		return null;}
