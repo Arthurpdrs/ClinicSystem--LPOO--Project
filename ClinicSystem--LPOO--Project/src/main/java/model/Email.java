@@ -53,7 +53,7 @@ public class Email {
             MimeBodyPart mensagemHtml = new MimeBodyPart();
             String codigo = ""
             		+ "<body>\r\n"
-            		+ "<div style=\"height:200px;\">\r\n"
+            		+ "<div style=\"height:200px; overflow:auto; padding: 12px;\">\r\n"
             		+ "<div style=\"text-align: center;\">\r\n"
             		+ "<h1>Olá, NOME DO PACIENTE!</h1>\r\n"
             		+ "<h2 style=\"font-size: 20px;\">Como consta no título do e-mail, estamos passando para te lembrar da sua consulta ;)</h2>\r\n"
