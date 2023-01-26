@@ -14,8 +14,9 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class Email {
-    public static void main(String[] args) {
-    	//Propriedades
+	
+	public static boolean enviarEmail(String tipoDoEmail, String emailDoPaciente, String nomeDoPaciente, String dataDaConsulta, String horarioDaConsulta, String profissionalDaConsulta) {
+		//Propriedades
         Properties propriedades = new Properties();
         propriedades.put("mail.smtp.auth", "true");
         propriedades.put("mail.smtp.socketFactory.fallback", "false");
@@ -47,24 +48,46 @@ public class Email {
                     InternetAddress.parse("paos@discente.ifpe.edu.br"));
             
             //Título do e-mail
-            mensagem.setSubject("Testing Subject");
+            mensagem.setSubject("Aviso - ClinicSystem");
 
             //Código HTML
             MimeBodyPart mensagemHtml = new MimeBodyPart();
+            
+            //Insere o texto de acordo com o tipo de e-mail, se for lembrete ou cancelamento. Caso não seja nenhum dos dois, retorna false.
+            String lembrete = "Estamos passando para te lembrar da sua consulta ;)";
+            String cancelamento = "Infelizmente a sua consulta foi cancelada :(";
+            String conteudo = "";
+            
+            if (tipoDoEmail == "cancelamento") {
+            	conteudo = cancelamento;
+            } else if (tipoDoEmail == "lembrete") {
+            	conteudo = lembrete;
+            } else {
+            	return false;
+            }
+            
             String codigo = ""
             		+ "<body>\r\n"
             		+ "<div style=\"height:200px; overflow:auto; padding: 12px;\">\r\n"
             		+ "<div style=\"text-align: center;\">\r\n"
-            		+ "<h1>Olá, NOME DO PACIENTE!</h1>\r\n"
-            		+ "<h2 style=\"font-size: 20px;\">Como consta no título do e-mail, estamos passando para te lembrar da sua consulta ;)</h2>\r\n"
+            		+ "<h1>Olá, "
+            		+ nomeDoPaciente
+            		+ "</h1>\r\n"
+            		+ "<h2 style=\"font-size: 20px;\">"
+            		+ conteudo
+            		+ "</h2>\r\n"
             		+ "<div style=\"border: 1px solid silver;padding: 10px;border-radius: 10px;\">\r\n"
             		+ "<div style=\"border-bottom: 1px solid silver;\">\r\n"
             		+ "\r\n"
             		+ "<div style=\"text-align: left;padding: 15px;margin-left: 50px;max-width: 392px;word-break: break-word;\">Endereço:<div style=\"display: inline;font-weight: bold;margin-left: 5px;\">ENDEREÇO DA CLÍNICA</div></div></div>\r\n"
-            		+ "<div style=\"border-bottom: 1px solid silver;\"><div style=\"text-align: left;padding: 15px;margin-left: 50px;max-width: 392px;word-break: break-word;\"> Horário: <div style=\"display: inline;font-weight: bold;margin-left: 5px;\">HORÁRIO DA CONSULTA</div></div>\r\n"
+            		+ "<div style=\"border-bottom: 1px solid silver;\"><div style=\"text-align: left;padding: 15px;margin-left: 50px;max-width: 392px;word-break: break-word;\"> Horário: <div style=\"display: inline;font-weight: bold;margin-left: 5px;\">"
+            		+ horarioDaConsulta
+            		+ "</div></div>\r\n"
             		+ "\r\n"
             		+ "</div>\r\n"
-            		+ "<div style=\"\"><div style=\"text-align: left;padding: 15px;margin-left: 50px;max-width: 392px;word-break: break-word;\">Profissional:<div style=\"display: inline;font-weight: bold;margin-left: 5px;\">PROFISSIONAL/MÉDICO(A) DA CONSULTA</div></div>\r\n"
+            		+ "<div style=\"\"><div style=\"text-align: left;padding: 15px;margin-left: 50px;max-width: 392px;word-break: break-word;\">Profissional:<div style=\"display: inline;font-weight: bold;margin-left: 5px;\">"
+            		+ profissionalDaConsulta
+            		+ "</div></div>\r\n"
             		+ "\r\n"
             		+ "</div>\r\n"
             		+ "</div>\r\n"
@@ -87,9 +110,21 @@ public class Email {
 
             //Envia a mensagem
             Transport.send(mensagem);
+            
+            //Retorno do método é true
+            return true;
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+        	//Retorno do método é false
+            return false;
         }
+	}
+	
+    public static void main(String[] args) {
+    	//Exemplo de uso - cancelamento
+    	enviarEmail("cancelamento", "paos@discente.ifpe.edu.br", "Paulo", "25/01/2023", "10:00", "Dr. Josevaldo");
+    	//Exemplo de uso - lembrete
+    	enviarEmail("lembrete", "paos@discente.ifpe.edu.br", "Paulo", "25/01/2023", "10:00", "Dr. Josevaldo");
+
     }
 }
