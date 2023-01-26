@@ -45,7 +45,7 @@ public class Email {
             
             //E-mail do destinatário
             mensagem.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("paos@discente.ifpe.edu.br"));
+                    InternetAddress.parse(emailDoPaciente));
             
             //Título do e-mail
             mensagem.setSubject("Aviso - ClinicSystem");
