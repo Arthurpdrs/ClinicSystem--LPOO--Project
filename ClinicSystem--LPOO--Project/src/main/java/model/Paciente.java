@@ -19,13 +19,11 @@ public class Paciente extends Pessoa{
 			String tipoSanguineo,
 			String alergia,
 			Date dataNascimento,
-			String responsavel,
 			Endereco endereco) {
 		super(nome, telefone, email, cpf);
 		this.tipoSanguineo = tipoSanguineo;
 		this.alergia = alergia;
 		this.dataNascimento = dataNascimento;
-		this.responsavel = responsavel;
 		this.endereco = endereco;
 	}
 
