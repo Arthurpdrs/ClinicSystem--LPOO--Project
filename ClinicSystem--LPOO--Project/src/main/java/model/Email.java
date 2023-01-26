@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMultipart;
 
 public class Email {
 	
-	public static boolean enviarEmail(String tipoDoEmail, String emailDoPaciente, String nomeDoPaciente, String dataDaConsulta, String horarioDaConsulta, String profissionalDaConsulta) throws Exception {
+	public static boolean enviarEmail(String tipoDoEmail, String emailDoPaciente, String nomeDoPaciente, String dataDaConsulta, String horarioDaConsulta, String profissionalDaConsulta) {
 		//Propriedades
         Properties propriedades = new Properties();
         propriedades.put("mail.smtp.auth", "true");
@@ -117,7 +117,6 @@ public class Email {
         } catch (MessagingException e) {
         	//Retorno do método é false
             return false;
-            throw new RuntimeException(e);
         }
 	}
 	
