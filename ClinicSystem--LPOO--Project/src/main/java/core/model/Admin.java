@@ -1,4 +1,4 @@
-package model;
+package core.model;
 
 public class Admin extends Funcionario {
 	

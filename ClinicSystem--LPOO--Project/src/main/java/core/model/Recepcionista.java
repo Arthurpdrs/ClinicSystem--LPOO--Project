@@ -1,4 +1,4 @@
-package model;
+package core.model;
 
 public class Recepcionista extends Funcionario{
 	

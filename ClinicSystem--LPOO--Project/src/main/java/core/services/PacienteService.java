@@ -1,11 +1,11 @@
-package services;
+package core.services;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import model.Endereco;
-import model.Paciente;
+import core.model.Endereco;
+import core.model.Paciente;
 
 public class PacienteService {
 	

@@ -1,4 +1,4 @@
-package services;
+package core.services;
 
 import java.util.Properties;
 
