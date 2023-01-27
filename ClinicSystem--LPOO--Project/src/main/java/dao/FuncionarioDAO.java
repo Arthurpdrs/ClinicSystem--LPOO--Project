@@ -23,6 +23,32 @@ public class FuncionarioDAO extends FabricaConexao{
 	
 			
 	}
+	
+	public boolean addFunionario(String Login, String Senha, String Pessoa_CPF) throws SQLException {
+		try {
+			PreparedStatement insert = funcionario.getConexao().prepareStatement("INSERT INTO Funcionario(Login, Senha) VALUES(?, ?)");
+			insert.setString(1, Login);
+			insert.setString(2, Senha);
+			insert.setString(3, Pessoa_CPF);
+			return insert.execute();	
+		} finally {
+			funcionario.fecharConexao();
+		}
+		
+	}
+	
+	
+	public boolean deletarFuncionario(String Pessoa_CPF) throws SQLException{
+		try {
+			PreparedStatement insert = funcionario.getConexao().prepareStatement("DELETE FROM Funcionario WHERE Pessoa_CPF = ?");
+			insert.setString(1, Pessoa_CPF);
+			return insert.execute();	
+		} finally {
+			funcionario.fecharConexao();
+		}
+		
+	}
+
 
 	
 	
