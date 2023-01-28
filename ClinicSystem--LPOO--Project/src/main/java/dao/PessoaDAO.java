@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Pessoa;
 
-public class PessoaDAO {
+public class PessoaDAO extends FabricaConexao{
 	
 	FabricaConexao pessoaDAO = new FabricaConexao();
+	public String CPF = null;
 	
 	public List<Pessoa> listar() {
 		String sql = "SELECT * FROM Pessoa";
@@ -33,24 +34,30 @@ public class PessoaDAO {
 		return retorno;
 	}
 	
-	public boolean inserir(Pessoa pessoa) {
+	public boolean inserir(String cpf, String nome, String telefone, String email) throws SQLException {
 		String sql = "INSERT INTO Pessoa(CPF, Nome, Telefone, Email) VALUES(?, ?, ?, ?)";
+		CPF = cpf;
 		try {
 			PreparedStatement stmt = pessoaDAO.getConexao().prepareStatement(sql);
-			stmt.setString(1, pessoa.getCpf());
-			stmt.setString(2, pessoa.getNome());
-			stmt.setString(3, pessoa.getTelefone());
-			stmt.setString(4, pessoa.getEmail());
+			stmt.setString(1, cpf);
+			stmt.setString(2, nome);
+			stmt.setString(3, telefone);
+			stmt.setString(4, email);
 			stmt.execute();
 			return true;
 		} catch (SQLException e) {
 			System.out.println("Não foi possível inserir os dados da pessoa!");
-			return false;
+			return false;	
+		} finally {
+			pessoaDAO.fecharConexao();
+			
 		}
+	
 	}
 	
 	public boolean alterar(Pessoa pessoa) {
 		String sql = "UPDATE Pessoa SET CPF=?, Nome=?, Telefone=?, Email=? WHERE CPF=?";
+		
 		try {
 			PreparedStatement stmt = pessoaDAO.getConexao().prepareStatement(sql);
 			stmt.setString(1, pessoa.getCpf());
@@ -62,19 +69,27 @@ public class PessoaDAO {
 		} catch (SQLException e) {
 			System.out.println("Não foi possível alterar os dados da pessoa!");
 			return false;
+		} finally {
+			pessoaDAO.fecharConexao();
+			
 		}
+		
 	}
 	
-	public boolean remover(Pessoa pessoa) {
+	public boolean remover(String cpf) throws SQLException {
 		String sql = "DELETE FROM Pessoa WHERE CPF=?";
 		try {
 			PreparedStatement stmt = pessoaDAO.getConexao().prepareStatement(sql);
-			stmt.setString(1, pessoa.getCpf());
+			stmt.setString(1, cpf);
 			stmt.execute();
 			return true;
 		} catch (SQLException e) {
 			System.out.println("Não foi possível deletar os dados da pessoa!");
 			return false;
+		}finally {
+			pessoaDAO.fecharConexao();
+			
 		}
+		
 	}
 }
