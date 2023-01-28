@@ -1,5 +1,5 @@
 package core.services;
 
-public class MedicoService {
+public class MedicoService extends FuncionarioService{
 
 }
