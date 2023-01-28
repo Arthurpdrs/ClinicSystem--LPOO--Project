@@ -5,18 +5,21 @@ import java.util.Date;
 
 
 public class Prontuario {
+	
 	private String queixa;
 	private String prescricao;
 	private Date data;
 	private Medico medico;
 	private Paciente paciente;
+	private String observacao;
 	
 	public Prontuario(
 			String queixa,
 			String prescricao,
 			Date data,
 			Medico medico,
-			Paciente paciente) {
+			Paciente paciente,
+			String observacao) {
 		
 		this.queixa = queixa;
 		this.prescricao = prescricao;
@@ -24,6 +27,8 @@ public class Prontuario {
 		this.medico = medico;
 		this.paciente = paciente;
 	}
+	
+	public Prontuario() {}
 
 	public String getQueixa() {
 		return queixa;
@@ -63,6 +68,14 @@ public class Prontuario {
 
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 	
 	

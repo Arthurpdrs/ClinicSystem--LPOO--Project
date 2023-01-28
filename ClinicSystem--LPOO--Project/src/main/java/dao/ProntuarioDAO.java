@@ -7,7 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Prontuario;
+
+import core.model.Medico;
+import core.model.Paciente;
+import core.model.Prontuario;
+
 
 public class ProntuarioDAO {
 	
@@ -21,8 +25,13 @@ public class ProntuarioDAO {
 			ResultSet resultado = stmt.executeQuery();
 			while(resultado.next()) {
 				Prontuario prontuario = new Prontuario();
-				prontuario.setPaciente(resultado.getString("Paciente_Pessoa_CPF"));
-				prontuario.setMedico(resultado.getString("Medico_Funcionario_Pessoa_CPF"));
+				Paciente paciente = new Paciente();
+				Medico medico = new Medico();
+				
+				prontuario.setPaciente(paciente);
+				paciente.setCpf(resultado.getString("Pessoa_CPF"));
+				prontuario.setMedico(medico);
+				medico.setCpf(resultado.getString("Funcionario_Pessoa_CPF"));
 				prontuario.setQueixa(resultado.getString("Queixa"));
 				prontuario.setPrescricao(resultado.getString("Prescricao"));
 				prontuario.setObservacao(resultado.getString("Observacao"));

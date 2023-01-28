@@ -7,7 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Consulta;
+import core.model.Consulta;
+import core.model.Medico;
+import core.model.Paciente;
+import core.model.Pessoa;
+
 
 public class ConsultaDAO {
 	
@@ -20,9 +24,16 @@ public class ConsultaDAO {
 			PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
 			ResultSet resultado = stmt.executeQuery();
 			while(resultado.next()) {
+				
 				Consulta consulta = new Consulta();
-				consulta.setPaciente(resultado.getString("Paciente_Pessoa_CPF"));
-				consulta.setMedico(resultado.getString("Medico_Funcionario_Pessoa_CPF"));
+				Paciente paciente = new Paciente();
+				Medico medico = new Medico();
+;				
+				
+				consulta.setPaciente(paciente);
+				paciente.setCpf(resultado.getString("Pessoa_CPF"));
+				consulta.setMedico(medico);
+				medico.setCpf(resultado.getString("Funcionario_Pessoa_CPF"));
 				consulta.setDataConsulta(resultado.getDate("Data_consulta"));
 				consulta.setValor(resultado.getDouble("Valor"));
 				consulta.setPago(resultado.getBoolean("Pago"));
@@ -39,8 +50,9 @@ public class ConsultaDAO {
 		String sql = "INSERT INTO Consulta(Paciente_Pessoa_CPF, Medico_Funcionario_Pessoa_CPF, Data_consulta, Valor, Pago, Hora_consulta) VALUES(?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
-			stmt.setString(1, consulta.getPaciente());
-			stmt.setString(2, consulta.getMedico());
+			
+			stmt.setString(1, consulta.getPaciente().getCpf());
+			stmt.setString(2, consulta.getMedico().getCpf());
 			stmt.setDate(3, consulta.getDataConsulta());
 			stmt.setDouble(4, consulta.getValor());
 			stmt.setBoolean(5, consulta.getPago());

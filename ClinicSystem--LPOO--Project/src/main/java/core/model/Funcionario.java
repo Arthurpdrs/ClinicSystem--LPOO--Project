@@ -11,6 +11,10 @@ public abstract class Funcionario extends Pessoa {
 		this.login = login;
 		this.senha = senha;
 	}
+	
+	public Funcionario() {
+		super();
+	}
 
 	public String getLogin() {
 		return login;

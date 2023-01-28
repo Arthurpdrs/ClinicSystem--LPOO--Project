@@ -16,6 +16,10 @@ public class Medico extends Funcionario{
 		this.especialidade = especialidade;
 		
 	}
+	
+	public Medico() {
+		super();
+	}
 
 
 

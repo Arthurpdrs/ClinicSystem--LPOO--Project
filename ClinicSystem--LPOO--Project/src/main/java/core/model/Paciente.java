@@ -26,6 +26,10 @@ public class Paciente extends Pessoa{
 		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
 	}
+	
+	public Paciente() {
+		super();
+	}
 
 
 	public String getTipoSanguineo() {

@@ -14,6 +14,8 @@ public abstract class Pessoa {
 		this.email = email;
 		this.cpf = cpf;
 	}
+	
+	public Pessoa() {}
 
 	public String getNome() {
 		return nome;

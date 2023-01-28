@@ -7,7 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Pessoa;
+import core.model.Pessoa;
+
 
 public class PessoaDAO {
 	

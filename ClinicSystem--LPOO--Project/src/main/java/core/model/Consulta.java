@@ -23,6 +23,8 @@ public class Consulta {
 		this.valor = valor;
 		this.pago = pago;
 	}
+	
+	public Consulta() {}
 
 
 	public Date getDataConsulta() {
