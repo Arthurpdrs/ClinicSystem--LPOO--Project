@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Pessoa;
 
-public class PessoaDAO extends FabricaConexao{
+public class PessoaDAO {
 	
 	FabricaConexao pessoaDAO = new FabricaConexao();
-	public String CPF = null;
+
 	
 	public List<Pessoa> listar() {
 		String sql = "SELECT * FROM Pessoa";
