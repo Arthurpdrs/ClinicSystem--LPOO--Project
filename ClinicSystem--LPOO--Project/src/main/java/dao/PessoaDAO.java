@@ -13,6 +13,7 @@ import core.model.Pessoa;
 public class PessoaDAO {
 	
 	FabricaConexao pessoaDAO = new FabricaConexao();
+
 	
 	public List<Pessoa> listar() {
 		String sql = "SELECT * FROM Pessoa";
@@ -36,22 +37,24 @@ public class PessoaDAO {
 	
 	public boolean inserir(Pessoa pessoa) {
 		String sql = "INSERT INTO Pessoa(CPF, Nome, Telefone, Email) VALUES(?, ?, ?, ?)";
+	
 		try {
 			PreparedStatement stmt = pessoaDAO.getConexao().prepareStatement(sql);
 			stmt.setString(1, pessoa.getCpf());
 			stmt.setString(2, pessoa.getNome());
 			stmt.setString(3, pessoa.getTelefone());
 			stmt.setString(4, pessoa.getEmail());
-			stmt.execute();
 			return true;
 		} catch (SQLException e) {
 			System.out.println("Não foi possível inserir os dados da pessoa!");
-			return false;
-		}
+			return false;	
+		} 
+	
 	}
 	
 	public boolean alterar(Pessoa pessoa) {
 		String sql = "UPDATE Pessoa SET CPF=?, Nome=?, Telefone=?, Email=? WHERE CPF=?";
+		
 		try {
 			PreparedStatement stmt = pessoaDAO.getConexao().prepareStatement(sql);
 			stmt.setString(1, pessoa.getCpf());
@@ -63,7 +66,7 @@ public class PessoaDAO {
 		} catch (SQLException e) {
 			System.out.println("Não foi possível alterar os dados da pessoa!");
 			return false;
-		}
+		} 
 	}
 	
 	public boolean remover(Pessoa pessoa) {
@@ -77,5 +80,6 @@ public class PessoaDAO {
 			System.out.println("Não foi possível deletar os dados da pessoa!");
 			return false;
 		}
+		
 	}
 }
