@@ -34,24 +34,20 @@ public class PessoaDAO extends FabricaConexao{
 		return retorno;
 	}
 	
-	public boolean inserir(String cpf, String nome, String telefone, String email) throws SQLException {
+	public boolean inserir(Pessoa pessoa) {
 		String sql = "INSERT INTO Pessoa(CPF, Nome, Telefone, Email) VALUES(?, ?, ?, ?)";
-		CPF = cpf;
+	
 		try {
 			PreparedStatement stmt = pessoaDAO.getConexao().prepareStatement(sql);
-			stmt.setString(1, cpf);
-			stmt.setString(2, nome);
-			stmt.setString(3, telefone);
-			stmt.setString(4, email);
-			stmt.execute();
+			stmt.setString(1, pessoa.getCpf());
+			stmt.setString(2, pessoa.getNome());
+			stmt.setString(3, pessoa.getTelefone());
+			stmt.setString(4, pessoa.getEmail());
 			return true;
 		} catch (SQLException e) {
 			System.out.println("Não foi possível inserir os dados da pessoa!");
 			return false;	
-		} finally {
-			pessoaDAO.fecharConexao();
-			
-		}
+		} 
 	
 	}
 	
@@ -69,26 +65,19 @@ public class PessoaDAO extends FabricaConexao{
 		} catch (SQLException e) {
 			System.out.println("Não foi possível alterar os dados da pessoa!");
 			return false;
-		} finally {
-			pessoaDAO.fecharConexao();
-			
-		}
-		
+		} 
 	}
 	
-	public boolean remover(String cpf) throws SQLException {
+	public boolean remover(Pessoa pessoa) {
 		String sql = "DELETE FROM Pessoa WHERE CPF=?";
 		try {
 			PreparedStatement stmt = pessoaDAO.getConexao().prepareStatement(sql);
-			stmt.setString(1, cpf);
+			stmt.setString(1, pessoa.getCpf());
 			stmt.execute();
 			return true;
 		} catch (SQLException e) {
 			System.out.println("Não foi possível deletar os dados da pessoa!");
 			return false;
-		}finally {
-			pessoaDAO.fecharConexao();
-			
 		}
 		
 	}
