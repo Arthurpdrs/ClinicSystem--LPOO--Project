@@ -4,49 +4,63 @@ import java.sql.PreparedStatement;
 
 import java.sql.SQLException;
 
-public class FuncionarioDAO extends FabricaConexao{
+import core.model.Funcionario;
+
+public class FuncionarioDAO extends PessoaDAO{
 	
-	FabricaConexao funcionario = new FabricaConexao();
+	PessoaDAO funcionarioDao = new PessoaDAO();
 	
 	
-	public boolean verificarLogin(String login, String senha) throws SQLException{
+	public boolean verificarLogin(Funcionario funcionario ) throws SQLException{
 		
 		
 		try {
-			PreparedStatement select = funcionario.getConexao().prepareStatement("SELECT Login, Senha FROM 	Funcionario u WHERE u.Login = ? AND u.Senha = ?");
-			select.setString(1, login);
-			select.setNString(2, senha);
+			PreparedStatement select = funcionarioDao.getConexao().prepareStatement("SELECT Login, Senha FROM 	Funcionario u WHERE u.Login = ? AND u.Senha = ?");
+			select.setString(1, funcionario.getLogin());
+			select.setNString(2, funcionario.getSenha());
 			return select.execute();
-		} finally {
-			funcionario.fecharConexao();
+		} catch (SQLException e) {
+			System.out.println("Não foi possível verificar!");
+		}
+		 finally {
+			funcionarioDao.fecharConexao();
 		}
 	
 			
-	}
 	
-	public boolean addFunionario(String Login, String Senha, String Pessoa_CPF) throws SQLException {
+	
+	public boolean addFunionario(Funcionario funcionario ) throws SQLException {
 		try {
-			PreparedStatement insert = funcionario.getConexao().prepareStatement("INSERT INTO Funcionario(Login, Senha) VALUES(?, ?)");
-			insert.setString(1, Login);
-			insert.setString(2, Senha);
-			insert.setString(3, Pessoa_CPF);
-			return insert.execute();	
-		} finally {
-			funcionario.fecharConexao();
+			PreparedStatement insert = funcionarioDao.getConexao().prepareStatement("INSERT INTO Funcionario(Login, Senha) VALUES(?, ?)");
+			insert.setString(1, funcionario.getLogin());
+			insert.setString(2, funcionario.getLogin());
+			insert.setString(3, funcionario.getLogin());
+			return insert.execute();
+		} catch (SQLException e) {
+			System.out.println("Não foi possível Adcionar os dados da Funcionario!");
+		}
+		 finally {
+			funcionarioDao.fecharConexao();
+		}
+		
+	
+	
+	public boolean deletarFuncionario(Funcionario funcionario) throws SQLException{
+		try {
+			PreparedStatement insert = funcionarioDao.getConexao().prepareStatement("DELETE FROM Funcionario WHERE Pessoa_CPF = ?");
+			insert.setString(1, funcionario.getCpf());
+			return insert.execute();
+		} catch (SQLException e) {
+			System.out.println("Não foi possível Deletar os dados do Funcionario!");
+		}
+		finally {
+			funcionarioDao.fecharConexao();
 		}
 		
 	}
 	
-	
-	public boolean deletarFuncionario(String Pessoa_CPF) throws SQLException{
-		try {
-			PreparedStatement insert = funcionario.getConexao().prepareStatement("DELETE FROM Funcionario WHERE Pessoa_CPF = ?");
-			insert.setString(1, Pessoa_CPF);
-			return insert.execute();	
-		} finally {
-			funcionario.fecharConexao();
+	public boolean atualizarDados() {
 		}
-		
 	}
 
 
@@ -54,7 +68,7 @@ public class FuncionarioDAO extends FabricaConexao{
 	
 	public static void main(String [] args ) throws SQLException {
 		FuncionarioDAO teste = new FuncionarioDAO();
-		teste.verificarLogin("", "");
+		
 
 		
 	}

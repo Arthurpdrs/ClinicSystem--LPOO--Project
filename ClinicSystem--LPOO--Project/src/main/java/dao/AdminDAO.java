@@ -3,20 +3,26 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import core.model.Admin;
+
 public class AdminDAO extends FabricaConexao {
 	
-	FabricaConexao admin = new FabricaConexao();
+	FabricaConexao adminDao = new FabricaConexao();
 	
-	public boolean verificarLoginAdmin(String senha, String login) throws SQLException{
+	public boolean verificarLoginAdmin(Admin admin) throws SQLException {
+		String sql = "SELECT Login, Senha FROM Administrador u WHERE u.Login = ? AND u.Senha = ?";
 		try {
-			PreparedStatement select = admin.getConexao().prepareStatement("SELECT Login, Senha FROM Administrador u WHERE u.Login = ? AND u.Senha = ?");
-			select.setString(1, login);
-			select.setNString(2, senha);
+			PreparedStatement select = adminDao.getConexao().prepareStatement(sql);
+			select.setString(1, admin.getLogin());
+			select.setString(2, admin.getSenha());
 			return select.execute();
+		} catch (SQLException e) {
+			System.out.println("Não foi possivel verifacar o Login e a senha");
+			return false;
 		} finally {
-			admin.fecharConexao();
+			adminDao.fecharConexao();
 		}
-	
+
 			
 	}
 	
