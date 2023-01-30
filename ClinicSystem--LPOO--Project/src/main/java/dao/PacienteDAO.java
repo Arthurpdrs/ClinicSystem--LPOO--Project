@@ -1,59 +1,115 @@
 package dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import core.model.Paciente;
+import core.model.Responsavel;
+
 
 public class PacienteDAO extends PessoaDAO {
-	PessoaDAO paciente = new PessoaDAO(); 
+	PessoaDAO pacienteDAO = new PessoaDAO(); 
 	String Responsavel_Pessoa_CPF = null;
 	
 	
-	public boolean addPaciente(String Tipo_sanguineo, String Alergia, String Data_nascimento) throws SQLException {
+	
+	
+	
+	public List<Paciente> listaPaciente(){
+		String sql = "SELECT * FROM Paciente";
+		List<Paciente> retornoLista = new ArrayList();
 		try {
-			String Pessoa_CPF = CPF;
-			PreparedStatement insert = paciente.getConexao().prepareStatement("INSERT INTO Paciente(Tipo_sanguineo, Alergia, Data_nascimento, Pessoa_CPF, Responsavel_Pessoa_CPF) VALUES(?, ?, str_to_date(?,'%d-%m-%Y'), ?, ?)");
-			insert.setString(1, Tipo_sanguineo);
-			insert.setString(2, Alergia);
-			insert.setNString(3, Data_nascimento);
-			insert.setString(4, Pessoa_CPF);
-			insert.setString(5, Responsavel_Pessoa_CPF);
+			PreparedStatement select = pacienteDAO.getConexao().prepareStatement(sql);
+			ResultSet resultado = select.executeQuery();
+			while(resultado.next()) {
+				Paciente paciente = new Paciente();
+				paciente.setCpf(resultado.getString("CPF"));
+				paciente.setNome(resultado.getString("Nome"));
+				paciente.setTelefone(resultado.getString("Telefone"));
+				paciente.setEmail(resultado.getString("Email"));
+				retornoLista.add(paciente);
+				
+				return retornoLista;
+			}
+		} catch (SQLException e) {
+			System.out.println("Não foi possível listar os dados da pessoa!");
+		}
+		finally {
+				pacienteDAO.fecharConexao();
+				retornoLista.clear();
+	}
+		
+}
+	
+	
+	
+	
+
+	
+	public boolean addPaciente(Paciente paciente, Responsavel responsavel) {
+		String sql = "INSERT INTO Paciente(Tipo_sanguineo, Alergia, Data_nascimento, Pessoa_CPF, Responsavel_Pessoa_CPF) VALUES(?, ?, str_to_date(?,'%d-%m-%Y'), ?, ?)";
+		try {
 			
-			return insert.execute();	
+			PreparedStatement insert = pacienteDAO.getConexao().prepareStatement(sql);
+			insert.setString(1, paciente.getTipoSanguineo());
+			insert.setString(2, paciente.getAlergia());
+			insert.setString(3, paciente.getDataNascimento()); //Comentar com arthur
+			insert.setString(4, paciente.getCpf());
+			insert.setString(5, responsavel.getCpf());
+			return insert.execute();
+		} catch (SQLException e) {
+			System.out.println("Não foi possível Inserir os dados do Paciente!");
 		} finally {
 			paciente.fecharConexao();
 			
 		}
 		
 	}
-	public boolean addResponsavelPaciente() throws SQLException {
-		try {	
-			Responsavel_Pessoa_CPF = CPF;
-			PreparedStatement insert = paciente.getConexao().prepareStatement("INSERT INTO Responsavel(Pessoa_CPF) (SELECT CPF FROM Pessoa WHERE CPF = ?);");
-			insert.setString(1, Responsavel_Pessoa_CPF);
-			return insert.execute();	
-		} finally {
-			paciente.fecharConexao();
-			Responsavel_Pessoa_CPF = null;
+	
+	
+	
+
+	public List<Paciente> visualizarPaciente(Paciente paciente) {
+		String sql = "SELECT * FROM Paciente WHERE Pessoa_CPF = ? ";
+		List<Paciente> retornoDados = new ArrayList();
+		try {
+			PreparedStatement select = pacienteDAO.getConexao().prepareStatement(sql);
+			select.setString(1, paciente.getCpf());
+			ResultSet resultado = select.executeQuery();
 			
-		}
-	}
-		
-	
-	public boolean visualizarPaciente(String Pessoa_CPF) throws SQLException{
-		try {
-			PreparedStatement select = paciente.getConexao().prepareStatement("SELECT * FROM Paciente WHERE Pessoa_CPF = ? ");
-			select.setString(1, Pessoa_CPF);
-			return select.execute();
+			while(resultado.next()) {
+				Paciente retornoPaciente = new Paciente();
+				retornoPaciente.setCpf(resultado.getString("CPF"));
+				retornoPaciente.setNome(resultado.getString("Nome"));
+				retornoPaciente.setTelefone(resultado.getString("Telefone"));
+				retornoPaciente.setEmail(resultado.getString("Email"));
+				retornoDados.add(retornoPaciente);
+				return retornoDados;}
+			
+		} catch (SQLException e) {
+			System.out.println("Não foi possivel visualizar o Paciente!");
+			
 		} finally {
 			paciente.fecharConexao();
+			retornoDados.clear();	
 		}
+		
 	}
 	
-	public boolean excluirPaciente(String Pessoa_CPF) throws SQLException {
+	
+	
+	
+	public boolean excluirPaciente(Paciente paciente) {
+		String sql = "DELETE FROM Paciente WHERE Pessoa_CPF = ?";
 		try {
-			PreparedStatement delete = paciente.getConexao().prepareStatement("DELETE FROM Paciente WHERE Pessoa_CPF = ?");
-			delete.setString(1, Pessoa_CPF);
-			return delete.execute();	
+			PreparedStatement delete = pacienteDAO.getConexao().prepareStatement(sql);
+			delete.setString(1, paciente.getCpf());
+			return delete.execute();
+		} catch (SQLException e) {
+			System.out.println("Não foi possivel deletar o Paciente!");
 		} finally {
 			paciente.fecharConexao();
 
@@ -62,33 +118,23 @@ public class PacienteDAO extends PessoaDAO {
 	}
 	
 	
-	public String visualizarAgenda() {
-		return null;}
-	
-	public String visualizarPaciente() {
-		return null;
-		
+	public boolean atualizarDados() {
+
 	}
-	public String visualizarHistorico() {
-		return null;}
+
 	
+
 	
-	public String totalPaciente() {
+	public String visualizarAgenda() {
+		String sql =
 		return null;}
+
 	
 	public String pacienteDia() {
 		return null;}
 	
 	
-	public String adcionarRegistro() {
-		return null;}
 	
-	public String visualizarRegistro() {
-		return null;}
-	
-	
-	
-
 
 	public static void main(String [] args ) throws SQLException{
 		PacienteDAO teste = new PacienteDAO();
