@@ -13,28 +13,16 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-public class Email {
+public class EmailService {
 	
 	public static boolean enviarEmail(String tipoDoEmail, String emailDoPaciente, String nomeDoPaciente, String dataDaConsulta, String horarioDaConsulta, String profissionalDaConsulta) {
 		//Propriedades
-        Properties propriedades = new Properties();
-        propriedades.put("mail.smtp.auth", "true");
-        propriedades.put("mail.smtp.socketFactory.fallback", "false");
-        propriedades.put("mail.smtp.starttls.enable", "true");
-        propriedades.put("mail.smtp.ssl.trust", "smtp.office365.com");
-        propriedades.put("mail.smtp.host", "smtp.office365.com");
-        propriedades.put("mail.smtp.port", "587");
-        propriedades.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        Properties propriedades = definirPropriedadesDoEmail();
         
         
         //Inicia sessão
-        Session conexao = Session.getInstance(propriedades,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                    	//E-mail e senha da clínica
-                        return new PasswordAuthentication("naoresponda_clinicdata@outlook.com", "clinicdata00_");
-                    }
-                });
+        Session conexao = iniciarSessaoDoEmail(propriedades);
+        
         //Tenta enviar a mensagem
         try {
         	//Nova mensagem
@@ -118,6 +106,29 @@ public class Email {
         	//Retorno do método é false
             return false;
         }
+	}
+
+	private static Session iniciarSessaoDoEmail(Properties propriedades) {
+		Session conexao = Session.getInstance(propriedades,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                    	//E-mail e senha da clínica
+                        return new PasswordAuthentication("naoresponda_clinicdata@outlook.com", "clinicdata00_");
+                    }
+                });
+		return conexao;
+	}
+
+	private static Properties definirPropriedadesDoEmail() {
+		Properties propriedades = new Properties();
+        propriedades.put("mail.smtp.auth", "true");
+        propriedades.put("mail.smtp.socketFactory.fallback", "false");
+        propriedades.put("mail.smtp.starttls.enable", "true");
+        propriedades.put("mail.smtp.ssl.trust", "smtp.office365.com");
+        propriedades.put("mail.smtp.host", "smtp.office365.com");
+        propriedades.put("mail.smtp.port", "587");
+        propriedades.put("mail.smtp.ssl.protocols", "TLSv1.2");
+		return propriedades;
 	}
 	
     public static void main(String[] args) {
