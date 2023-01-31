@@ -37,7 +37,7 @@ public class ConsultaDAO {
 				consulta.setDataConsulta(resultado.getDate("Data_consulta"));
 				consulta.setValor(resultado.getDouble("Valor"));
 				consulta.setPago(resultado.getBoolean("Pago"));
-				consulta.setHoraConsulta(resultado.getTime("Hora_consulta"));
+				consulta.setHorario(resultado.getTime("Hora_consulta"));
 				retorno.add(consulta);
 			}
 		} catch (SQLException e) {
@@ -56,7 +56,7 @@ public class ConsultaDAO {
 			stmt.setDate(3, consulta.getDataConsulta());
 			stmt.setDouble(4, consulta.getValor());
 			stmt.setBoolean(5, consulta.getPago());
-			stmt.setTime(6, consulta.getHoraConsulta());
+			stmt.setTime(6, consulta.getHorario());
 			stmt.execute();
 			return true;
 		} catch (SQLException e) {
@@ -69,12 +69,12 @@ public class ConsultaDAO {
 		String sql = "UPDATE Consulta SET Data_consulta=?, Valor=?, Pago=?, Hora_consulta=? WHERE (Paciente_Pessoa_CPF=? AND Medico_Funcionario_Pessoa_CPF=?)";
 		try {
 			PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
+			stmt.setString(1, consulta.getPaciente());
+			stmt.setString(2, consulta.getMedico());
 			stmt.setDate(3, consulta.getDataConsulta());
 			stmt.setDouble(4, consulta.getValor());
 			stmt.setBoolean(5, consulta.getPago());
-			stmt.setTime(6, consulta.getHoraConsulta());
-			stmt.setString(1, consulta.getPaciente());
-			stmt.setString(2, consulta.getMedico());
+			stmt.setTime(6, consulta.getHorario());
 			stmt.execute();
 			return true;
 		} catch (SQLException e) {
