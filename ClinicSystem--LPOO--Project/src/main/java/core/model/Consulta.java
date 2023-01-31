@@ -1,17 +1,20 @@
 package core.model;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Consulta {
 	private Date dataConsulta;
+	private Time horario;
 	private Medico medico;
 	private Paciente paciente;
 	private Double valor;
 	private Boolean pago;
 	
-	
+
 	public Consulta(
 			Date dataConsulta,
+			String horario,
 			Medico medico,
 			Paciente paciente,
 			Double valor,
@@ -31,12 +34,18 @@ public class Consulta {
 		return dataConsulta;
 	}
 
-
 	public void setDataConsulta(Date dataConsulta) {
 		this.dataConsulta = dataConsulta;
 	}
 
+	public Time getHorario() {
+		return horario;
+	}
 
+	public void setHorario(Time horario) {
+		this.horario = horario;
+	}
+	
 	public Medico getMedico() {
 		return medico;
 	}
