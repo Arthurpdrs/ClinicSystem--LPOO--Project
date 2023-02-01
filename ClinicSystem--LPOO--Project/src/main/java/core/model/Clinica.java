@@ -6,7 +6,7 @@ public class Clinica {
 	private String Senha;
 	private String Telefone;
 	private String Endereco;
-	
+
 	public Clinica(String nome, 
 			String email, 
 			String senha, 
@@ -61,6 +61,4 @@ public class Clinica {
 	public void setEndereco(String endereco) {
 		Endereco = endereco;
 	}
-	
-	
 }

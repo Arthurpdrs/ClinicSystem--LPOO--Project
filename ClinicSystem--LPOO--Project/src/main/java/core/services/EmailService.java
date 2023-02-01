@@ -134,7 +134,7 @@ public class EmailService {
 
             		+ "\r\n"
 
-            		+ "<div style=\"font-size: 15px;color: #4b69a8;margin-top: 20px;\">WhatsApp: (DDD) WHATSAPP DA CLÍNICA</div><div style=\"font-size: 15px;color: #4b69a8;margin-top: 20px;\">E-mail: E-MAIL DA CLÍNICA</div>\r\n"
+            		+ "<div style=\"font-size: 15px;color: #4b69a8;margin-top: 20px;\">WhatsApp: WHATSAPP DA CLÍNICA</div><div style=\"font-size: 15px;color: #4b69a8;margin-top: 20px;\">E-mail: E-MAIL DA CLÍNICA</div>\r\n"
 
             		+ "\r\n"
 

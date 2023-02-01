@@ -9,6 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import core.model.Clinica;
+import core.services.ClinicaService;
+
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -16,6 +20,9 @@ import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 public class JanelaDadosClinica {
 
 	private JFrame frmClinicsystem;
@@ -30,7 +37,7 @@ public class JanelaDadosClinica {
 	private JTextField numeroDeWhatsappTextField;
 	private JLabel emailLbl;
 	private JTextField emailTextField;
-	private JPasswordField senhaPasswordField;
+	private JPasswordField senhaTextField;
 	private JTextField enderecoTextField;
 	private JLabel enderecoDaClinicaLbl;
 
@@ -53,6 +60,7 @@ public class JanelaDadosClinica {
 				}
 			}
 		});
+		
 	}
 
 	/**
@@ -118,7 +126,7 @@ public class JanelaDadosClinica {
 		nomeTextField.setColumns(10);
 		frmClinicsystem.getContentPane().add(nomeTextField);
 		
-		erroLbl = new JLabel("Dados atualizados com sucesso");
+		erroLbl = new JLabel("");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -127,8 +135,7 @@ public class JanelaDadosClinica {
 		erroLbl.setBackground(Color.WHITE);
 		erroLbl.setBounds(415, 508, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
-		
-		//Botão
+	
 		JButton enviarBtn = new JButton("Enviar");
 		enviarBtn.setBorderPainted(false);
 		enviarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -141,7 +148,24 @@ public class JanelaDadosClinica {
 		
 		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		        String nome = nomeTextField.getText();
+		        String endereco = enderecoTextField.getText();
+		        String telefone = numeroDeWhatsappTextField.getText();
+		        String email = emailTextField.getText();
+		        String senha = new String (senhaTextField.getPassword());
+		        
+		        ClinicaService clinicaService = new ClinicaService();
+				try {
+					boolean retorno = clinicaService.atualizarDadosDaClinica(nome, email, senha, telefone, endereco);
+					if (retorno == true) {
+						erroLbl.setText("Dados atualizados com sucesso");
+					} else {
+						erroLbl.setText("Preencha todos os campos");
+					}
+				} catch (SQLException e) {
+					erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+				}
+		        
 		    }
 		});
 		
@@ -181,7 +205,6 @@ public class JanelaDadosClinica {
 		emailLbl.setBounds(412, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(emailLbl);
 		
-		//Botão
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		limparBtn.setForeground(Color.GRAY);
@@ -194,7 +217,12 @@ public class JanelaDadosClinica {
 		
 		limparBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		        nomeTextField.setText("");
+		        emailTextField.setText("");
+		        enderecoTextField.setText("");
+		        senhaTextField.setText("");
+		        numeroDeWhatsappTextField.setText("");
+		        erroLbl.setText("");
 		    }
 		});
 		
@@ -211,12 +239,12 @@ public class JanelaDadosClinica {
 		emailTextField.setBounds(412, 100, 380, 50);
 		frmClinicsystem.getContentPane().add(emailTextField);
 		
-		senhaPasswordField = new JPasswordField();
-		senhaPasswordField.setBackground(Color.WHITE);
-		senhaPasswordField.setForeground(Color.GRAY);
-		senhaPasswordField.setFont(new Font("Arial", Font.PLAIN, 12));
-		senhaPasswordField.setBounds(802, 100, 277, 50);
-		frmClinicsystem.getContentPane().add(senhaPasswordField);
+		senhaTextField = new JPasswordField();
+		senhaTextField.setBackground(Color.WHITE);
+		senhaTextField.setForeground(Color.GRAY);
+		senhaTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		senhaTextField.setBounds(802, 100, 277, 50);
+		frmClinicsystem.getContentPane().add(senhaTextField);
 		
 		enderecoTextField = new JTextField();
 		enderecoTextField.setToolTipText("");
@@ -242,5 +270,22 @@ public class JanelaDadosClinica {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				try {
+					ClinicaService clinicaService = new ClinicaService();
+					Clinica clinica = clinicaService.retornarDadosDaClinica ();
+					nomeTextField.setText(clinica.getNome());
+					emailTextField.setText(clinica.getEmail());
+				    enderecoTextField.setText(clinica.getEndereco());
+				    senhaTextField.setText(clinica.getSenha());
+				    numeroDeWhatsappTextField.setText(clinica.getTelefone());
+				} catch (SQLException e1) {
+					erroLbl.setText("Ocorreu um erro ao tentar restaurar os dados. Tente novamente");
+				}
+			}
+		});
 	}
+	
 }
