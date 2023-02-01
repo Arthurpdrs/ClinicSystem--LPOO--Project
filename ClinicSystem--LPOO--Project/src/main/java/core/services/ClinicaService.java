@@ -2,11 +2,10 @@ package core.services;
 
 import core.model.Clinica;
 import dao.ClinicaDAO;
-import ui.JanelaDadosClinica;
 import java.sql.SQLException;
 
 
-public class ClinicaService extends JanelaDadosClinica {
+public class ClinicaService {
 	
 	public Clinica retornarDadosDaClinica () throws SQLException {
 		ClinicaDAO clinicaDAO = new ClinicaDAO();

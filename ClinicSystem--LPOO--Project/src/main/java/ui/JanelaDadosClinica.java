@@ -33,8 +33,8 @@ public class JanelaDadosClinica {
 	private JLabel logoMenu;
 	private JLabel titulodapaginaLbl;
 	private JLabel senhaLbl;
-	private JLabel especialidadeLbl;
-	private JTextField numeroDeWhatsappTextField;
+	private JLabel numeroLbl;
+	private JTextField telefoneTextField;
 	private JLabel emailLbl;
 	private JTextField emailTextField;
 	private JPasswordField senhaTextField;
@@ -150,7 +150,7 @@ public class JanelaDadosClinica {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		        String nome = nomeTextField.getText();
 		        String endereco = enderecoTextField.getText();
-		        String telefone = numeroDeWhatsappTextField.getText();
+		        String telefone = telefoneTextField.getText();
 		        String email = emailTextField.getText();
 		        String senha = new String (senhaTextField.getPassword());
 		        
@@ -177,25 +177,25 @@ public class JanelaDadosClinica {
 		senhaLbl.setBounds(802, 65, 277, 24);
 		frmClinicsystem.getContentPane().add(senhaLbl);
 		
-		especialidadeLbl = new JLabel("Número de WhatsApp:");
-		especialidadeLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		especialidadeLbl.setForeground(Color.GRAY);
-		especialidadeLbl.setFont(new Font("Arial", Font.PLAIN, 16));
-		especialidadeLbl.setBackground(Color.WHITE);
-		especialidadeLbl.setBounds(22, 161, 380, 24);
-		frmClinicsystem.getContentPane().add(especialidadeLbl);
+		numeroLbl = new JLabel("Número de telefone:");
+		numeroLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		numeroLbl.setForeground(Color.GRAY);
+		numeroLbl.setFont(new Font("Arial", Font.PLAIN, 16));
+		numeroLbl.setBackground(Color.WHITE);
+		numeroLbl.setBounds(22, 161, 380, 24);
+		frmClinicsystem.getContentPane().add(numeroLbl);
 		
-		numeroDeWhatsappTextField = new JTextField();
-		numeroDeWhatsappTextField.setToolTipText("");
-		numeroDeWhatsappTextField.setMargin(new Insets(10, 10, 10, 10));
-		numeroDeWhatsappTextField.setHorizontalAlignment(SwingConstants.LEFT);
-		numeroDeWhatsappTextField.setForeground(Color.GRAY);
-		numeroDeWhatsappTextField.setFont(new Font("Arial", Font.PLAIN, 12));
-		numeroDeWhatsappTextField.setColumns(10);
-		numeroDeWhatsappTextField.setBackground(Color.WHITE);
-		numeroDeWhatsappTextField.setActionCommand("");
-		numeroDeWhatsappTextField.setBounds(22, 196, 380, 50);
-		frmClinicsystem.getContentPane().add(numeroDeWhatsappTextField);
+		telefoneTextField = new JTextField();
+		telefoneTextField.setToolTipText("");
+		telefoneTextField.setMargin(new Insets(10, 10, 10, 10));
+		telefoneTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		telefoneTextField.setForeground(Color.GRAY);
+		telefoneTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		telefoneTextField.setColumns(10);
+		telefoneTextField.setBackground(Color.WHITE);
+		telefoneTextField.setActionCommand("");
+		telefoneTextField.setBounds(22, 196, 380, 50);
+		frmClinicsystem.getContentPane().add(telefoneTextField);
 		
 		emailLbl = new JLabel("E-mail para envio de lembretes (Outlook):");
 		emailLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -221,7 +221,7 @@ public class JanelaDadosClinica {
 		        emailTextField.setText("");
 		        enderecoTextField.setText("");
 		        senhaTextField.setText("");
-		        numeroDeWhatsappTextField.setText("");
+		        telefoneTextField.setText("");
 		        erroLbl.setText("");
 		    }
 		});
@@ -280,7 +280,7 @@ public class JanelaDadosClinica {
 					emailTextField.setText(clinica.getEmail());
 				    enderecoTextField.setText(clinica.getEndereco());
 				    senhaTextField.setText(clinica.getSenha());
-				    numeroDeWhatsappTextField.setText(clinica.getTelefone());
+				    telefoneTextField.setText(clinica.getTelefone());
 				} catch (SQLException e1) {
 					erroLbl.setText("Ocorreu um erro ao tentar restaurar os dados. Tente novamente");
 				}
