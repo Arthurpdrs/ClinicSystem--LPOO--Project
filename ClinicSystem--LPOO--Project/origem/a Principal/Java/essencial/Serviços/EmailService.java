@@ -16,32 +16,22 @@ import javax.mail.internet.MimeMultipart;
 public class EmailService {
 	
 	public static boolean enviarEmail(String tipoDoEmail, String emailDoPaciente, String nomeDoPaciente, String dataDaConsulta, String horarioDaConsulta, String profissionalDaConsulta) {
-		//Propriedades
         Properties propriedades = definirPropriedadesDoEmail();
         
-        
-        //Inicia sessão
         Session conexao = iniciarSessaoDoEmail(propriedades);
         
-        //Tenta enviar a mensagem
         try {
-        	//Nova mensagem
             Message mensagem = new MimeMessage(conexao);
             
-            //E-mail da clínica
             mensagem.setFrom(new InternetAddress("naoresponda_clinicdata@outlook.com"));
             
-            //E-mail do destinatário
             mensagem.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(emailDoPaciente));
             
-            //Título do e-mail
             mensagem.setSubject("Aviso - ClinicSystem");
 
-            //Código HTML
             MimeBodyPart mensagemHtml = new MimeBodyPart();
             
-            //Insere o texto de acordo com o tipo de e-mail, se for lembrete ou cancelamento. Caso não seja nenhum dos dois, retorna false.
             String lembrete = "Estamos passando para te lembrar da sua consulta ;)";
             String cancelamento = "Infelizmente a sua consulta foi cancelada :(";
             String conteudo = "";
@@ -89,21 +79,16 @@ public class EmailService {
             		+ "</body>";
             mensagemHtml.setContent(codigo, "text/html; charset=UTF-8");
 
-            //Parte em que o conteúdo da mensagem fica
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(mensagemHtml);
 
-            //Adiciona o conteúdo à mensagem
             mensagem.setContent(multipart);
 
-            //Envia a mensagem
             Transport.send(mensagem);
             
-            //Retorno do método é true
             return true;
 
         } catch (MessagingException e) {
-        	//Retorno do método é false
             return false;
         }
 	}
@@ -112,7 +97,6 @@ public class EmailService {
 		Session conexao = Session.getInstance(propriedades,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                    	//E-mail e senha da clínica
                         return new PasswordAuthentication("naoresponda_clinicdata@outlook.com", "clinicdata00_");
                     }
                 });
@@ -121,20 +105,18 @@ public class EmailService {
 
 	private static Properties definirPropriedadesDoEmail() {
 		Properties propriedades = new Properties();
-        propriedades.put("mail.smtp.auth", "true");
-        propriedades.put("mail.smtp.socketFactory.fallback", "false");
-        propriedades.put("mail.smtp.starttls.enable", "true");
-        propriedades.put("mail.smtp.ssl.trust", "smtp.office365.com");
-        propriedades.put("mail.smtp.host", "smtp.office365.com");
-        propriedades.put("mail.smtp.port", "587");
-        propriedades.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        	propriedades.put("mail.smtp.auth", "true");
+    	   	propriedades.put("mail.smtp.socketFactory.fallback", "false");
+ 	        propriedades.put("mail.smtp.starttls.enable", "true");
+    	        propriedades.put("mail.smtp.ssl.trust", "smtp.office365.com");
+   	        propriedades.put("mail.smtp.host", "smtp.office365.com");
+    	        propriedades.put("mail.smtp.port", "587");
+    	        propriedades.put("mail.smtp.ssl.protocols", "TLSv1.2");
 		return propriedades;
 	}
 	
     public static void main(String[] args) {
-    	//Exemplo de uso - cancelamento
     	enviarEmail("cancelamento", "paos@discente.ifpe.edu.br", "Paulo", "25/01/2023", "10:00", "Dr. Josevaldo");
-    	//Exemplo de uso - lembrete
     	enviarEmail("lembrete", "paos@discente.ifpe.edu.br", "Paulo", "25/01/2023", "10:00", "Dr. Josevaldo");
 
     }
