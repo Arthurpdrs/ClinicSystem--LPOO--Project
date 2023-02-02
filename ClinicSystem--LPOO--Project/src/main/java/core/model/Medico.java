@@ -4,6 +4,7 @@ public class Medico extends Funcionario{
 	
 	private String crm;
 	private String especialidade;
+	private final Integer id = 2;
 	
 	
 	
@@ -44,6 +45,11 @@ public class Medico extends Funcionario{
 	public void setEspecialidade(String especialidade) {
 		this.especialidade = especialidade;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+	
 	
 	
 }
