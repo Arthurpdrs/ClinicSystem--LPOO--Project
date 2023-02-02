@@ -26,6 +26,7 @@ public class FuncionarioDAO {
 		if(resultadoRecepcionista.next() == true) {
 			senha = resultadoRecepcionista.getString("Senha");
 			funcionario.setSenha(senha); 
+			System.setProperty("cargo", "Recepcionista");
 		} else {
 			String sqlSelectMedico = "SELECT * FROM Recepcionista WHERE Login = ?";
 			PreparedStatement selectMedico = funcionarioDAO.getConexao().prepareStatement(sqlSelectMedico);
@@ -35,7 +36,8 @@ public class FuncionarioDAO {
 			
 			if(resultadoMedico.next() == true) {
 				senha = resultadoMedico.getString("Senha");
-				funcionario.setSenha(senha); 
+				funcionario.setSenha(senha);
+				System.setProperty("cargo", "Medico");
 				} else {
 					String sqlSelectAdmin = "SELECT * FROM Administrador WHERE Login = ?";
 					PreparedStatement selectAdmin = funcionarioDAO.getConexao().prepareStatement(sqlSelectAdmin);
@@ -44,6 +46,7 @@ public class FuncionarioDAO {
 					ResultSet resultadoAdmin = selectAdmin.executeQuery();
 					if(resultadoAdmin.next() == true) {
 						senha = resultadoAdmin.getString("Senha");
+						System.setProperty("cargo", "Administrador");
 						funcionario.setSenha(senha); 
 					} else {
 						funcionario.setSenha(null);

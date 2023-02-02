@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.EventQueue;
 import java.awt.Insets;
 
 import javax.swing.JFrame;
@@ -9,6 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import core.services.FuncionarioService;
+
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -16,6 +18,7 @@ import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 public class JanelaLogin {
 
@@ -24,7 +27,7 @@ public class JanelaLogin {
 	private JLabel usuarioLbl;
 	private JLabel fotoInicial;
 	private JLabel erroLbl;
-	private JPasswordField passwordField;
+	private JPasswordField senhaTextField;
 
 	/**
 	 * Create the application.
@@ -80,7 +83,7 @@ public class JanelaLogin {
 		fotoInicial.setBounds(37, 110, 588, 434);
 		frmClinicsystem.getContentPane().add(fotoInicial);
 		
-		erroLbl = new JLabel("Ocorreu um erro inesperado. Tente novamente.");
+		erroLbl = new JLabel("");
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		erroLbl.setForeground(new Color(0, 102, 204));
@@ -89,12 +92,12 @@ public class JanelaLogin {
 		erroLbl.setBounds(699, 195, 380, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
-		passwordField = new JPasswordField();
-		passwordField.setToolTipText("Senha");
-		passwordField.setCaretColor(Color.GRAY);
-		passwordField.setMargin(new Insets(10, 10, 10, 10));
-		passwordField.setBounds(699, 401, 380, 50);
-		frmClinicsystem.getContentPane().add(passwordField);
+		senhaTextField = new JPasswordField();
+		senhaTextField.setToolTipText("Senha");
+		senhaTextField.setCaretColor(Color.GRAY);
+		senhaTextField.setMargin(new Insets(10, 10, 10, 10));
+		senhaTextField.setBounds(699, 401, 380, 50);
+		frmClinicsystem.getContentPane().add(senhaTextField);
 		
 		JLabel senhaLbl = new JLabel("Senha:");
 		senhaLbl.setOpaque(true);
@@ -118,22 +121,32 @@ public class JanelaLogin {
 		
 		entrarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
-		 
-		    	//Janela principal Admin
-		    	JanelaPrincipalAdmin janelaAdministrador = new JanelaPrincipalAdmin();
-		    	janelaAdministrador.getJanela().setVisible(true);
+		    	String login = usuarioTextField.getText().toLowerCase().trim();
+		    	String senha = new String(senhaTextField.getPassword());
 		    	
-		    	//Janela principal Recepcionista
-		    	JanelaPrincipalRecepcionista janelaRecepcionista = new JanelaPrincipalRecepcionista();
-		    	janelaRecepcionista.getJanela().setVisible(true);
-		    	
-		    	//Janela principal Médico
-		    	JanelaPrincipalMedico janelaMedico = new JanelaPrincipalMedico();
-		    	janelaMedico.getJanela().setVisible(true);
-		    	
-		    	//Esconde a janela de login
-		    	frmClinicsystem.dispose();
+		        try {
+		        	FuncionarioService funcionarioService = new FuncionarioService();
+					if (funcionarioService.fazerLogin(login, senha)) {
+						erroLbl.setText("Login realizado com sucesso");
+						String cargo = System.getProperty("cargo");
+						if (cargo.equals("Recepcionista")) {
+							JanelaPrincipalRecepcionista janelaRecepcionista = new JanelaPrincipalRecepcionista();
+					    	janelaRecepcionista.getJanela().setVisible(true);
+						} else if (cargo.equals("Medico")) {
+							JanelaPrincipalMedico janelaMedico = new JanelaPrincipalMedico();
+					    	janelaMedico.getJanela().setVisible(true);
+						} else {
+							JanelaPrincipalAdmin janelaAdministrador = new JanelaPrincipalAdmin();
+					    	janelaAdministrador.getJanela().setVisible(true);
+						}
+						frmClinicsystem.dispose();
+					} else {
+						erroLbl.setText("Verifique os valores informados");
+					}
+			
+				} catch (SQLException e) {
+					erroLbl.setText("Ocorreu um erro inesperado. Tente novamente.");
+				}
 		    }
 		});
 		
