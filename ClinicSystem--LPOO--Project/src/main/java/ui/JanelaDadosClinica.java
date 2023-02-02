@@ -204,7 +204,7 @@ public class JanelaDadosClinica {
 		frmClinicsystem.getContentPane().add(numeroLbl);
 		
 		try {
-			telefoneTextField = new JFormattedTextField(new MaskFormatter("(**) *****-****"));
+			telefoneTextField = new JFormattedTextField(new MaskFormatter("** *****-****"));
 		} catch (ParseException e2) {
 			erroLbl.setText("Ocorreu um erro inesperado. Tente novamente.");
 		}
