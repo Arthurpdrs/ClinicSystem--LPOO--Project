@@ -19,29 +19,12 @@ import java.awt.event.WindowEvent;
 
 public class JanelaLogin {
 
-	private JFrame frmClinicsystem;
+	JFrame frmClinicsystem;
 	private JTextField usuarioTextField;
 	private JLabel usuarioLbl;
 	private JLabel fotoInicial;
 	private JLabel erroLbl;
 	private JPasswordField passwordField;
-
-	/**
-	 * Launch the application.
-	 */
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaLogin window = new JanelaLogin();
-					window.frmClinicsystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
