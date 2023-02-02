@@ -8,6 +8,10 @@ public class Admin extends Funcionario {
 		super(nome, telefone, email, cpf, login, senha);
 	}
 	
+	public Admin() {
+		super();
+	}
+	
 	public Integer getId() {
 		return id;
 	}
