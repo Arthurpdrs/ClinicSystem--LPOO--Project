@@ -4,7 +4,7 @@ import java.sql.Time;
 import java.util.Date;
 
 public class Consulta {
-	private Date dataConsulta;
+	private String dataConsulta;
 	private Time horario;
 	private Medico medico;
 	private Paciente paciente;
@@ -13,7 +13,7 @@ public class Consulta {
 	
 
 	public Consulta(
-			Date dataConsulta,
+			String dataConsulta,
 			String horario,
 			Medico medico,
 			Paciente paciente,
@@ -30,11 +30,11 @@ public class Consulta {
 	public Consulta() {}
 
 
-	public Date getDataConsulta() {
+	public String getDataConsulta() {
 		return dataConsulta;
 	}
 
-	public void setDataConsulta(Date dataConsulta) {
+	public void setDataConsulta(String dataConsulta) {
 		this.dataConsulta = dataConsulta;
 	}
 

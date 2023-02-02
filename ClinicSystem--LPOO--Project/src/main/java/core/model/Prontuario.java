@@ -8,7 +8,7 @@ public class Prontuario {
 	
 	private String queixa;
 	private String prescricao;
-	private Date data;
+	private String data;
 	private Medico medico;
 	private Paciente paciente;
 	private String observacao;
@@ -16,7 +16,7 @@ public class Prontuario {
 	public Prontuario(
 			String queixa,
 			String prescricao,
-			Date data,
+			String data,
 			Medico medico,
 			Paciente paciente,
 			String observacao) {
@@ -46,11 +46,11 @@ public class Prontuario {
 		this.prescricao = prescricao;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 

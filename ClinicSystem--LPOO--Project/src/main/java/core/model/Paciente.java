@@ -6,7 +6,7 @@ public class Paciente extends Pessoa{
 	
 	private String tipoSanguineo;
 	private String alergia;
-	private Date dataNascimento;
+	private String dataNascimento;
 	private String responsavel;
 	private Endereco endereco;
 	
@@ -18,7 +18,7 @@ public class Paciente extends Pessoa{
 			String cpf,
 			String tipoSanguineo,
 			String alergia,
-			Date dataNascimento,
+			String dataNascimento,
 			Endereco endereco) {
 		super(nome, telefone, email, cpf);
 		this.tipoSanguineo = tipoSanguineo;
@@ -52,12 +52,12 @@ public class Paciente extends Pessoa{
 	}
 
 
-	public Date getDataNascimento() {
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
 
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
