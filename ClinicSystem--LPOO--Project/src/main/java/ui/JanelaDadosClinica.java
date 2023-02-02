@@ -9,13 +9,17 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
 
 import core.model.Clinica;
 import core.services.ClinicaService;
+import core.services.TextFieldService;
 
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -23,6 +27,9 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 public class JanelaDadosClinica {
 
 	private JFrame frmClinicsystem;
@@ -30,7 +37,6 @@ public class JanelaDadosClinica {
 	private JLabel nomeLbl;
 	private JLabel erroLbl;
 	private JLabel barraAzul;
-	private JLabel logoMenu;
 	private JLabel titulodapaginaLbl;
 	private JLabel senhaLbl;
 	private JLabel numeroLbl;
@@ -86,6 +92,20 @@ public class JanelaDadosClinica {
 			}
 		});
 		
+		JButton logoMenuBtn = new JButton("");
+		logoMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		logoMenuBtn.setOpaque(false);
+		logoMenuBtn.setContentAreaFilled(false);
+		logoMenuBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		logoMenuBtn.setBorderPainted(false);
+		logoMenuBtn.setBorder(null);
+		logoMenuBtn.setIcon(new ImageIcon(JanelaDadosClinica.class.getResource("/midia/logo_menu.png")));
+		logoMenuBtn.setBounds(919, -1, 160, 55);
+		frmClinicsystem.getContentPane().add(logoMenuBtn);
+		
 		titulodapaginaLbl = new JLabel("Alterar dados da clínica");
 		titulodapaginaLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		titulodapaginaLbl.setForeground(Color.WHITE);
@@ -93,11 +113,6 @@ public class JanelaDadosClinica {
 		titulodapaginaLbl.setBackground(Color.WHITE);
 		titulodapaginaLbl.setBounds(22, -1, 380, 55);
 		frmClinicsystem.getContentPane().add(titulodapaginaLbl);
-		
-		logoMenu = new JLabel("");
-		logoMenu.setIcon(new ImageIcon(JanelaDadosClinica.class.getResource("/midia/logo_menu.png")));
-		logoMenu.setBounds(919, -1, 160, 55);
-		frmClinicsystem.getContentPane().add(logoMenu);
 		
 		nomeLbl = new JLabel("Nome da clínica:");
 		nomeLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -113,7 +128,7 @@ public class JanelaDadosClinica {
 		barraAzul.setOpaque(true);
 		frmClinicsystem.getContentPane().add(barraAzul);
 		
-		nomeTextField = new JTextField();
+		nomeTextField = new JTextField(new TextFieldService(100), null, 0);
 		nomeTextField.setText("ClinicSystem");
 		nomeTextField.setToolTipText("");
 		nomeTextField.setActionCommand("");
@@ -154,18 +169,21 @@ public class JanelaDadosClinica {
 		        String email = emailTextField.getText();
 		        String senha = new String (senhaTextField.getPassword());
 		        
-		        ClinicaService clinicaService = new ClinicaService();
-				try {
-					boolean retorno = clinicaService.atualizarDadosDaClinica(nome, email, senha, telefone, endereco);
-					if (retorno == true) {
-						erroLbl.setText("Dados atualizados com sucesso");
-					} else {
-						erroLbl.setText("Preencha todos os campos");
+		        if (TextFieldService.validarEmail(email) == false) {
+		        	erroLbl.setText("Verifique o e-mail informado");
+		        } else {
+			        ClinicaService clinicaService = new ClinicaService();
+					try {
+						boolean retorno = clinicaService.atualizarDadosDaClinica(nome, email, senha, telefone, endereco);
+						if (retorno == true) {
+							erroLbl.setText("Dados atualizados com sucesso");
+						} else {
+							erroLbl.setText("Preencha todos os campos");
+						}
+					} catch (SQLException e) {
+						erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
 					}
-				} catch (SQLException e) {
-					erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
-				}
-		        
+		        }
 		    }
 		});
 		
@@ -185,7 +203,11 @@ public class JanelaDadosClinica {
 		numeroLbl.setBounds(22, 161, 380, 24);
 		frmClinicsystem.getContentPane().add(numeroLbl);
 		
-		telefoneTextField = new JTextField();
+		try {
+			telefoneTextField = new JFormattedTextField(new MaskFormatter("(**) *****-****"));
+		} catch (ParseException e2) {
+			erroLbl.setText("Ocorreu um erro inesperado. Tente novamente.");
+		}
 		telefoneTextField.setToolTipText("");
 		telefoneTextField.setMargin(new Insets(10, 10, 10, 10));
 		telefoneTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -226,8 +248,8 @@ public class JanelaDadosClinica {
 		    }
 		});
 		
-		emailTextField = new JTextField();
-		emailTextField.setText("clinicsystem@hotmail.com");
+		emailTextField = new JTextField(new TextFieldService(100), null, 0);
+		emailTextField.setText("");
 		emailTextField.setToolTipText("");
 		emailTextField.setMargin(new Insets(10, 10, 10, 10));
 		emailTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -239,14 +261,14 @@ public class JanelaDadosClinica {
 		emailTextField.setBounds(412, 100, 380, 50);
 		frmClinicsystem.getContentPane().add(emailTextField);
 		
-		senhaTextField = new JPasswordField();
+		senhaTextField = new JPasswordField(new TextFieldService(15), null, 0);
 		senhaTextField.setBackground(Color.WHITE);
 		senhaTextField.setForeground(Color.GRAY);
 		senhaTextField.setFont(new Font("Arial", Font.PLAIN, 12));
 		senhaTextField.setBounds(802, 100, 277, 50);
 		frmClinicsystem.getContentPane().add(senhaTextField);
 		
-		enderecoTextField = new JTextField();
+		enderecoTextField = new JTextField(new TextFieldService(100), null, 0);
 		enderecoTextField.setToolTipText("");
 		enderecoTextField.setMargin(new Insets(10, 10, 10, 10));
 		enderecoTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -287,5 +309,4 @@ public class JanelaDadosClinica {
 			}
 		});
 	}
-	
 }
