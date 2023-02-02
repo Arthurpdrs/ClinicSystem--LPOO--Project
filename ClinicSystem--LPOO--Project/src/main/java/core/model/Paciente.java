@@ -7,9 +7,8 @@ public class Paciente extends Pessoa{
 	private String tipoSanguineo;
 	private String alergia;
 	private String dataNascimento;
-	private String responsavel;
-	private Endereco endereco;
-	
+	private Responsavel responsavel;
+	private String endereco;
 
 	public Paciente(
 			String nome,
@@ -19,7 +18,7 @@ public class Paciente extends Pessoa{
 			String tipoSanguineo,
 			String alergia,
 			String dataNascimento,
-			Endereco endereco) {
+			String endereco) {
 		super(nome, telefone, email, cpf);
 		this.tipoSanguineo = tipoSanguineo;
 		this.alergia = alergia;
@@ -62,22 +61,22 @@ public class Paciente extends Pessoa{
 	}
 
 
-	public String getResponsavel() {
+	public Responsavel getResponsavel() {
 		return responsavel;
 	}
 
 
-	public void setResponsavel(String responsavel) {
+	public void setResponsavel(Responsavel responsavel) {
 		this.responsavel = responsavel;
 	}
 
 
-	public Endereco getEndereco() {
+	public String getEndereco() {
 		return endereco;
 	}
 
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 	

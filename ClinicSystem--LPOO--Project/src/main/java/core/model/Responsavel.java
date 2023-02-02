@@ -11,6 +11,8 @@ public class Responsavel extends Pessoa{
 		
 	}
 	
-	
+	public Responsavel () {
+		
+	}
 
 }
