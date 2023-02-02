@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import core.model.Clinica;
 
-public class ClinicaDAO extends FabricaConexao{
+public class ClinicaDAO {
 	FabricaConexao clinicaDAO = new FabricaConexao();
 	
 

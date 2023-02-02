@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import core.model.Admin;
 
-public class AdminDAO extends FabricaConexao {
+public class AdminDAO{
 	
 	FabricaConexao adminDao = new FabricaConexao();
 	
