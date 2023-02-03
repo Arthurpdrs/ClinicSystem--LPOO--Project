@@ -2,6 +2,7 @@ package core.services;
 
 import java.util.regex.Pattern;
 
+import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
@@ -55,6 +56,21 @@ public class TextFieldService extends PlainDocument {
     		return true;
     	} else {
     		return false;
+    	}
+    }
+    
+    public static boolean validarTextFieldNumerica(JTextField textField) {
+    	String numero = textField.getText();
+    	String string = numero.replaceAll("\\s+", "").replaceAll("-", "");
+    	if (string.length() != 11) {
+    		return true;
+    	} else {
+    		if (string.matches("[0-9]+")) {
+    			return true;
+    		} else {
+	    		textField.setText("");
+	    		return false;
+    		}
     	}
     }
     

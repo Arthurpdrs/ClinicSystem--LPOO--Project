@@ -29,6 +29,8 @@ import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 public class JanelaDadosClinica {
 
@@ -217,6 +219,14 @@ public class JanelaDadosClinica {
 		telefoneTextField.setBackground(Color.WHITE);
 		telefoneTextField.setActionCommand("");
 		telefoneTextField.setBounds(22, 196, 380, 50);
+		telefoneTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(telefoneTextField))) {
+					erroLbl.setText("O campo telefone deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(telefoneTextField);
 		
 		emailLbl = new JLabel("E-mail para envio de lembretes (Outlook):");
