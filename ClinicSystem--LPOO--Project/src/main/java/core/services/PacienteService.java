@@ -18,6 +18,7 @@ public class PacienteService {
 			PacienteDAO pacienteDAO = new PacienteDAO();
 			List<Paciente> pacientes = pacienteDAO.listarPacientes();
 			
+                        model.setNumRows(0);
 			if (pacientes.size() > 0) {
 				for (Paciente paciente : pacientes) {
 						model.addRow(new Object[] {
