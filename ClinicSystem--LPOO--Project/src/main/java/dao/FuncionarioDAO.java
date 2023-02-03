@@ -10,52 +10,64 @@ public class FuncionarioDAO {
 	
 	FabricaConexao funcionarioDAO = new FabricaConexao();
 	
-	public Funcionario verificarLogin(String login) throws SQLException {
+	public Funcionario verificar(String login) throws SQLException {
 		String senha;
 		
 		Funcionario funcionario = new Funcionario();
 		funcionario.setLogin(login);
 		
-		String sqlSelectRecepcionista = "SELECT * FROM Recepcionista WHERE Login = ?";
+		String sqlSelectLogin = "SELECT * FROM Login WHERE Usuario = ?";
 		
-		PreparedStatement selectRecepcionista = funcionarioDAO.getConexao().prepareStatement(sqlSelectRecepcionista);
-		selectRecepcionista.setString(1, login);
+		PreparedStatement selectLogin = funcionarioDAO.getConexao().prepareStatement(sqlSelectLogin);
+		selectLogin.setString(1, login);
 		
-		ResultSet resultadoRecepcionista = selectRecepcionista.executeQuery();
+		ResultSet resultadoLogin = selectLogin.executeQuery();
 		
-		if(resultadoRecepcionista.next() == true) {
-			senha = resultadoRecepcionista.getString("Senha");
-			funcionario.setSenha(senha); 
-			System.setProperty("cargo", "Recepcionista");
-		} else {
-			String sqlSelectMedico = "SELECT * FROM Recepcionista WHERE Login = ?";
-			PreparedStatement selectMedico = funcionarioDAO.getConexao().prepareStatement(sqlSelectMedico);
-			selectMedico.setString(1, login);
-			
-			ResultSet resultadoMedico = selectMedico.executeQuery();
-			
-			if(resultadoMedico.next() == true) {
-				senha = resultadoMedico.getString("Senha");
-				funcionario.setSenha(senha);
-				System.setProperty("cargo", "Medico");
+		if(resultadoLogin.next() == true) {
+			if (!(resultadoLogin.getString("Senha").equals(null) || resultadoLogin.getString("Usuario").equals(null) || resultadoLogin.getString("Cargo").equals(null))) {
+				senha = resultadoLogin.getString("Senha");
+				funcionario.setSenha(senha); 
+				
+				String cargo = resultadoLogin.getString("Cargo");
+				
+				if (cargo.equals("MEDICO")) {
+					System.setProperty("cargo", "Medico");
+				} else if (cargo.equals("RECEPCIONISTA")) {
+					System.setProperty("cargo", "Recepcionista");
 				} else {
-					String sqlSelectAdmin = "SELECT * FROM Administrador WHERE Login = ?";
-					PreparedStatement selectAdmin = funcionarioDAO.getConexao().prepareStatement(sqlSelectAdmin);
-					selectAdmin.setString(1, login);
-					
-					ResultSet resultadoAdmin = selectAdmin.executeQuery();
-					if(resultadoAdmin.next() == true) {
-						senha = resultadoAdmin.getString("Senha");
-						System.setProperty("cargo", "Administrador");
-						funcionario.setSenha(senha); 
-					} else {
-						funcionario.setSenha(null);
-					}
+					System.setProperty("cargo", "Administrador");
+				}
+				
+			} else {
+				funcionario.setSenha(null);
 			}
+		} else {
+			funcionario.setSenha(null);
 		}
 		
 		funcionarioDAO.fecharConexao();
 		return funcionario;
 	}		
+	
+	public boolean inserir(String usuario, String cargo, String senha, String cpf) throws SQLException {
+			String sqlInsertLogin = "INSERT INTO Login (Usuario, Cargo, Senha, CPF) VALUES (?, ?, ?, ?)";
+			PreparedStatement insertLogin = funcionarioDAO.getConexao().prepareStatement(sqlInsertLogin);
+			insertLogin.setString(1, usuario);
+			insertLogin.setString(2, cargo);
+			insertLogin.setString(3, senha);
+			insertLogin.setString(4, cpf);
+			boolean execucao = insertLogin.execute();
+			funcionarioDAO.fecharConexao();
+			return execucao;
+	}
+	
+	public boolean deletar(String cpf) throws SQLException {
+		String sqlDeletarLogin = "DELETE FROM Login WHERE CPF = ?";
+		PreparedStatement deleteLogin = funcionarioDAO.getConexao().prepareStatement(sqlDeletarLogin);
+		deleteLogin.setString(1, cpf);
+		boolean execucao = deleteLogin.execute();
+		funcionarioDAO.fecharConexao();
+		return execucao;
+	}
 	
 }
