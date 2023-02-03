@@ -96,10 +96,12 @@ public class PacienteService {
 					paciente.setAlergia(pacienteFor.getAlergia());
 					paciente.setObservacao(pacienteFor.getObservacao());
 					paciente.setDataNascimento(pacienteFor.getDataNascimento());
-					if (paciente.getResponsavel() != null) {
-						if (paciente.getResponsavel().getNome() != null) {
+					
+					if (pacienteFor.getResponsavel() != null) {
+						if (pacienteFor.getResponsavel().getNome() != null && pacienteFor.getResponsavel().getCpf() != null) {
 							Responsavel responsavel = new Responsavel();
 							responsavel.setNome(pacienteFor.getResponsavel().getNome());
+							responsavel.setCpf(pacienteFor.getResponsavel().getCpf());
 							paciente.setResponsavel(responsavel);
 						}
 					}

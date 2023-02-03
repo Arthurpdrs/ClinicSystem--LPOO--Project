@@ -174,7 +174,13 @@ public class JanelaAgendarConsulta {
 		
 		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	String celular = celularTextField.getText();
+		        String cpf = cpfTextField.getText();
+		        String email =emailTextField.getText();
+		        String horario = horarioTextField.getText();
+		        String valor = valorTextField.getText();
+		        String observacao =observacaoTextField.getText();
+		        String nomeResponsavel = responsavelTextField.getText();
 		    }
 		});
 		
@@ -508,8 +514,8 @@ public class JanelaAgendarConsulta {
 			    		emailTextField.setText(paciente.getEmail());
 			    		celularTextField.setText(paciente.getTelefone());
 			    		observacaoTextField.setText(paciente.getObservacao());
-			    		if (paciente.getResponsavel() != null && paciente.getResponsavel().getNome() != null) {
-			    			responsavelTextField.setText(paciente.getResponsavel().getNome());
+			    		if (paciente.getResponsavel() != null && paciente.getResponsavel().getNome() != null && paciente.getResponsavel().getCpf() != null) {
+			    			responsavelTextField.setText("(" + paciente.getResponsavel().getCpf() + ") " + paciente.getResponsavel().getNome());
 			    		}
 			    		avisoLbl.setText("");
 			    	} else {
