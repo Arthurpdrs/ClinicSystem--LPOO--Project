@@ -62,7 +62,7 @@ public class PacienteDAO {
 	public List<Paciente> filtrar(String cpf) throws SQLException{
 		String sql = "SELECT * FROM Paciente WHERE CPF = ?";
 		List<Paciente> retornoLista = new ArrayList();
-
+		
 		PreparedStatement select = conexao.getConexao().prepareStatement(sql);
 		select.setString(1, cpf);
 		ResultSet resultado = select.executeQuery();

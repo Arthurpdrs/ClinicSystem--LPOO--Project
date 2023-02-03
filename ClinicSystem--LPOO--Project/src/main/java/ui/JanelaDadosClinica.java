@@ -172,7 +172,7 @@ public class JanelaDadosClinica {
 		        String senha = new String (senhaTextField.getPassword());
 		        
 		        if (TextFieldService.validarEmail(email) == false) {
-		        	erroLbl.setText("Verifique o e-mail informado");
+		        	erroLbl.setText("Formato invalido de e-mail");
 		        } else {
 			        ClinicaService clinicaService = new ClinicaService();
 					try {

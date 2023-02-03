@@ -8,9 +8,15 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
+import javax.swing.text.MaskFormatter;
 import javax.swing.SwingConstants;
 
+import core.model.Paciente;
+import core.services.MedicoService;
+import core.services.PacienteService;
 import core.services.TextFieldService;
+import dao.PacienteDAO;
 
 import java.awt.Font;
 import javax.swing.JButton;
@@ -19,8 +25,14 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
+import java.text.ParseException;
 
 public class JanelaAgendarConsulta {
 
@@ -137,9 +149,10 @@ public class JanelaAgendarConsulta {
 		nomeTextField.setHorizontalAlignment(SwingConstants.LEFT);
 		nomeTextField.setBounds(32, 196, 380, 50);
 		nomeTextField.setColumns(10);
+		nomeTextField.setEditable(false);
 		frmClinicsystem.getContentPane().add(nomeTextField);
 		
-		erroLbl = new JLabel("Consulta agendada com sucesso");
+		erroLbl = new JLabel("");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -174,7 +187,7 @@ public class JanelaAgendarConsulta {
 		cpfLbl.setBounds(812, 161, 277, 24);
 		frmClinicsystem.getContentPane().add(cpfLbl);
 		
-		cpfTextField = new JTextField(new TextFieldService(12), null, 0);
+		cpfTextField = new JTextField(new TextFieldService(11), null, 0);
 		cpfTextField.setToolTipText("");
 		cpfTextField.setMargin(new Insets(10, 10, 10, 10));
 		cpfTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -184,6 +197,15 @@ public class JanelaAgendarConsulta {
 		cpfTextField.setBackground(Color.WHITE);
 		cpfTextField.setActionCommand("");
 		cpfTextField.setBounds(812, 196, 277, 50);
+		cpfTextField.setEditable(false);
+		cpfTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(cpfTextField))) {
+					erroLbl.setText("O campo CPF deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(cpfTextField);
 		
 		emailLbl = new JLabel("*E-mail:");
@@ -204,6 +226,7 @@ public class JanelaAgendarConsulta {
 		emailTextField.setBackground(Color.WHITE);
 		emailTextField.setActionCommand("");
 		emailTextField.setBounds(422, 196, 380, 50);
+		emailTextField.setEditable(false);
 		frmClinicsystem.getContentPane().add(emailTextField);
 		
 		CelularLbl = new JLabel("*Celular:");
@@ -214,7 +237,11 @@ public class JanelaAgendarConsulta {
 		CelularLbl.setBounds(32, 257, 380, 24);
 		frmClinicsystem.getContentPane().add(CelularLbl);
 		
-		celularTextField = new JTextField(new TextFieldService(13), null, 0);
+		try {
+			celularTextField = new JFormattedTextField(new MaskFormatter("** *****-****"));
+		} catch (ParseException e1) {
+			erroLbl.setText("Ocorreu um erro inesperado");
+		}
 		celularTextField.setToolTipText("");
 		celularTextField.setMargin(new Insets(10, 10, 10, 10));
 		celularTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -224,6 +251,15 @@ public class JanelaAgendarConsulta {
 		celularTextField.setBackground(Color.WHITE);
 		celularTextField.setActionCommand("");
 		celularTextField.setBounds(32, 292, 380, 50);
+		celularTextField.setEditable(false);
+		celularTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(celularTextField))) {
+					erroLbl.setText("O campo telefone deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(celularTextField);
 		
 		responsavelLbl = new JLabel("Responsável");
@@ -243,6 +279,7 @@ public class JanelaAgendarConsulta {
 		responsavelTextField.setColumns(10);
 		responsavelTextField.setBackground(Color.WHITE);
 		responsavelTextField.setActionCommand("");
+		responsavelTextField.setEditable(false);
 		responsavelTextField.setBounds(32, 388, 380, 50);
 		frmClinicsystem.getContentPane().add(responsavelTextField);
 		
@@ -263,6 +300,7 @@ public class JanelaAgendarConsulta {
 		observacaoTextField.setColumns(10);
 		observacaoTextField.setBackground(Color.WHITE);
 		observacaoTextField.setActionCommand("");
+		observacaoTextField.setEditable(false);
 		observacaoTextField.setBounds(422, 292, 380, 50);
 		frmClinicsystem.getContentPane().add(observacaoTextField);
 		
@@ -282,11 +320,11 @@ public class JanelaAgendarConsulta {
 		dataDaConsultaLbl.setBounds(812, 353, 277, 24);
 		frmClinicsystem.getContentPane().add(dataDaConsultaLbl);
 		
-		JComboBox especialidadeComboBox = new JComboBox();
+		final JComboBox especialidadeComboBox = new JComboBox();
 		especialidadeComboBox.setFont(new Font("Arial", Font.PLAIN, 12));
 		especialidadeComboBox.setForeground(new Color(128, 128, 128));
 		especialidadeComboBox.setBackground(Color.WHITE);
-		especialidadeComboBox.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UMA ESPECIALIDADE", "CLÍNICA MÉDICA", "PEDIATRIA", "GINECOLOGIA", "UROLOGIA", "PSIQUIATRIA", "ANGIOLOGIA", "OFTALMOLOGIA", "OTORRINOLARINGOLOGIA", "GASTROENTEROLOGIA"}));
+		especialidadeComboBox.setModel(new DefaultComboBoxModel(new String[] {"CLÍNICA MÉDICA", "PEDIATRIA", "GINECOLOGIA", "UROLOGIA", "PSIQUIATRIA", "ANGIOLOGIA", "OFTALMOLOGIA", "OTORRINOLARINGOLOGIA", "GASTROENTEROLOGIA"}));
 		especialidadeComboBox.setBounds(812, 292, 277, 50);
 		frmClinicsystem.getContentPane().add(especialidadeComboBox);
 		
@@ -295,7 +333,7 @@ public class JanelaAgendarConsulta {
 		dataDaConsultaDateChooser.setBounds(812, 388, 277, 50);
 		frmClinicsystem.getContentPane().add(dataDaConsultaDateChooser);
 		
-		codigoDoPacienteTextField = new JTextField(new TextFieldService(12), null, 0);
+		codigoDoPacienteTextField = new JTextField(new TextFieldService(11), null, 0);
 		codigoDoPacienteTextField.setToolTipText("");
 		codigoDoPacienteTextField.setMargin(new Insets(10, 10, 10, 10));
 		codigoDoPacienteTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -305,9 +343,16 @@ public class JanelaAgendarConsulta {
 		codigoDoPacienteTextField.setBackground(Color.WHITE);
 		codigoDoPacienteTextField.setActionCommand("");
 		codigoDoPacienteTextField.setBounds(32, 100, 955, 50);
+		codigoDoPacienteTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(codigoDoPacienteTextField))) {
+					erroLbl.setText("O campo CPF deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(codigoDoPacienteTextField);
-		
-		//Botão
+
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		limparBtn.setForeground(Color.GRAY);
@@ -320,7 +365,16 @@ public class JanelaAgendarConsulta {
 		
 		limparBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		        celularTextField.setText("");
+		        codigoDoPacienteTextField.setText("");
+		        cpfTextField.setText("");
+		        emailTextField.setText("");
+		        horarioTextField.setText("");
+		        responsavelTextField.setText("");
+		        valorTextField.setText("");
+		        observacaoTextField.setText("");
+		        erroLbl.setText("");
+		        avisoLbl.setText("");
 		    }
 		});
 		
@@ -348,7 +402,11 @@ public class JanelaAgendarConsulta {
 		horarioLbl.setBounds(32, 449, 380, 24);
 		frmClinicsystem.getContentPane().add(horarioLbl);
 		
-		horarioTextField = new JTextField();
+		try {
+			horarioTextField = new JFormattedTextField(new MaskFormatter("**:**"));
+		} catch (ParseException e1) {
+			erroLbl.setText("Ocorreu um erro inesperado");
+		}
 		horarioTextField.setToolTipText("");
 		horarioTextField.setMargin(new Insets(10, 10, 10, 10));
 		horarioTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -358,9 +416,17 @@ public class JanelaAgendarConsulta {
 		horarioTextField.setBackground(Color.WHITE);
 		horarioTextField.setActionCommand("");
 		horarioTextField.setBounds(32, 484, 380, 50);
+		horarioTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldHorario(horarioTextField))) {
+					erroLbl.setText("O campo de horário deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(horarioTextField);
 		
-		valorTextField = new JTextField(new TextFieldService(100), null, 0);
+		valorTextField = new JTextField(new TextFieldService(11), null, 0);
 		valorTextField.setToolTipText("");
 		valorTextField.setMargin(new Insets(10, 10, 10, 10));
 		valorTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -370,6 +436,14 @@ public class JanelaAgendarConsulta {
 		valorTextField.setBackground(Color.WHITE);
 		valorTextField.setActionCommand("");
 		valorTextField.setBounds(422, 484, 380, 50);
+		valorTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(valorTextField))) {
+					erroLbl.setText("O campo valor deve conter apenas números e ter no máximo 11 caracteres");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(valorTextField);
 		
 		valorLbl = new JLabel("Valor:");
@@ -396,7 +470,6 @@ public class JanelaAgendarConsulta {
 		estadoLbl.setBounds(812, 449, 277, 24);
 		frmClinicsystem.getContentPane().add(estadoLbl);
 		
-		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaAgendarConsulta.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));
@@ -409,11 +482,31 @@ public class JanelaAgendarConsulta {
 		
 		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	erroLbl.setText("");
+		    	String cpf = codigoDoPacienteTextField.getText();
+		    	try {
+			    	PacienteService pacienteService = new PacienteService();
+			    	Paciente paciente = pacienteService.retornarPacienteFiltrado(cpf);
+			    	if (paciente != null) {
+			    		cpfTextField.setText(paciente.getCpf());
+			    		nomeTextField.setText(paciente.getNome());
+			    		emailTextField.setText(paciente.getEmail());
+			    		celularTextField.setText(paciente.getTelefone());
+			    		observacaoTextField.setText(paciente.getObservacao());
+			    		if (paciente.getResponsavel() != null && paciente.getResponsavel().getNome() != null) {
+			    			responsavelTextField.setText(paciente.getResponsavel().getNome());
+			    		}
+			    		avisoLbl.setText("");
+			    	} else {
+			    		avisoLbl.setText("Não foi possível encontrar o paciente");
+			    	}
+				} catch (SQLException e) {
+		    		avisoLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+				}
 		    	}
 		});
 		
-		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
+		avisoLbl = new JLabel("");
 		avisoLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		avisoLbl.setOpaque(true);
 		avisoLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -436,5 +529,18 @@ public class JanelaAgendarConsulta {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+
+		        MedicoService medicoService = new MedicoService();
+		        try {
+					medicoService.visualizarMedicos(medicoComboBox);
+					medicoService.visualizarEspecialidades(especialidadeComboBox);
+				} catch (SQLException e) {
+					erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+				}
+			}
+		});
 	}
 }

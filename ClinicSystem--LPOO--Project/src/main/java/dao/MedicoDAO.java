@@ -32,6 +32,18 @@ FabricaConexao medicoDAO = new FabricaConexao();
 		return retorno;
 	}
 	
+    public List<String> listarEspecialidades() throws SQLException {
+    	String sql = "SELECT DISTINCT Especialidade FROM Medico";
+		List<String> retorno = new ArrayList();
+		PreparedStatement stmt = medicoDAO.getConexao().prepareStatement(sql);
+		ResultSet resultado = stmt.executeQuery();
+		while(resultado.next()) {
+			retorno.add(resultado.getString("Especialidade"));
+		}
+		medicoDAO.fecharConexao();
+		return retorno;
+	}
+    
 	public boolean inserir(Medico medico) throws SQLException {
 		String sql = "INSERT INTO Medico(CPF, Nome, Telefone, Email, Login, Senha, CRM, Especialidade) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = medicoDAO.getConexao().prepareStatement(sql);

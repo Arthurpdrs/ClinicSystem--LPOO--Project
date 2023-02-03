@@ -78,6 +78,38 @@ public class PacienteService {
 			return false;
 	}
 	
+	public Paciente retornarPacienteFiltrado(String cpf) throws SQLException {
+		if (cpf.isBlank() || (TextFieldService.validarNumero(cpf) == false)) {
+			return null;
+		} else {
+			PacienteDAO pacienteDAO = new PacienteDAO();
+			List<Paciente> pacientes = pacienteDAO.filtrar(cpf);
+			Paciente paciente = new Paciente ();
+			if (pacientes.size() > 0) {
+				for (Paciente pacienteFor : pacientes) {
+					paciente.setNome(pacienteFor.getNome());;
+					paciente.setEndereco(pacienteFor.getEndereco());
+					paciente.setCpf(pacienteFor.getCpf());
+					paciente.setEmail(pacienteFor.getEmail());
+					paciente.setTelefone(pacienteFor.getTelefone());
+					paciente.setTipoSanguineo(pacienteFor.getTipoSanguineo());
+					paciente.setAlergia(pacienteFor.getAlergia());
+					paciente.setObservacao(pacienteFor.getObservacao());
+					paciente.setDataNascimento(pacienteFor.getDataNascimento());
+					if (paciente.getResponsavel() != null) {
+						if (paciente.getResponsavel().getNome() != null) {
+							Responsavel responsavel = new Responsavel();
+							responsavel.setNome(pacienteFor.getResponsavel().getNome());
+							paciente.setResponsavel(responsavel);
+						}
+					}
+					return paciente;
+				} 
+			}
+		}
+		return null;
+	}
+	
 	public void cadastrar(String nome, String telefone, String email, String cpf,
 			String tipoSanguineo, String alergia, String dataNascimento, String endereco, String observacao) throws SQLException {
 		
