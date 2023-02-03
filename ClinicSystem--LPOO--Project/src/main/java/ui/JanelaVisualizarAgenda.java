@@ -142,7 +142,7 @@ public class JanelaVisualizarAgenda {
 		    	   //Pega qual é a data selecionada no calendário
 		    	   Date dataInicial = calendar.getDate();
 		    	   //Formata a data
-		           SimpleDateFormat FormatadorDaData = new SimpleDateFormat("dd-MM-yyyy");
+		           SimpleDateFormat FormatadorDaData = new SimpleDateFormat("dd/MM/yyyy");
 		           //Data Formatada
 		           String dataFormatada = FormatadorDaData.format(dataInicial);	       
 		       }

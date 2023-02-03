@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import core.model.Clinica;
 import core.services.ClinicaService;
 import core.services.PacienteService;
+import core.services.TextFieldService;
 
 import javax.swing.JScrollPane;
 import java.awt.Toolkit;
@@ -96,7 +97,7 @@ public class JanelaVisualizarPacientes {
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				true, true, false, true, true, true, true, true, true, true, true, true
+				true, true, false, true, true, true, true, true, true, true, true, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -124,7 +125,7 @@ public class JanelaVisualizarPacientes {
 		barraAzul.setOpaque(true);
 		frmClinicsystem.getContentPane().add(barraAzul);
 		
-		erroLbl = new JLabel("Editado com sucesso");
+		erroLbl = new JLabel("");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -134,7 +135,6 @@ public class JanelaVisualizarPacientes {
 		erroLbl.setBounds(415, 544, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
-		//Botão
 		JButton editarBtn = new JButton("Editar");
 		editarBtn.setBorderPainted(false);
 		editarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -147,7 +147,37 @@ public class JanelaVisualizarPacientes {
 		
 		editarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	int linha = pacientesTable.getSelectedRow();
+		        if(linha != -1) {
+		        	String nome = pacientesTable.getValueAt(linha, 0).toString();
+		        	String endereco = pacientesTable.getValueAt(linha, 1).toString();
+		        	String cpf = pacientesTable.getValueAt(linha, 2).toString();
+		        	String email = pacientesTable.getValueAt(linha, 3).toString();
+		        	String telefone = pacientesTable.getValueAt(linha, 4).toString();
+		        	String tipoSanguineo = pacientesTable.getValueAt(linha, 5).toString();
+		        	String alergia = pacientesTable.getValueAt(linha, 6).toString();
+		        	String observacao = pacientesTable.getValueAt(linha, 7).toString();
+		        	String dataNascimento = pacientesTable.getValueAt(linha, 8).toString();
+		        	String nomeResponsavel = pacientesTable.getValueAt(linha, 9).toString();
+		        	String telefoneResponsavel = pacientesTable.getValueAt(linha, 10).toString();
+		        	String cpfResponsavel = pacientesTable.getValueAt(linha, 11).toString();
+		        	
+		        	if (TextFieldService.validarNumero(telefone)) {
+		        		erroLbl.setText("Telefone deve conter apenas números");
+		        	} else {
+			        	PacienteService pacienteService = new PacienteService();
+			        	try {
+							if(pacienteService.alterarPaciente(cpf, nome, email, telefone, alergia, tipoSanguineo, dataNascimento, endereco, cpfResponsavel, nomeResponsavel, telefoneResponsavel, observacao)) {
+								erroLbl.setText("Paciente editado com sucesso");
+							} else {
+								erroLbl.setText("Não foi possível editar o paciente. Verifique os valores informados");
+							}
+							
+						} catch (SQLException e) {
+							erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+						}
+			        	}
+		        }
 		    }
 		});
 		
@@ -171,7 +201,6 @@ public class JanelaVisualizarPacientes {
 		codigoDoPacienteLbl.setBounds(32, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
-		//Botão
 		JButton excluirBtn = new JButton("Excluir");
 		excluirBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		excluirBtn.setForeground(Color.GRAY);
@@ -184,11 +213,25 @@ public class JanelaVisualizarPacientes {
 		
 		excluirBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	int linha = pacientesTable.getSelectedRow();
+		        if(linha != -1) {
+		        	String cpf = pacientesTable.getValueAt(linha, 2).toString();
+		        	PacienteService pacienteService = new PacienteService();
+		        	try {
+		        		if(pacienteService.deletarPaciente(cpf)) {
+		        			erroLbl.setText("Paciente apagado com sucesso.");
+		        			((DefaultTableModel) pacientesTable.getModel()).removeRow(linha);
+		        		} else {
+		        			erroLbl.setText("Não foi possível deletar o paciente.");
+		        		}
+						
+					} catch (SQLException e) {
+						erroLbl.setText("Ocorreu um erro inesperado");
+					}
+		        }
 		    }
 		});
 		
-		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarPacientes.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));
@@ -201,7 +244,19 @@ public class JanelaVisualizarPacientes {
 		
 		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		       //Inserir ação
+		      String cpf = codigoDoPacienteTextField.getText();
+		      try {
+			    PacienteService pacienteService = new PacienteService();
+				boolean retorno = pacienteService.visualizarPacientesFiltrados(pacientesTable, cpf);
+				if (retorno == false) {
+					avisoLbl.setText("Não foi possível encontrar o paciente");
+					pacienteService.visualizarPacientes(pacientesTable);
+				} else {
+					avisoLbl.setText("");
+				}
+			} catch (SQLException e) {
+				avisoLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+			}
 		    }
 		});
 		

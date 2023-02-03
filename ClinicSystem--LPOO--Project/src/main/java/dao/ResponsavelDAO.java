@@ -29,31 +29,29 @@ FabricaConexao responsavelDAO = new FabricaConexao();
 	}
 	
 	public boolean inserir(Responsavel responsavel) throws SQLException {
-		String sql = "INSERT INTO Responsavel(CPF, Nome, Telefone, Email) VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO Responsavel(CPF, Nome, Telefone) VALUES(?, ?, ?)";
 		PreparedStatement stmt = responsavelDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, responsavel.getCpf());
 		stmt.setString(2, responsavel.getNome());
 		stmt.setString(3, responsavel.getTelefone());
-		stmt.setString(4, responsavel.getEmail());
 		boolean execucao = stmt.execute();
 		responsavelDAO.fecharConexao();
 		return execucao;
 	}
 	
 	public boolean alterar(Responsavel responsavel) throws SQLException {
-		String sql = "UPDATE Responsavel SET Nome=?, Telefone=?, Email=? WHERE (CPF=?)";
+		String sql = "UPDATE Responsavel SET Nome=?, Telefone=? WHERE CPF=?";
 		PreparedStatement stmt = responsavelDAO.getConexao().prepareStatement(sql);
-		stmt.setString(1, responsavel.getCpf());
-		stmt.setString(2, responsavel.getNome());
-		stmt.setString(3, responsavel.getTelefone());
-		stmt.setString(4, responsavel.getEmail());
+		stmt.setString(1, responsavel.getNome());
+		stmt.setString(2, responsavel.getTelefone());
+		stmt.setString(3, responsavel.getCpf());
 		boolean execucao = stmt.execute();
 		responsavelDAO.fecharConexao();
 		return execucao;
 	}
 	
 	public boolean remover(Responsavel responsavel) throws SQLException {
-		String sql = "DELETE FROM Responsavel WHERE (CPF=?)";
+		String sql = "DELETE FROM Responsavel WHERE CPF = ?";
 		PreparedStatement stmt = responsavelDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, responsavel.getCpf());
 		boolean execucao = stmt.execute();

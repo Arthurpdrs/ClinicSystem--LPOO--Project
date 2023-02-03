@@ -38,7 +38,7 @@ public class TextFieldService extends PlainDocument {
     	if (email.isBlank()) {
     		return false;
     	} else {
-    		String expressaoVerificadora = "^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}$";
+    		String expressaoVerificadora = "^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}.[a-z]{2,}.[a-z]{2,}.[a-z]{2,}.[a-z]{2,}.[a-z]{2,}$";
     		Pattern padrao = Pattern.compile(expressaoVerificadora);
     		boolean resultado = padrao.matcher(email).matches();
     		if (resultado == true) {
@@ -49,7 +49,15 @@ public class TextFieldService extends PlainDocument {
     	}
     }
 
+    public static boolean validarNumero(String numero) {
+    	String string = numero.replaceAll("\\s+", "");
+    	if (string.matches("[0-9]+") && string.length() == 11) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
     public static void main(String[] args) {
-
 	}
 }
