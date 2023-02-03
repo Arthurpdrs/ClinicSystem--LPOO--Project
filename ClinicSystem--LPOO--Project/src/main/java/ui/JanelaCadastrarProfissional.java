@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import core.services.FuncionarioService;
 import core.services.MedicoService;
 import core.services.RecepcionistaService;
 
@@ -164,21 +165,24 @@ public class JanelaCadastrarProfissional {
 		        String crm = crmTextField.getText().toLowerCase().trim();
 		        String especialidade = especialidadeTextField.getText().toLowerCase().trim();
 		        
-		        
+
+	        	FuncionarioService funcionarioService = new FuncionarioService();
+	        	
 		        if (funcao.equals("MEDICO")) {
 		        	MedicoService medicoService = new MedicoService();
-		        	
 		        	try {
 						medicoService.cadastrar(nome, telefone, email, cpf, login, senha, crm, especialidade);
+						funcionarioService.inserirLogin(login, senha, "MEDICO", cpf);
 					} catch (SQLException e) {
-						e.printStackTrace();
+						erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
 					}
 		        } else{
 		        	RecepcionistaService recepecionistaService = new RecepcionistaService();
 		        	try {
 						recepecionistaService.cadastrar(nome, telefone, email, cpf, login, senha);
-					} catch (SQLException e) {
-						e.printStackTrace();
+						funcionarioService.inserirLogin(login, senha, "RECEPCIONISTA", cpf);
+		        	} catch (SQLException e) {
+						erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
 					}
 		        }
 		        
