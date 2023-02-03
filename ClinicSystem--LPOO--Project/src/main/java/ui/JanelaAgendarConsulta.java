@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import core.services.TextFieldService;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Cursor;
@@ -125,7 +127,7 @@ public class JanelaAgendarConsulta {
 		barraAzul.setOpaque(true);
 		frmClinicsystem.getContentPane().add(barraAzul);
 		
-		nomeTextField = new JTextField();
+		nomeTextField = new JTextField(new TextFieldService(100), null, 0);
 		nomeTextField.setToolTipText("");
 		nomeTextField.setActionCommand("");
 		nomeTextField.setBackground(Color.WHITE);
@@ -172,7 +174,7 @@ public class JanelaAgendarConsulta {
 		cpfLbl.setBounds(812, 161, 277, 24);
 		frmClinicsystem.getContentPane().add(cpfLbl);
 		
-		cpfTextField = new JTextField();
+		cpfTextField = new JTextField(new TextFieldService(12), null, 0);
 		cpfTextField.setToolTipText("");
 		cpfTextField.setMargin(new Insets(10, 10, 10, 10));
 		cpfTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -192,7 +194,7 @@ public class JanelaAgendarConsulta {
 		emailLbl.setBounds(422, 161, 380, 24);
 		frmClinicsystem.getContentPane().add(emailLbl);
 		
-		emailTextField = new JTextField();
+		emailTextField = new JTextField(new TextFieldService(100), null, 0);
 		emailTextField.setToolTipText("");
 		emailTextField.setMargin(new Insets(10, 10, 10, 10));
 		emailTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -212,7 +214,7 @@ public class JanelaAgendarConsulta {
 		CelularLbl.setBounds(32, 257, 380, 24);
 		frmClinicsystem.getContentPane().add(CelularLbl);
 		
-		celularTextField = new JTextField();
+		celularTextField = new JTextField(new TextFieldService(13), null, 0);
 		celularTextField.setToolTipText("");
 		celularTextField.setMargin(new Insets(10, 10, 10, 10));
 		celularTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -232,7 +234,7 @@ public class JanelaAgendarConsulta {
 		responsavelLbl.setBounds(32, 353, 380, 24);
 		frmClinicsystem.getContentPane().add(responsavelLbl);
 		
-		responsavelTextField = new JTextField();
+		responsavelTextField = new JTextField(new TextFieldService(100), null, 0);
 		responsavelTextField.setToolTipText("");
 		responsavelTextField.setMargin(new Insets(10, 10, 10, 10));
 		responsavelTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -252,7 +254,7 @@ public class JanelaAgendarConsulta {
 		observacaoLbl.setBounds(422, 257, 380, 24);
 		frmClinicsystem.getContentPane().add(observacaoLbl);
 		
-		observacaoTextField = new JTextField();
+		observacaoTextField = new JTextField(new TextFieldService(100), null, 0);
 		observacaoTextField.setToolTipText("");
 		observacaoTextField.setMargin(new Insets(10, 10, 10, 10));
 		observacaoTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -293,7 +295,7 @@ public class JanelaAgendarConsulta {
 		dataDaConsultaDateChooser.setBounds(812, 388, 277, 50);
 		frmClinicsystem.getContentPane().add(dataDaConsultaDateChooser);
 		
-		codigoDoPacienteTextField = new JTextField();
+		codigoDoPacienteTextField = new JTextField(new TextFieldService(12), null, 0);
 		codigoDoPacienteTextField.setToolTipText("");
 		codigoDoPacienteTextField.setMargin(new Insets(10, 10, 10, 10));
 		codigoDoPacienteTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -358,7 +360,7 @@ public class JanelaAgendarConsulta {
 		horarioTextField.setBounds(32, 484, 380, 50);
 		frmClinicsystem.getContentPane().add(horarioTextField);
 		
-		valorTextField = new JTextField();
+		valorTextField = new JTextField(new TextFieldService(100), null, 0);
 		valorTextField.setToolTipText("");
 		valorTextField.setMargin(new Insets(10, 10, 10, 10));
 		valorTextField.setHorizontalAlignment(SwingConstants.LEFT);
