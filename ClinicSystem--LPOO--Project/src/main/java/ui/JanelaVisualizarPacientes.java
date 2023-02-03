@@ -14,10 +14,18 @@ import javax.swing.JButton;
 import java.awt.Cursor;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import core.model.Clinica;
+import core.services.ClinicaService;
+import core.services.PacienteService;
+
 import javax.swing.JScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 
 public class JanelaVisualizarPacientes {
 
@@ -193,11 +201,11 @@ public class JanelaVisualizarPacientes {
 		
 		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		       //Inserir ação
 		    }
 		});
 		
-		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
+		avisoLbl = new JLabel("");
 		avisoLbl.setOpaque(true);
 		avisoLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		avisoLbl.setForeground(new Color(0, 102, 255));
@@ -210,5 +218,16 @@ public class JanelaVisualizarPacientes {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				try {
+		        	PacienteService pacienteService = new PacienteService();
+					pacienteService.visualizarPacientes(pacientesTable);
+				} catch (SQLException e) {
+					avisoLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+				}
+			}
+		});
 	}
 }

@@ -9,6 +9,7 @@ public class Paciente extends Pessoa{
 	private String dataNascimento;
 	private Responsavel responsavel;
 	private String endereco;
+	private String observacao;
 
 	public Paciente(
 			String nome,
@@ -18,12 +19,14 @@ public class Paciente extends Pessoa{
 			String tipoSanguineo,
 			String alergia,
 			String dataNascimento,
-			String endereco) {
+			String endereco,
+			String observacao) {
 		super(nome, telefone, email, cpf);
 		this.tipoSanguineo = tipoSanguineo;
 		this.alergia = alergia;
 		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
+		this.observacao = observacao;
 	}
 	
 	public Paciente() {
@@ -79,7 +82,14 @@ public class Paciente extends Pessoa{
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
 	
 
 }

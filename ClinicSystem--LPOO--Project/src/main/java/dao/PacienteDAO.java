@@ -10,12 +10,11 @@ import core.model.Paciente;
 import core.model.Responsavel;
 
 
-public class PacienteDAO extends PessoaDAO {
-	PessoaDAO pacienteDAO = new PessoaDAO(); 
+public class PacienteDAO {
 	FabricaConexao conexao = new FabricaConexao();
 	String Responsavel_Pessoa_CPF = null;
 	
-	public List<Paciente> listaPaciente() throws SQLException{
+	public List<Paciente> listarPacientes() throws SQLException{
 		String sql = "SELECT * FROM Paciente";
 		List<Paciente> retornoLista = new ArrayList();
 
@@ -29,17 +28,29 @@ public class PacienteDAO extends PessoaDAO {
 			paciente.setTelefone(resultado.getString("Telefone"));
 			paciente.setEmail(resultado.getString("Email"));
 			paciente.setEndereco(resultado.getString("Endereco"));
+			paciente.setTipoSanguineo(resultado.getString("Tipo_sanguineo"));
+			paciente.setAlergia(resultado.getString("Alergia"));
+			paciente.setDataNascimento(resultado.getString("Data_nascimento"));
+			paciente.setObservacao(resultado.getString("Observacao"));
 			
 			Responsavel responsavel = new Responsavel();
-			PreparedStatement selectResponsavel = conexao.getConexao().prepareStatement(sql);
-			ResultSet resultadoResponsavel = selectResponsavel.executeQuery();
-			while(resultadoResponsavel.next()) {
-				responsavel.setCpf(resultadoResponsavel.getString("CPF"));
-				responsavel.setEmail(resultadoResponsavel.getString("Email"));
-				responsavel.setNome(resultadoResponsavel.getString("Nome"));
-				responsavel.setTelefone(resultadoResponsavel.getString("Telefone"));
+			if (resultado.getString("Responsavel_CPF") != null) {
+				String sqlResponsavel = "SELECT CPF, Nome, Telefone FROM Responsavel WHERE CPF = ?";
+				PreparedStatement selectResponsavel = conexao.getConexao().prepareStatement(sqlResponsavel);
+				selectResponsavel.setString(1, resultado.getString("Responsavel_CPF"));
+				ResultSet resultadoResponsavel = selectResponsavel.executeQuery();
+				while (resultadoResponsavel.next()) {
+					responsavel.setNome(resultadoResponsavel.getString("Nome"));
+					responsavel.setCpf(resultadoResponsavel.getString("CPF"));
+					responsavel.setTelefone(resultadoResponsavel.getString("Telefone"));
+				}
+			} else {
+				responsavel.setCpf("Não informado");
+				responsavel.setNome("Não informado");
+				responsavel.setTelefone("Não informado");
 			}
 			paciente.setResponsavel(responsavel);
+			
 			retornoLista.add(paciente);			
 		}
 		
@@ -49,7 +60,7 @@ public class PacienteDAO extends PessoaDAO {
 		}
 		
 	public void addPaciente(Paciente paciente, Responsavel responsavel) throws SQLException {
-		String sql = "INSERT INTO Paciente(Nome, Tipo_sanguineo, Alergia, Data_nascimento, CPF, Responsavel_CPF, Endereco) VALUES(?, ?, str_to_date(?,'%d-%m-%Y'), ?, ?, ?)";
+		String sql = "INSERT INTO Paciente(Nome, Tipo_sanguineo, Alergia, Data_nascimento, CPF, Responsavel_CPF, Endereco) VALUES(?, ?, str_to_date(?,'%Y-%d-%m'), ?, ?, ?)";
 		PreparedStatement insert = conexao.getConexao().prepareStatement(sql);
 		insert.setString(1, paciente.getTipoSanguineo());
 		insert.setString(2, paciente.getAlergia());
