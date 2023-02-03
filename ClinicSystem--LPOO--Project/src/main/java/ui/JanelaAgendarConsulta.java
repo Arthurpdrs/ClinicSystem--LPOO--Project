@@ -162,7 +162,6 @@ public class JanelaAgendarConsulta {
 		erroLbl.setBounds(422, 545, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
-		//Botão
 		JButton enviarBtn = new JButton("Enviar");
 		enviarBtn.setBorderPainted(false);
 		enviarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -324,8 +323,24 @@ public class JanelaAgendarConsulta {
 		especialidadeComboBox.setFont(new Font("Arial", Font.PLAIN, 12));
 		especialidadeComboBox.setForeground(new Color(128, 128, 128));
 		especialidadeComboBox.setBackground(Color.WHITE);
-		especialidadeComboBox.setModel(new DefaultComboBoxModel(new String[] {"CLÍNICA MÉDICA", "PEDIATRIA", "GINECOLOGIA", "UROLOGIA", "PSIQUIATRIA", "ANGIOLOGIA", "OFTALMOLOGIA", "OTORRINOLARINGOLOGIA", "GASTROENTEROLOGIA"}));
+		especialidadeComboBox.setModel(new DefaultComboBoxModel(new String[] {"CLINICA MEDICA", "PEDIATRIA", "GINECOLOGIA", "UROLOGIA", "PSIQUIATRIA", "ANGIOLOGIA", "OFTALMOLOGIA", "OTORRINOLARINGOLOGIA", "GASTROENTEROLOGIA"}));
 		especialidadeComboBox.setBounds(812, 292, 277, 50);
+		especialidadeComboBox.addActionListener(new java.awt.event.ActionListener() {
+		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	String especialidade = especialidadeComboBox.getSelectedItem().toString();
+		    	MedicoService medicoService = new MedicoService();
+		    	try {
+		    		if (medicoService.filtrarMedicos(medicoComboBox, especialidade) == false) {
+		    			erroLbl.setText("Não foi possivel encontrar médicos nessa especialidade");
+		    		}
+		    		else {
+		    			erroLbl.setText("");
+		    		}
+				} catch (SQLException e) {
+					erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+				}
+		    }
+		});
 		frmClinicsystem.getContentPane().add(especialidadeComboBox);
 		
 		JDateChooser dataDaConsultaDateChooser = new JDateChooser();
@@ -529,18 +544,5 @@ public class JanelaAgendarConsulta {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
-		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-
-		        MedicoService medicoService = new MedicoService();
-		        try {
-					medicoService.visualizarMedicos(medicoComboBox);
-					medicoService.visualizarEspecialidades(especialidadeComboBox);
-				} catch (SQLException e) {
-					erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
-				}
-			}
-		});
 	}
 }

@@ -16,29 +16,26 @@ import dao.PacienteDAO;
 
 public class MedicoService extends FuncionarioService{
 	
-	public boolean visualizarMedicos(JComboBox jcombobox) throws SQLException {
-		List<String> string = new ArrayList<String>();
-		
-		MedicoDAO medicoDAO = new MedicoDAO();
-		List<Medico> medicos = medicoDAO.listar();
-		if (medicos.size() > 0) {
-			for (Medico medico : medicos) {
-					string.add(medico.getNome());
-				}
-		} 
-		
-		DefaultComboBoxModel model = new DefaultComboBoxModel(string.toArray());
-		jcombobox.setModel(model);
-		return true;
+	public boolean filtrarMedicos(JComboBox jcombobox, String especialidade) throws SQLException {
+		if (especialidade.isBlank() || jcombobox == null) {
+			return false;
+		} else {
+			List<String> string = new ArrayList<String>();
+			
+			MedicoDAO medicoDAO = new MedicoDAO();
+			List<Medico> medicos = medicoDAO.filtrarEspecialidade(especialidade);
+			if (medicos.size() > 0) {
+				for (Medico medico : medicos) {
+						string.add( "(" + medico.getCpf() + ") " + medico.getNome());
+					}
+			} 
+			
+			DefaultComboBoxModel model = new DefaultComboBoxModel(string.toArray());
+			jcombobox.setModel(model);
+			return true;
+		}
 }
 	
-	public boolean visualizarEspecialidades(JComboBox jcombobox) throws SQLException {
-		MedicoDAO medicoDAO = new MedicoDAO();
-		List<String> especialidades = medicoDAO.listarEspecialidades();
-		DefaultComboBoxModel model = new DefaultComboBoxModel(especialidades.toArray());
-		jcombobox.setModel(model);
-		return true;
-}
 	
 	public void cadastrar(String nome, String telefone, String email, String cpf, String login, String senha, String crm, String especialidade) throws SQLException {
 		

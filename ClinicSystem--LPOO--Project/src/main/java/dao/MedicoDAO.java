@@ -32,13 +32,23 @@ FabricaConexao medicoDAO = new FabricaConexao();
 		return retorno;
 	}
 	
-    public List<String> listarEspecialidades() throws SQLException {
-    	String sql = "SELECT DISTINCT Especialidade FROM Medico";
-		List<String> retorno = new ArrayList();
+    public List<Medico> filtrarEspecialidade(String especialidade) throws SQLException {
+    	String sql = "SELECT * FROM Medico WHERE Especialidade = ?";
+		List<Medico> retorno = new ArrayList();
 		PreparedStatement stmt = medicoDAO.getConexao().prepareStatement(sql);
+		stmt.setString(1, especialidade);
 		ResultSet resultado = stmt.executeQuery();
 		while(resultado.next()) {
-			retorno.add(resultado.getString("Especialidade"));
+			Medico medico = new Medico();
+			medico.setCpf(resultado.getString("CPF"));
+			medico.setNome(resultado.getString("Nome"));
+			medico.setTelefone(resultado.getString("Telefone"));
+			medico.setEmail(resultado.getString("Email"));
+			medico.setLogin(resultado.getString("Login"));
+			medico.setSenha(resultado.getString("Senha"));
+			medico.setCrm(resultado.getString("CRM"));
+			medico.setEspecialidade(resultado.getString("Especialidade"));
+			retorno.add(medico);
 		}
 		medicoDAO.fecharConexao();
 		return retorno;
