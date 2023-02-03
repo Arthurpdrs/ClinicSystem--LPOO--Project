@@ -9,6 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import core.services.MedicoService;
+import core.services.RecepcionistaService;
+
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -18,6 +22,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 public class JanelaCadastrarProfissional {
 
@@ -148,7 +153,35 @@ public class JanelaCadastrarProfissional {
 		
 		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		        
+		    	String nome = nomeTextField.getText().toLowerCase().trim();
+		        String login = usuarioTextField.getText().toLowerCase().trim();
+		        String senha = new String(senhaPasswordField.getPassword());
+		        String funcao = (String)funcaoComboBox.getSelectedItem();
+		        String telefone = telefoneTextField.getText().trim();
+		        String email = emailTextField.getText().toLowerCase().trim();
+		        String cpf = cpfTextField.getText().trim();
+		        String crm = crmTextField.getText().toLowerCase().trim();
+		        String especialidade = especialidadeTextField.getText().toLowerCase().trim();
+		        
+		        
+		        if (funcao.equals("MEDICO")) {
+		        	MedicoService medicoService = new MedicoService();
+		        	
+		        	try {
+						medicoService.cadastrar(nome, telefone, email, cpf, login, senha, crm, especialidade);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+		        } else{
+		        	RecepcionistaService recepecionistaService = new RecepcionistaService();
+		        	try {
+						recepecionistaService.cadastrar(nome, telefone, email, cpf, login, senha);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+		        }
+		        
 		    }
 		});
 		
@@ -249,7 +282,7 @@ public class JanelaCadastrarProfissional {
 		funcaoComboBox.setBackground(Color.WHITE);
 		funcaoComboBox.setForeground(Color.GRAY);
 		funcaoComboBox.setFont(new Font("Arial", Font.PLAIN, 12));
-		funcaoComboBox.setModel(new DefaultComboBoxModel(new String[] {"RECEPCIONISTA", "MÉDICO(A)"}));
+		funcaoComboBox.setModel(new DefaultComboBoxModel(new String[] {"RECEPCIONISTA", "MEDICO"}));
 		funcaoComboBox.setBounds(22, 196, 380, 50);
 		frmClinicsystem.getContentPane().add(funcaoComboBox);
 		

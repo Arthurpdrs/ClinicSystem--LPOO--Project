@@ -43,12 +43,13 @@ public class PacienteService {
 	}
 	
 	public void cadastrar(String nome, String telefone, String email, String cpf,
-			String tipoSanguineo, String alergia, String dataNascimento, String endereco, String observacao) {
+			String tipoSanguineo, String alergia, String dataNascimento, String endereco, String observacao) throws SQLException {
 		
 		Paciente paciente = new Paciente(nome, telefone, email, cpf, tipoSanguineo, alergia,dataNascimento, endereco, observacao);
 		
 		if(verificarDadosObrigatorios(paciente)) {
-			//Chamar metodo de PacienteDAO
+			PacienteDAO pacienteDao = new PacienteDAO();
+			pacienteDao.addPaciente(paciente, null);
 		}
 			
 	}
