@@ -34,7 +34,7 @@ public class TextFieldService extends PlainDocument {
              }  
     }
 
-    public boolean validarEmail(String email) {
+    public static boolean validarEmail(String email) {
     	if (email.isBlank()) {
     		return false;
     	} else {
@@ -48,4 +48,8 @@ public class TextFieldService extends PlainDocument {
     		}
     	}
     }
+
+    public static void main(String[] args) {
+
+	}
 }
