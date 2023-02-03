@@ -32,7 +32,7 @@ FabricaConexao medicoDAO = new FabricaConexao();
 		return retorno;
 	}
 	
-	public void inserir(Medico medico) throws SQLException {
+	public boolean inserir(Medico medico) throws SQLException {
 		String sql = "INSERT INTO Medico(CPF, Nome, Telefone, Email, Login, Senha, CRM, Especialidade) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = medicoDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, medico.getCpf());
@@ -43,11 +43,12 @@ FabricaConexao medicoDAO = new FabricaConexao();
 		stmt.setString(6, medico.getSenha());
 		stmt.setString(7, medico.getCrm());
 		stmt.setString(8, medico.getEspecialidade());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		medicoDAO.fecharConexao();
+		return execucao;
 	}
 	
-	public void alterar(Medico medico) throws SQLException {
+	public boolean alterar(Medico medico) throws SQLException {
 		String sql = "UPDATE Medico SET Nome=?, Telefone=?, Email=?, Login=?, Senha=?, CRM=?, Especialidade=? WHERE (CPF=?)";
 		PreparedStatement stmt = medicoDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, medico.getCpf());
@@ -58,15 +59,17 @@ FabricaConexao medicoDAO = new FabricaConexao();
 		stmt.setString(6, medico.getSenha());
 		stmt.setString(7, medico.getCrm());
 		stmt.setString(8, medico.getEspecialidade());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		medicoDAO.fecharConexao();
+		return execucao;
 	}
 	
-	public void remover(Medico medico) throws SQLException {
+	public boolean remover(Medico medico) throws SQLException {
 		String sql = "DELETE FROM Medico WHERE (CPF=?)";
 		PreparedStatement stmt = medicoDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, medico.getCpf());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		medicoDAO.fecharConexao();
+		return execucao;
 	}
 }

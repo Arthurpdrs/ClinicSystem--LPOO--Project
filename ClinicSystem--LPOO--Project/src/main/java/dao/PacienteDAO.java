@@ -12,9 +12,9 @@ import core.model.Responsavel;
 
 public class PacienteDAO {
 	FabricaConexao conexao = new FabricaConexao();
-	String Responsavel_Pessoa_CPF = null;
+	String Responsavel_CPF = null;
 	
-	public List<Paciente> listarPacientes() throws SQLException{
+	public List<Paciente> listar() throws SQLException{
 		String sql = "SELECT * FROM Paciente";
 		List<Paciente> retornoLista = new ArrayList();
 
@@ -59,24 +59,40 @@ public class PacienteDAO {
 
 		}
 		
-	public void addPaciente(Paciente paciente, Responsavel responsavel) throws SQLException {
-		String sql = "INSERT INTO Paciente(Nome, Tipo_sanguineo, Alergia, Data_nascimento, CPF, Responsavel_CPF, Endereco) VALUES(?, ?, str_to_date(?,'%Y-%d-%m'), ?, ?, ?)";
+	public boolean adicionar(Paciente paciente, Responsavel responsavel) throws SQLException {
+		String sql = "INSERT INTO Paciente(Nome, Tipo_sanguineo, Alergia, Data_nascimento, CPF, Responsavel_CPF, Endereco) VALUES(?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement insert = conexao.getConexao().prepareStatement(sql);
-		insert.setString(1, paciente.getTipoSanguineo());
-		insert.setString(2, paciente.getAlergia());
-		insert.setString(3, paciente.getDataNascimento());
-		insert.setString(4, paciente.getCpf());
-		insert.setString(5, responsavel.getCpf());
-		insert.setString(6, paciente.getEndereco());
-		insert.execute();
-		
+		insert.setString(1, paciente.getNome());
+		insert.setString(2, paciente.getTipoSanguineo());
+		insert.setString(3, paciente.getAlergia());
+		insert.setString(4, paciente.getDataNascimento());
+		insert.setString(5, paciente.getCpf());
+		insert.setString(6, responsavel.getCpf());
+		insert.setString(7, paciente.getEndereco());
+		boolean execucao = insert.execute();
 		conexao.fecharConexao();
+		return execucao;
+	}
+	
+	public boolean alterar(Paciente paciente, Responsavel responsavel) throws SQLException {
+		String sql = "UPDATE Paciente SET Nome = ?, Tipo_sanguineo = ?, Alergia = ?, Data_nascimento = ?, Responsavel_CPF = ?, Endereco = ? WHERE CPF = ?";
+			PreparedStatement insert = conexao.getConexao().prepareStatement(sql);
+			insert.setString(1, paciente.getNome());
+			insert.setString(2, paciente.getTipoSanguineo());
+			insert.setString(3, paciente.getAlergia());
+			insert.setString(4, paciente.getDataNascimento());
+			insert.setString(5, responsavel.getCpf());
+			insert.setString(6, paciente.getEndereco());
+			insert.setString(7, paciente.getCpf());
+			boolean execucao = insert.execute();
+			conexao.fecharConexao();
+			return execucao;
 	}
 	
 	
 	
 
-	public List<Paciente> visualizarPaciente(Paciente paciente) throws SQLException {
+	public List<Paciente> filtrar(Paciente paciente) throws SQLException {
 		String sql = "SELECT * FROM Paciente WHERE CPF = ? ";
 		List<Paciente> retornoDados = new ArrayList();
 		PreparedStatement select = conexao.getConexao().prepareStatement(sql);
@@ -100,13 +116,13 @@ public class PacienteDAO {
 	}
 
 	
-	public void excluirPaciente(Paciente paciente) throws SQLException {
+	public boolean excluir(Paciente paciente) throws SQLException {
 		String sql = "DELETE FROM Paciente WHERE CPF = ?";
 		PreparedStatement delete = conexao.getConexao().prepareStatement(sql);
 		delete.setString(1, paciente.getCpf());
-		delete.execute();
-		
+		boolean execucao = delete.execute();
 		conexao.fecharConexao();
+		return execucao;
 	}
 	
 

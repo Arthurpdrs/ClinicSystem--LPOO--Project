@@ -16,9 +16,9 @@ public class PacienteService {
 	public boolean visualizarPacientes(JTable jtable) throws SQLException {
 			DefaultTableModel model = (DefaultTableModel) jtable.getModel();
 			PacienteDAO pacienteDAO = new PacienteDAO();
-			List<Paciente> pacientes = pacienteDAO.listarPacientes();
+			List<Paciente> pacientes = pacienteDAO.listar();
 			
-                        model.setNumRows(0);
+             model.setNumRows(0);
 			if (pacientes.size() > 0) {
 				for (Paciente paciente : pacientes) {
 						model.addRow(new Object[] {
@@ -50,7 +50,7 @@ public class PacienteService {
 		
 		if(verificarDadosObrigatorios(paciente)) {
 			PacienteDAO pacienteDao = new PacienteDAO();
-			pacienteDao.addPaciente(paciente, null);
+			pacienteDao.adicionar(paciente, null);
 		}
 			
 	}

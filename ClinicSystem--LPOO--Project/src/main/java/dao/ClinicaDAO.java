@@ -10,7 +10,7 @@ public class ClinicaDAO {
 	FabricaConexao clinicaDAO = new FabricaConexao();
 	
 
-	public Clinica listarDadosClinica() throws SQLException {
+	public Clinica listar() throws SQLException {
 			String sql = "SELECT Nome, Email, Telefone, Senha, Endereco FROM Clinica WHERE id = 1";
 			Clinica dadosClinica = new Clinica();
 			PreparedStatement select = clinicaDAO.getConexao().prepareStatement(sql);
@@ -26,7 +26,7 @@ public class ClinicaDAO {
 			return dadosClinica;
 		} 
 	
-	public void atualizarDados(Clinica clinica) throws SQLException{
+	public boolean alterar(Clinica clinica) throws SQLException{
 		String sql = "UPDATE Clinica SET Nome=?, Telefone=?, Email=?, Senha = ?, Endereco = ? WHERE id = 1";
 		PreparedStatement stmt = clinicaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, clinica.getNome());
@@ -35,8 +35,9 @@ public class ClinicaDAO {
 		stmt.setString(4, clinica.getSenha());
 		stmt.setString(4, clinica.getSenha());
 		stmt.setString(5, clinica.getEndereco());
-		stmt.execute();
-		clinicaDAO.fecharConexao();	
+		boolean execucao = stmt.execute();
+		clinicaDAO.fecharConexao();
+		return execucao;
 	}
 
 }

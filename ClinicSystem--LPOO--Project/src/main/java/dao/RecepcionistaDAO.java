@@ -43,7 +43,7 @@ FabricaConexao recepcionistaDAO = new FabricaConexao();
 		recepcionistaDAO.fecharConexao();
 	}
 	
-	public void alterar(Recepcionista recepcionista) throws SQLException {
+	public boolean alterar(Recepcionista recepcionista) throws SQLException {
 		String sql = "UPDATE Recepcionista SET Nome=?, Telefone=?, Email=?, Login=?, Senha=? WHERE (CPF=?)";
 		PreparedStatement stmt = recepcionistaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, recepcionista.getCpf());
@@ -52,16 +52,18 @@ FabricaConexao recepcionistaDAO = new FabricaConexao();
 		stmt.setString(4, recepcionista.getEmail());
 		stmt.setString(5, recepcionista.getLogin());
 		stmt.setString(6, recepcionista.getSenha());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		recepcionistaDAO.fecharConexao();
+		return execucao;
 	}
 	
-	public void remover(Recepcionista recepcionista) throws SQLException {
+	public boolean remover(Recepcionista recepcionista) throws SQLException {
 		String sql = "DELETE FROM Recepcionista WHERE (CPF=?)";
 		PreparedStatement stmt = recepcionistaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, recepcionista.getCpf());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		recepcionistaDAO.fecharConexao();
+		return execucao;
 	}
 }
 

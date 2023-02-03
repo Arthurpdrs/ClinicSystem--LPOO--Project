@@ -31,14 +31,14 @@ public class ProntuarioDAO {
 			prontuario.setQueixa(resultado.getString("Queixa"));
 			prontuario.setPrescricao(resultado.getString("Prescricao"));
 			prontuario.setObservacao(resultado.getString("Observacao"));
-			prontuario.setData(resultado.getDate("Data_prontuario"));
+			prontuario.setData(resultado.getString("Data_prontuario"));
 			retorno.add(prontuario);
 		}
 		prontuarioDAO.fecharConexao();
 		return retorno;
 	}
 	
-	public void inserir(Prontuario prontuario) throws SQLException {
+	public boolean inserir(Prontuario prontuario) throws SQLException {
 		String sql = "INSERT INTO Prontuario(Paciente_CPF, Medico_CPF, Queixa, Prescricao, Observacao, Data_prontuario) VALUES(?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = prontuarioDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, prontuario.getPaciente().getCpf());
@@ -46,30 +46,33 @@ public class ProntuarioDAO {
 		stmt.setString(3, prontuario.getQueixa());
 		stmt.setString(4, prontuario.getPrescricao());
 		stmt.setString(5, prontuario.getObservacao());
-		stmt.setDate(6, prontuario.getData());
-		stmt.execute();
+		stmt.setString(6, prontuario.getData());
+		boolean execucao = stmt.execute();
 		prontuarioDAO.fecharConexao();
+		return execucao;
 	}
 	
-	public void alterar(Prontuario prontuario) throws SQLException {
+	public boolean alterar(Prontuario prontuario) throws SQLException {
 		String sql = "UPDATE Prontuario SET Queixa=?, Prescricao=?, Observacao=?, Data_prontuario=? WHERE (Paciente_CPF=? AND Medico_CPF=?)";
 		PreparedStatement stmt = prontuarioDAO.getConexao().prepareStatement(sql);
 		stmt.setString(3, prontuario.getQueixa());
 		stmt.setString(4, prontuario.getPrescricao());
 		stmt.setString(5, prontuario.getObservacao());
-		stmt.setDate(6, prontuario.getData());
+		stmt.setString(6, prontuario.getData());
 		stmt.setString(1, prontuario.getPaciente().getCpf());
 		stmt.setString(2, prontuario.getMedico().getCpf());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		prontuarioDAO.fecharConexao();
+		return execucao;
 	}
 	
-	public void remover(Prontuario prontuario) throws SQLException {
+	public boolean remover(Prontuario prontuario) throws SQLException {
 		String sql = "DELETE FROM Prontuario WHERE (Paciente_Cpf=? AND Medico_CPF=?)";
 		PreparedStatement stmt = prontuarioDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, prontuario.getPaciente().getCpf());
 		stmt.setString(2, prontuario.getMedico().getCpf());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		prontuarioDAO.fecharConexao();
+		return execucao;
 	}
 }

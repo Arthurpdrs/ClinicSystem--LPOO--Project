@@ -9,7 +9,7 @@ public class ClinicaService {
 	
 	public Clinica retornarDadosDaClinica () throws SQLException {
 		ClinicaDAO clinicaDAO = new ClinicaDAO();
-		Clinica clinica = clinicaDAO.listarDadosClinica();
+		Clinica clinica = clinicaDAO.listar();
 		return clinica;
 	}
 	
@@ -19,7 +19,7 @@ public class ClinicaService {
 		} else {
 			Clinica Clinica = new Clinica(nome, email, senha, telefone, endereco);
 			ClinicaDAO clinicaDAO = new ClinicaDAO();
-			clinicaDAO.atualizarDados(Clinica);
+			clinicaDAO.alterar(Clinica);
 			return true;
 		}
 	}

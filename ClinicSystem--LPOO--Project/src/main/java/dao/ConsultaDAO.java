@@ -29,7 +29,7 @@ public class ConsultaDAO {
 			paciente.setCpf(resultado.getString("Paciente_CPF"));
 			consulta.setMedico(medico);
 			medico.setCpf(resultado.getString("Medico_CPF"));
-			consulta.setDataConsulta(resultado.getDate("Data_consulta"));
+			consulta.setDataConsulta(resultado.getString("Data_consulta"));
 			consulta.setValor(resultado.getDouble("Valor"));
 			consulta.setPago(resultado.getBoolean("Pago"));
 			consulta.setHorario(resultado.getTime("Hora_consulta"));
@@ -39,38 +39,41 @@ public class ConsultaDAO {
 		return retorno;
 	}
 	
-	public void inserir(Consulta consulta) throws SQLException {
+	public boolean inserir(Consulta consulta) throws SQLException {
 		String sql = "INSERT INTO Consulta(Paciente_CPF, Medico_CPF, Data_consulta, Valor, Pago, Hora_consulta) VALUES(?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, consulta.getPaciente().getCpf());
 		stmt.setString(2, consulta.getMedico().getCpf());
-		stmt.setDate(3, consulta.getDataConsulta());
+		stmt.setString(3, consulta.getDataConsulta());
 		stmt.setDouble(4, consulta.getValor());
 		stmt.setBoolean(5, consulta.getPago());
 		stmt.setTime(6, consulta.getHorario());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		consultaDAO.fecharConexao();
+		return execucao;
 	}
 	
-	public void alterar(Consulta consulta) throws SQLException {
+	public boolean alterar(Consulta consulta) throws SQLException {
 		String sql = "UPDATE Consulta SET Data_consulta=?, Valor=?, Pago=?, Hora_consulta=? WHERE (Paciente_CPF=? AND Medico_CPF=?)";
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, consulta.getPaciente().getCpf());
 		stmt.setString(2, consulta.getMedico().getCpf());
-		stmt.setDate(3, consulta.getDataConsulta());
+		stmt.setString(3, consulta.getDataConsulta());
 		stmt.setDouble(4, consulta.getValor());
 		stmt.setBoolean(5, consulta.getPago());
 		stmt.setTime(6, consulta.getHorario());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		consultaDAO.fecharConexao();
+		return execucao;
 	}
 	
-	public void remover(Consulta consulta) throws SQLException {
+	public boolean remover(Consulta consulta) throws SQLException {
 		String sql = "DELETE FROM Consulta WHERE (Paciente_CPF=? AND Medico_CPF=?)";
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, consulta.getPaciente().getCpf());
 		stmt.setString(2, consulta.getMedico().getCpf());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		consultaDAO.fecharConexao();
+		return execucao;
 	}
 }

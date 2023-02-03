@@ -30,7 +30,7 @@ FabricaConexao adminDAO = new FabricaConexao();
 		return retorno;
 	}
 	
-	public void inserir(Admin admin) throws SQLException {
+	public boolean inserir(Admin admin) throws SQLException {
 		String sql = "INSERT INTO Administrador(CPF, Nome, Telefone, Email, Login, Senha) VALUES(?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = adminDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, admin.getCpf());
@@ -39,11 +39,12 @@ FabricaConexao adminDAO = new FabricaConexao();
 		stmt.setString(4, admin.getEmail());
 		stmt.setString(5, admin.getLogin());
 		stmt.setString(6, admin.getSenha());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		adminDAO.fecharConexao();
+		return execucao;
 	}
 	
-	public void alterar(Admin admin) throws SQLException {
+	public boolean alterar(Admin admin) throws SQLException {
 		String sql = "UPDATE Administrador SET Nome=?, Telefone=?, Email=?, Login=?, Senha=? WHERE (CPF=?)";
 		PreparedStatement stmt = adminDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, admin.getCpf());
@@ -52,16 +53,19 @@ FabricaConexao adminDAO = new FabricaConexao();
 		stmt.setString(4, admin.getEmail());
 		stmt.setString(5, admin.getLogin());
 		stmt.setString(6, admin.getSenha());
-		stmt.execute();
+		boolean execucao = stmt.execute();
 		adminDAO.fecharConexao();
+		return execucao;
 	}
 	
-	public void remover(Admin admin) throws SQLException {
+	public boolean remover(Admin admin) throws SQLException {
 		String sql = "DELETE FROM Administrador WHERE (CPF=?)";
 		PreparedStatement stmt = adminDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, admin.getCpf());
 		stmt.execute();
+		boolean execucao = stmt.execute();
 		adminDAO.fecharConexao();
+		return execucao;
 	}
 }
 
