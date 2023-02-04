@@ -106,6 +106,16 @@ public class TextFieldService extends PlainDocument {
     	}
     }
     
+    public static boolean validarHorario(String horario) {
+    	String numero = horario;
+    	String string = numero.replaceAll("\\s+", "").replaceAll(":", "");
+    	if (string.matches("[0-9]+") && string.length() == 4) {
+    			return true;
+    	} else {
+	   		return false;
+    	}
+    }
+    
     public static String extrairCpfDaString(String stringRecebida) {
     	String pedaco = "";
     	if (stringRecebida.length() < 14) {

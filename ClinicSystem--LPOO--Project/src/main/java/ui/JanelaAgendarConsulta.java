@@ -183,7 +183,10 @@ public class JanelaAgendarConsulta {
 		        String valor = valorTextField.getText();
 		        String observacao = observacaoTextField.getText();
 		        String data = dataTextField.getText();
-		        String cpfResponsavel = TextFieldService.extrairCpfDaString(responsavelTextField.getText());
+		        String cpfResponsavel = null;
+		        if (!(responsavelTextField.getText().equals("Não informado"))) {
+		        	cpfResponsavel = TextFieldService.extrairCpfDaString(responsavelTextField.getText());
+		        }
 		        String cpfMedico = TextFieldService.extrairCpfDaString(medicoComboBox.getSelectedItem().toString());
 		        String estadoPagamento = estadoComboBox.getSelectedItem().toString();
 		        String nome = nomeTextField.getText();
@@ -196,7 +199,7 @@ public class JanelaAgendarConsulta {
 		        	}
 					
 		        } catch (SQLException e) {
-					e.printStackTrace();
+		        	erroLbl.setText("Ocorreu um erro inesperado");
 				}
 		        
 		    }
@@ -438,7 +441,7 @@ public class JanelaAgendarConsulta {
 		});
 		
 		medicoComboBox = new JComboBox();
-		medicoComboBox.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM(A) MÉDICO(A)"}));
+		medicoComboBox.setModel(new DefaultComboBoxModel(new String[] {"MEDICO(A)"}));
 		medicoComboBox.setForeground(Color.GRAY);
 		medicoComboBox.setFont(new Font("Arial", Font.PLAIN, 12));
 		medicoComboBox.setBackground(Color.WHITE);
@@ -495,14 +498,6 @@ public class JanelaAgendarConsulta {
 		valorTextField.setBackground(Color.WHITE);
 		valorTextField.setActionCommand("");
 		valorTextField.setBounds(422, 484, 380, 50);
-		valorTextField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(!(TextFieldService.validarTextFieldNumerica(valorTextField))) {
-					erroLbl.setText("O campo valor deve conter apenas números e ter no máximo 11 caracteres");
-				}
-			}
-		});
 		frmClinicsystem.getContentPane().add(valorTextField);
 		
 		valorLbl = new JLabel("Valor:");
@@ -514,7 +509,7 @@ public class JanelaAgendarConsulta {
 		frmClinicsystem.getContentPane().add(valorLbl);
 		
 		estadoComboBox = new JComboBox();
-		estadoComboBox.setModel(new DefaultComboBoxModel(new String[] {"SELECIONE UM ESTADO", "PAGO", "PENDENTE", "AUTORIZADA", "CANCELADA"}));
+		estadoComboBox.setModel(new DefaultComboBoxModel(new String[] {"PAGO", "PENDENTE", "AUTORIZADA", "CANCELADA"}));
 		estadoComboBox.setForeground(Color.GRAY);
 		estadoComboBox.setFont(new Font("Arial", Font.PLAIN, 12));
 		estadoComboBox.setBackground(Color.WHITE);
@@ -554,6 +549,8 @@ public class JanelaAgendarConsulta {
 			    		observacaoTextField.setText(paciente.getObservacao());
 			    		if (paciente.getResponsavel() != null && paciente.getResponsavel().getNome() != null && paciente.getResponsavel().getCpf() != null) {
 			    			responsavelTextField.setText("(" + paciente.getResponsavel().getCpf() + ") " + paciente.getResponsavel().getNome());
+			    		} else {
+			    			responsavelTextField.setText("Não informado");
 			    		}
 			    		avisoLbl.setText("");
 			    	} else {

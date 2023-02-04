@@ -28,7 +28,7 @@ public class ConsultaService {
 		consulta.setPaciente(paciente);
 		consulta.setDataConsulta(data);
 		
-		if (email.isBlank() || horario.isBlank() || cpfMedico.isBlank() || nome.isBlank() || cpf.isBlank() || telefone.isBlank() || data.isBlank()) {
+		if (!(TextFieldService.validarEmail(email)) || !(TextFieldService.validarHorario(horario)) || cpfMedico.isBlank() || nome.isBlank() || cpf.isBlank() || telefone.isBlank() || !(TextFieldService.validarData(data)) || valor.isBlank()) {
 			return false;
 		} else {
 			ConsultaDAO consultaDAO = new ConsultaDAO();
