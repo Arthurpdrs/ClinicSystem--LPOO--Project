@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: paulo
-Build-Jdk: 18.0.2.1
+Built-By: diana
+Build-Jdk: 17.0.4.1
 Created-By: Maven Integration for Eclipse
 
