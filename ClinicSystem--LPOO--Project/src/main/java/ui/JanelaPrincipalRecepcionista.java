@@ -6,17 +6,11 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-
-import core.services.ConsultaService;
-
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.Toolkit;
-import java.sql.SQLException;
 public class JanelaPrincipalRecepcionista {
-	
-	
 
 	private JFrame frmClinicsystem;
 	private JLabel menuLbl;
@@ -200,14 +194,7 @@ public class JanelaPrincipalRecepcionista {
 		textoConsultasLbl.setBounds(385, 100, 191, 59);
 		frmClinicsystem.getContentPane().add(textoConsultasLbl);
 		
-		
-		ConsultaService totalconsultas = new ConsultaService();
-		try {
-			numeroConsultasLbl = new JLabel(totalconsultas.totalConsultasDia());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		numeroConsultasLbl = new JLabel("20000");
 		numeroConsultasLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroConsultasLbl.setForeground(Color.WHITE);
 		numeroConsultasLbl.setFont(new Font("Arial", Font.BOLD, 22));

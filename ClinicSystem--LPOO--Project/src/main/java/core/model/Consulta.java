@@ -17,15 +17,13 @@ public class Consulta {
 			Medico medico,
 			Paciente paciente,
 			String valor,
-			String pago,
-			String totalConsulta) {
+			String pago) {
 
 		this.dataConsulta = dataConsulta;
 		this.medico = medico;
 		this.paciente = paciente;
 		this.valor = valor;
 		this.pago = pago;
-		this.totalConsulta = totalConsulta;
 	}
 	
 	public Consulta() {}
