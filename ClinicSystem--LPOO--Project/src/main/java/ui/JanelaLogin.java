@@ -121,6 +121,8 @@ public class JanelaLogin {
 		
 		entrarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    	System.clearProperty("cpf_logado");
+		    	System.clearProperty("cargo");
 		    	String login = usuarioTextField.getText().toLowerCase().trim();
 		    	String senha = new String(senhaTextField.getPassword());
 		    	

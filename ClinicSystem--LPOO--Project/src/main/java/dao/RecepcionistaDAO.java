@@ -12,7 +12,7 @@ public class RecepcionistaDAO {
 FabricaConexao recepcionistaDAO = new FabricaConexao();
 	
     public List<Recepcionista> listar() throws SQLException {
-    	String sql = "SELECT * FROM Recepcionita";
+    	String sql = "SELECT * FROM Recepcionista";
 		List<Recepcionista> retorno = new ArrayList();
 		PreparedStatement stmt = recepcionistaDAO.getConexao().prepareStatement(sql);
 		ResultSet resultado = stmt.executeQuery();
@@ -57,7 +57,7 @@ FabricaConexao recepcionistaDAO = new FabricaConexao();
 		return execucao;
 	}
 	
-	public boolean remover(Recepcionista recepcionista) throws SQLException {
+	public boolean excluir(Recepcionista recepcionista) throws SQLException {
 		String sql = "DELETE FROM Recepcionista WHERE (CPF=?)";
 		PreparedStatement stmt = recepcionistaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, recepcionista.getCpf());

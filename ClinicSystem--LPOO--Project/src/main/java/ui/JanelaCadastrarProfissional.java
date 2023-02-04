@@ -179,7 +179,7 @@ public class JanelaCadastrarProfissional {
 						if (medicoService.cadastrar(nome, telefone, email, cpf, login, senha, crm, especialidade) == false) {
 							erroLbl.setText("Verifique os valores inseridos");
 						} else {
-							funcionarioService.inserirLogin(login, senha, "MEDICO", cpf);
+							funcionarioService.inserir(login, senha, "MEDICO", cpf);
 							erroLbl.setText("Profissional cadastrado com sucesso");
 						}
 					} catch (SQLException e) {
@@ -192,7 +192,7 @@ public class JanelaCadastrarProfissional {
 		        		if (recepecionistaService.cadastrar(nome, telefone, email, cpf, login, senha) == false) {
 							erroLbl.setText("Verifique os valores inseridos");
 						} else {
-							funcionarioService.inserirLogin(login, senha, "RECEPCIONISTA", cpf);
+							funcionarioService.inserir(login, senha, "RECEPCIONISTA", cpf);
 							erroLbl.setText("Profissional cadastrado com sucesso");
 						}
 		        	} catch (SQLException e) {
@@ -247,7 +247,7 @@ public class JanelaCadastrarProfissional {
 		especialidadeLbl.setBounds(802, 257, 277, 24);
 		frmClinicsystem.getContentPane().add(especialidadeLbl);
 		
-		especialidadeTextField = new JTextField();
+		especialidadeTextField = new JTextField(new TextFieldService(45), null, 0);
 		especialidadeTextField.setToolTipText("");
 		especialidadeTextField.setMargin(new Insets(10, 10, 10, 10));
 		especialidadeTextField.setHorizontalAlignment(SwingConstants.LEFT);

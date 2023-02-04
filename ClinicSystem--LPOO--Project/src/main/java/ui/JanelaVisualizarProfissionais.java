@@ -14,10 +14,21 @@ import javax.swing.JButton;
 import java.awt.Cursor;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import core.model.Medico;
+import core.model.Recepcionista;
+import core.services.FuncionarioService;
+import core.services.MedicoService;
+import core.services.PacienteService;
+import core.services.RecepcionistaService;
+
 import javax.swing.JScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 
 public class JanelaVisualizarProfissionais {
 
@@ -86,7 +97,14 @@ public class JanelaVisualizarProfissionais {
 			new String[] {
 				"Nome completo", "Usu\u00E1rio", "Senha", "CPF", "E-mail", "Telefone", "Fun\u00E7\u00E3o", "Especialidade", "CRM"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+					true, true, true, false, true, true, false, true, true
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
 		scrollPane.setBounds(31, 162, 1048, 356);
 		frmClinicsystem.getContentPane().add(scrollPane);
 		
@@ -119,7 +137,6 @@ public class JanelaVisualizarProfissionais {
 		erroLbl.setBounds(422, 545, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
-		//Botão
 		JButton editarBtn = new JButton("Editar");
 		editarBtn.setBorderPainted(false);
 		editarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -132,7 +149,39 @@ public class JanelaVisualizarProfissionais {
 		
 		editarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	int linha = profissionaisTable.getSelectedRow();
+		        if(linha != -1) {
+		        	if (!(profissionaisTable.getValueAt(linha, 6).equals(null))) {
+    		        	String funcao = profissionaisTable.getValueAt(linha, 6).toString();
+    		        	
+    		        	String nome = profissionaisTable.getValueAt(linha, 0).toString();
+    		        	String login = profissionaisTable.getValueAt(linha, 1).toString();
+    		        	String senha = profissionaisTable.getValueAt(linha, 2).toString();
+    		        	String cpf = profissionaisTable.getValueAt(linha, 3).toString();
+    		        	String email = profissionaisTable.getValueAt(linha, 4).toString();
+    		        	String telefone = profissionaisTable.getValueAt(linha, 5).toString();
+    		        	
+    		        	boolean retorno;
+    		        	try {
+			        		if (funcao.equals("MEDICO")) {
+			        			String especialidade = profissionaisTable.getValueAt(linha, 7).toString();
+			        			String crm = profissionaisTable.getValueAt(linha, 8).toString();
+			        			retorno = true;
+			        		} else {
+									RecepcionistaService recepcionistaService = new RecepcionistaService();
+									retorno = recepcionistaService.alterar(cpf, nome, telefone, login, email, senha);
+							} 
+			        		
+			        		if (retorno == true) {
+			        			erroLbl.setText("Profissional editado com sucesso");
+			        		} else {
+			        			erroLbl.setText("Verifique os valores inseridos");
+			        		}
+    		        	} catch (SQLException e) {
+								erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+						}
+		        	}
+		        }
 		    }
 		});
 		
@@ -170,7 +219,41 @@ public class JanelaVisualizarProfissionais {
 		
 		excluirBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	int linha = profissionaisTable.getSelectedRow();
+		        if(linha != -1) {
+		        	if (!(profissionaisTable.getValueAt(linha, 6).equals(null))) {
+		        		String funcao = profissionaisTable.getValueAt(linha, 6).toString();
+		        		String cpf = profissionaisTable.getValueAt(linha, 3).toString();
+		        		
+		        		FuncionarioService funcionarioService = new FuncionarioService();
+		        		if (funcao.equals("MEDICO")) {
+		        			MedicoService medicoService = new MedicoService();
+		        			try {
+								if(medicoService.excluir(cpf) && funcionarioService.excluir(cpf)) {
+									erroLbl.setText("Profissional excluído com sucesso");
+								} else {
+									erroLbl.setText("Não foi possível excluir o profissional");
+								}
+							} catch (SQLException e) {
+								erroLbl.setText("Ocorreu um erro inesperado");
+							}
+		        		} else {
+		        			
+		        			RecepcionistaService recepcionistaService = new RecepcionistaService();
+		        			try {
+								if(recepcionistaService.excluir(cpf) && funcionarioService.excluir(cpf)) {
+									erroLbl.setText("Profissional excluído com sucesso");
+								} else {
+									erroLbl.setText("Não foi possível excluir o profissional");
+								}
+								
+							} catch (SQLException e) {
+								erroLbl.setText("Ocorreu um erro inesperado");
+							}
+		        		}
+    		        	
+		        	}
+		        }
 		    }
 		});
 		
@@ -204,5 +287,16 @@ public class JanelaVisualizarProfissionais {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				try {
+		        	FuncionarioService funcionarioService = new FuncionarioService();
+					funcionarioService.visualizarProfissionais(profissionaisTable);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }

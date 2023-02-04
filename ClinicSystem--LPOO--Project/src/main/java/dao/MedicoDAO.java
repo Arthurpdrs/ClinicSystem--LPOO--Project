@@ -86,7 +86,7 @@ FabricaConexao medicoDAO = new FabricaConexao();
 		return execucao;
 	}
 	
-	public boolean remover(Medico medico) throws SQLException {
+	public boolean excluir(Medico medico) throws SQLException {
 		String sql = "DELETE FROM Medico WHERE (CPF=?)";
 		PreparedStatement stmt = medicoDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, medico.getCpf());

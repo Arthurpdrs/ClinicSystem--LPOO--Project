@@ -11,10 +11,12 @@ import javax.swing.table.DefaultTableModel;
 
 import core.model.Medico;
 import core.model.Paciente;
+import core.model.Recepcionista;
 import dao.MedicoDAO;
 import dao.PacienteDAO;
+import dao.RecepcionistaDAO;
 
-public class MedicoService extends FuncionarioService{
+public class MedicoService {
 	
 	public boolean filtrar(JComboBox jcombobox, String especialidade) throws SQLException {
 		if (especialidade.isBlank() || jcombobox == null) {
@@ -41,7 +43,7 @@ public class MedicoService extends FuncionarioService{
 		
 		Medico medico = new Medico(nome, telefone, email, cpf, login, senha, crm, especialidade);
 		
-		if(verificarDadosObrigatorios(medico) && TextFieldService.validarEmail(email) && TextFieldService.validarNumero(cpf) && TextFieldService.validarCRM(crm)) {
+		if(verificarDadosObrigatorios(medico) && TextFieldService.validarEmail(email) && TextFieldService.validarNumero(cpf) && TextFieldService.validarCRM(crm) && (especialidade.length() < 45)) {
 			MedicoDAO medicoDAO = new MedicoDAO();
 			medicoDAO.inserir(medico);
 			return true;
@@ -72,4 +74,34 @@ public class MedicoService extends FuncionarioService{
 		return true;
 	}
 
+	public boolean alterar(String cpf, String nome, String telefone, String login, String email, String senha, String crm, String especialidade) throws SQLException {
+		if (!(TextFieldService.validarNumero(cpf)) || !(TextFieldService.validarCRM(crm)) || !(TextFieldService.validarNumero(telefone)) || !(TextFieldService.validarEmail(email)) || nome.isBlank() || login.isBlank() || senha.isBlank() || (nome.length() > 100) || (login.length() > 20) || (senha.length() > 15) || (especialidade.length() > 45)) {
+			return false;
+		} else {
+			Medico medico = new Medico ();
+			medico.setCpf(cpf);
+			medico.setNome(nome);
+			medico.setEmail(email);
+			medico.setTelefone(telefone);
+			medico.setLogin(login);
+			medico.setSenha(senha);
+			medico.setEspecialidade(especialidade);
+			medico.setCrm(crm);
+			MedicoDAO medicoDAO = new MedicoDAO();
+			medicoDAO.alterar(medico);
+			return true;
+		}
+	}
+	
+	public boolean excluir (String cpf) throws SQLException {
+		if (!(TextFieldService.validarNumero(cpf))) {
+			return false;
+		} else {
+			Medico medico = new Medico();
+			MedicoDAO medicoDAO = new MedicoDAO();
+			medico.setCpf(cpf);
+			medicoDAO.excluir(medico);
+			return true;
+		}
+	}
 }
