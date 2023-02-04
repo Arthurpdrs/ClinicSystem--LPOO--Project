@@ -52,6 +52,14 @@ public class TextFieldService extends PlainDocument {
     	return false;
     }
     
+    public static boolean validarCRM(String numero) {
+    	String string = numero.replaceAll("\\s+", "");
+    	if (string.matches("[0-9]+") && string.length() == 6) {
+    		return true;
+    	} 
+    	return false;
+    }
+    
     public static boolean validarTextFieldNumerica(JTextField textField) {
     	String numero = textField.getText();
     	String string = numero.replaceAll("\\s+", "").replaceAll("-", "").replaceAll(":", "");

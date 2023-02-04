@@ -28,8 +28,9 @@ public class FuncionarioService {
 		if (usuario.isBlank() || senha.isBlank() || cargo.isBlank() || cpf.isBlank()) {
 			return false;
 		} else {
+			String usuarioLower = usuario.toLowerCase().trim();
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-			funcionarioDAO.inserir(usuario, cargo, senha, cpf);
+			funcionarioDAO.inserir(usuarioLower, cargo, senha, cpf);
 			return true;
 		}
 	}

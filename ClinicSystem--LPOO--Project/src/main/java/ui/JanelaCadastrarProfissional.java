@@ -9,21 +9,27 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
 
 import core.services.FuncionarioService;
 import core.services.MedicoService;
 import core.services.RecepcionistaService;
+import core.services.TextFieldService;
 
 import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 public class JanelaCadastrarProfissional {
 
@@ -197,7 +203,7 @@ public class JanelaCadastrarProfissional {
 		usuarioLbl.setBounds(412, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(usuarioLbl);
 		
-		usuarioTextField = new JTextField();
+		usuarioTextField = new JTextField(new TextFieldService(20), null, 0);
 		usuarioTextField.setToolTipText("");
 		usuarioTextField.setMargin(new Insets(10, 10, 10, 10));
 		usuarioTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -270,7 +276,7 @@ public class JanelaCadastrarProfissional {
 		    }
 		});
 		
-		emailTextField = new JTextField();
+		emailTextField = new JTextField(new TextFieldService(100), null, 0);
 		emailTextField.setToolTipText("");
 		emailTextField.setMargin(new Insets(10, 10, 10, 10));
 		emailTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -280,6 +286,16 @@ public class JanelaCadastrarProfissional {
 		emailTextField.setBackground(Color.WHITE);
 		emailTextField.setActionCommand("");
 		emailTextField.setBounds(802, 196, 277, 50);
+		emailTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarEmail(emailTextField.getText()))) {
+					erroLbl.setText("Formato de e-mail inválido");
+				} else {
+					erroLbl.setText("");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(emailTextField);
 		
 		funcaoComboBox = new JComboBox();
@@ -290,14 +306,14 @@ public class JanelaCadastrarProfissional {
 		funcaoComboBox.setBounds(22, 196, 380, 50);
 		frmClinicsystem.getContentPane().add(funcaoComboBox);
 		
-		senhaPasswordField = new JPasswordField();
+		senhaPasswordField = new JPasswordField(new TextFieldService(15), null, 0);
 		senhaPasswordField.setBackground(Color.WHITE);
 		senhaPasswordField.setForeground(Color.GRAY);
 		senhaPasswordField.setFont(new Font("Arial", Font.PLAIN, 12));
 		senhaPasswordField.setBounds(802, 100, 277, 50);
 		frmClinicsystem.getContentPane().add(senhaPasswordField);
 		
-		crmTextField = new JTextField();
+		crmTextField = new JTextField(new TextFieldService(6), null, 0);
 		crmTextField.setToolTipText("");
 		crmTextField.setMargin(new Insets(10, 10, 10, 10));
 		crmTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -307,6 +323,14 @@ public class JanelaCadastrarProfissional {
 		crmTextField.setBackground(Color.WHITE);
 		crmTextField.setActionCommand("");
 		crmTextField.setBounds(22, 292, 380, 50);
+		crmTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarCRM(crmTextField.getText()))) {
+					erroLbl.setText("O campo CRM deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(crmTextField);
 		
 		JLabel crmLbl = new JLabel("CRM:");
@@ -317,7 +341,11 @@ public class JanelaCadastrarProfissional {
 		crmLbl.setBounds(22, 257, 380, 24);
 		frmClinicsystem.getContentPane().add(crmLbl);
 		
-		telefoneTextField = new JTextField();
+		try {
+			telefoneTextField = new JFormattedTextField(new MaskFormatter("** *****-****"));
+		} catch (ParseException e2) {
+			erroLbl.setText("Ocorreu um erro inesperado. Tente novamente.");
+		}
 		telefoneTextField.setToolTipText("");
 		telefoneTextField.setMargin(new Insets(10, 10, 10, 10));
 		telefoneTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -327,6 +355,14 @@ public class JanelaCadastrarProfissional {
 		telefoneTextField.setBackground(Color.WHITE);
 		telefoneTextField.setActionCommand("");
 		telefoneTextField.setBounds(415, 196, 380, 50);
+		telefoneTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(telefoneTextField))) {
+					erroLbl.setText("O campo telefone deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(telefoneTextField);
 		
 		JLabel telefoneLbl = new JLabel("*Telefone:");
@@ -337,7 +373,7 @@ public class JanelaCadastrarProfissional {
 		telefoneLbl.setBounds(415, 161, 380, 24);
 		frmClinicsystem.getContentPane().add(telefoneLbl);
 		
-		cpfTextField = new JTextField();
+		cpfTextField = new JTextField(new TextFieldService(11), null, 0);
 		cpfTextField.setToolTipText("");
 		cpfTextField.setMargin(new Insets(10, 10, 10, 10));
 		cpfTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -347,6 +383,14 @@ public class JanelaCadastrarProfissional {
 		cpfTextField.setBackground(Color.WHITE);
 		cpfTextField.setActionCommand("");
 		cpfTextField.setBounds(415, 292, 380, 50);
+		cpfTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(cpfTextField))) {
+					erroLbl.setText("O campo CPF deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(cpfTextField);
 		
 		JLabel cpfLbl = new JLabel("*CPF:");
