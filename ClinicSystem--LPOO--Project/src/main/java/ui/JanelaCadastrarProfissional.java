@@ -301,16 +301,6 @@ public class JanelaCadastrarProfissional {
 		emailTextField.setBackground(Color.WHITE);
 		emailTextField.setActionCommand("");
 		emailTextField.setBounds(802, 196, 277, 50);
-		emailTextField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(!(TextFieldService.validarEmail(emailTextField.getText()))) {
-					erroLbl.setText("Formato de e-mail inválido");
-				} else {
-					erroLbl.setText("");
-				}
-			}
-		});
 		frmClinicsystem.getContentPane().add(emailTextField);
 		
 		funcaoComboBox = new JComboBox();

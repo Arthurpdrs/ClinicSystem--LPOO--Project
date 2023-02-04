@@ -166,7 +166,8 @@ public class JanelaVisualizarProfissionais {
 			        		if (funcao.equals("MEDICO")) {
 			        			String especialidade = profissionaisTable.getValueAt(linha, 7).toString();
 			        			String crm = profissionaisTable.getValueAt(linha, 8).toString();
-			        			retorno = true;
+			        			MedicoService medicoService = new MedicoService();
+								retorno = medicoService.alterar(cpf, nome, telefone, login, email, senha, crm, especialidade);
 			        		} else {
 									RecepcionistaService recepcionistaService = new RecepcionistaService();
 									retorno = recepcionistaService.alterar(cpf, nome, telefone, login, email, senha);
