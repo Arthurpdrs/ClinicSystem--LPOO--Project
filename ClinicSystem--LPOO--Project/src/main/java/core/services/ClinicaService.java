@@ -13,8 +13,8 @@ public class ClinicaService {
 		return clinica;
 	}
 	
-	public boolean atualizarDadosDaClinica (String nome, String email, String senha, String telefone, String endereco) throws SQLException {
-		if (nome.isBlank() || email.isBlank() || senha.isBlank() || telefone.isBlank() || endereco.isBlank()) {
+	public static boolean atualizarDadosDaClinica (String nome, String email, String senha, String telefone, String endereco) throws SQLException {
+		if (nome.isBlank() || senha.isBlank() || !(TextFieldService.validarEmail(email)) || !(TextFieldService.validarNumero(telefone)) || endereco.isBlank()) {
 			return false;
 		} else {
 			Clinica Clinica = new Clinica(nome, email, senha, telefone, endereco);
@@ -23,5 +23,6 @@ public class ClinicaService {
 			return true;
 		}
 	}
+	
 	
 }

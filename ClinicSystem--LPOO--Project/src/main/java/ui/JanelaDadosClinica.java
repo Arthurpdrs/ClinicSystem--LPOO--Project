@@ -87,6 +87,7 @@ public class JanelaDadosClinica {
 		frmClinicsystem.setTitle("ClinicSystem");
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
+		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmClinicsystem.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -170,21 +171,15 @@ public class JanelaDadosClinica {
 		        String telefone = telefoneTextField.getText();
 		        String email = emailTextField.getText();
 		        String senha = new String (senhaTextField.getPassword());
-		        
-		        if (TextFieldService.validarEmail(email) == false) {
-		        	erroLbl.setText("Formato invalido de e-mail");
-		        } else {
-			        ClinicaService clinicaService = new ClinicaService();
 					try {
-						boolean retorno = clinicaService.atualizarDadosDaClinica(nome, email, senha, telefone, endereco);
-						if (retorno == true) {
+						ClinicaService clinicaService = new ClinicaService();
+						if (clinicaService.atualizarDadosDaClinica(nome, email, senha, telefone, endereco) == true) {
 							erroLbl.setText("Dados atualizados com sucesso");
 						} else {
-							erroLbl.setText("Preencha todos os campos");
+							erroLbl.setText("Verifique o preenchimento e formato de todos os campos");
 						}
 					} catch (SQLException e) {
 						erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
-					}
 		        }
 		    }
 		});
@@ -301,7 +296,6 @@ public class JanelaDadosClinica {
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
-		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
