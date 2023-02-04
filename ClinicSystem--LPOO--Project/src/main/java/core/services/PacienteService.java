@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import core.model.Paciente;
 import core.model.Responsavel;
 import dao.PacienteDAO;
+import dao.ResponsavelDAO;
 
 public class PacienteService {
 	
@@ -44,7 +45,7 @@ public class PacienteService {
 			return false;
 	}
 	
-	public boolean visualizarPacientesFiltrados(JTable jtable, String cpf) throws SQLException {
+	public boolean filtrar(JTable jtable, String cpf) throws SQLException {
 		if (cpf.isBlank() || (TextFieldService.validarNumero(cpf) == false)) {
 			return false;
 		} else {
@@ -152,8 +153,8 @@ public class PacienteService {
 		}
 	}
 	
-	public boolean alterarPaciente(String cpf, String nome, String email, String telefone, String alergia, String tipoSanguineo, String dataNascimento, String endereco, String cpfResponsavel, String nomeResponsavel, String TelefoneResponsavel, String observacao) throws SQLException {
-		if (cpf.isBlank() || telefone.isBlank() || email.isBlank() || dataNascimento.isBlank()) {
+	public boolean alterar(String cpf, String nome, String email, String telefone, String alergia, String tipoSanguineo, String dataNascimento, String endereco, String cpfResponsavel, String nomeResponsavel, String TelefoneResponsavel, String observacao) throws SQLException {
+		if (!(TextFieldService.validarNumero(cpf)) || !(TextFieldService.validarNumero(telefone)) || !(TextFieldService.validarEmail(email)) || !(TextFieldService.validarData(dataNascimento)) || nome.isBlank()) {
 			return false;
 		} else {
 			Paciente paciente = new Paciente ();
@@ -170,11 +171,13 @@ public class PacienteService {
 
 			Responsavel responsavel = new Responsavel("", "", "", "");
 			if (cpfResponsavel != null) {
-				if(TextFieldService.validarNumero(cpfResponsavel)){
+				if(TextFieldService.validarNumero(cpfResponsavel) && TextFieldService.validarNumero(TelefoneResponsavel) && (nomeResponsavel.length() < 100)){
 				responsavel.setCpf(cpfResponsavel);
 				responsavel.setTelefone(TelefoneResponsavel);
 				responsavel.setNome(nomeResponsavel);
 				
+				ResponsavelDAO responsavelDAO = new ResponsavelDAO();
+				responsavelDAO.alterar(responsavel);
 				paciente.setResponsavel(responsavel);
 				} else {
 					return false;

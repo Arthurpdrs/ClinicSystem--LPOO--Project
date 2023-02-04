@@ -357,7 +357,7 @@ public class JanelaAgendarConsulta {
 		    	String especialidade = especialidadeComboBox.getSelectedItem().toString();
 		    	MedicoService medicoService = new MedicoService();
 		    	try {
-		    		if (medicoService.filtrarMedicos(medicoComboBox, especialidade) == false) {
+		    		if (medicoService.filtrar(medicoComboBox, especialidade) == false) {
 		    			erroLbl.setText("Não foi possivel encontrar médicos nessa especialidade");
 		    		}
 		    		else {

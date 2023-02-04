@@ -29,6 +29,7 @@ public class FuncionarioDAO {
 				funcionario.setSenha(senha); 
 				
 				String cargo = resultadoLogin.getString("Cargo");
+				String cpf = resultadoLogin.getString("Cpf");
 				
 				if (cargo.equals("MEDICO")) {
 					System.setProperty("cargo", "Medico");
@@ -37,6 +38,7 @@ public class FuncionarioDAO {
 				} else {
 					System.setProperty("cargo", "Administrador");
 				}
+				System.setProperty("cpf_logado", cpf);
 				
 			} else {
 				funcionario.setSenha(null);

@@ -158,16 +158,23 @@ public class JanelaVisualizarPacientes {
 		        	String alergia = pacientesTable.getValueAt(linha, 6).toString();
 		        	String observacao = pacientesTable.getValueAt(linha, 7).toString();
 		        	String dataNascimento = pacientesTable.getValueAt(linha, 8).toString();
-		        	String nomeResponsavel = pacientesTable.getValueAt(linha, 9).toString();
-		        	String telefoneResponsavel = pacientesTable.getValueAt(linha, 10).toString();
-		        	String cpfResponsavel = pacientesTable.getValueAt(linha, 11).toString();
+		        	String nomeResponsavel = ""; 
+		        	String telefoneResponsavel = "";
+		        	String cpfResponsavel = "";
+		        	if (!(pacientesTable.getValueAt(linha, 9).equals(null))) {
+		        		nomeResponsavel = pacientesTable.getValueAt(linha, 9).toString();
+		        	}
 		        	
-		        	if (TextFieldService.validarNumero(telefone)) {
-		        		erroLbl.setText("Telefone deve conter apenas números");
-		        	} else {
+		        	if (!(pacientesTable.getValueAt(linha, 10).equals(null))) {
+		        		telefoneResponsavel = pacientesTable.getValueAt(linha, 10).toString();
+		        	}
+		        	if (!(pacientesTable.getValueAt(linha, 11).equals(null))) {
+		        		cpfResponsavel = pacientesTable.getValueAt(linha, 11).toString();
+		        	}
+		       
 			        	PacienteService pacienteService = new PacienteService();
 			        	try {
-							if(pacienteService.alterarPaciente(cpf, nome, email, telefone, alergia, tipoSanguineo, dataNascimento, endereco, cpfResponsavel, nomeResponsavel, telefoneResponsavel, observacao)) {
+							if(pacienteService.alterar(cpf, nome, email, telefone, alergia, tipoSanguineo, dataNascimento, endereco, cpfResponsavel, nomeResponsavel, telefoneResponsavel, observacao)) {
 								erroLbl.setText("Paciente editado com sucesso");
 							} else {
 								erroLbl.setText("Não foi possível editar o paciente. Verifique os valores informados");
@@ -176,7 +183,6 @@ public class JanelaVisualizarPacientes {
 						} catch (SQLException e) {
 							erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
 						}
-			        	}
 		        }
 		    }
 		});
@@ -247,7 +253,7 @@ public class JanelaVisualizarPacientes {
 		      String cpf = codigoDoPacienteTextField.getText();
 		      try {
 			    PacienteService pacienteService = new PacienteService();
-				boolean retorno = pacienteService.visualizarPacientesFiltrados(pacientesTable, cpf);
+				boolean retorno = pacienteService.filtrar(pacientesTable, cpf);
 				if (retorno == false) {
 					avisoLbl.setText("Não foi possível encontrar o paciente");
 					pacienteService.visualizarPacientes(pacientesTable);

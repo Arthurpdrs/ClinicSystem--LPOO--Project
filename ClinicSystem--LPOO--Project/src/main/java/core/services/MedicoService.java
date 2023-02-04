@@ -16,7 +16,7 @@ import dao.PacienteDAO;
 
 public class MedicoService extends FuncionarioService{
 	
-	public boolean filtrarMedicos(JComboBox jcombobox, String especialidade) throws SQLException {
+	public boolean filtrar(JComboBox jcombobox, String especialidade) throws SQLException {
 		if (especialidade.isBlank() || jcombobox == null) {
 			return false;
 		} else {
