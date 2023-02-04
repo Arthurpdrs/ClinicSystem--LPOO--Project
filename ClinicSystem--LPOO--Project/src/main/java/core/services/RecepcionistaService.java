@@ -9,15 +9,16 @@ import dao.RecepcionistaDAO;
 
 public class RecepcionistaService {
 	
-public void cadastrar(String nome, String telefone, String email, String cpf, String login, String senha) throws SQLException {
+public boolean cadastrar(String nome, String telefone, String email, String cpf, String login, String senha) throws SQLException {
 		
 		Recepcionista recepcionista = new Recepcionista(nome, telefone, email, cpf, login, senha);
 		
-		if(verificarDadosObrigatorios(recepcionista)) {
-			
+		if(verificarDadosObrigatorios(recepcionista) && TextFieldService.validarEmail(email) && TextFieldService.validarNumero(telefone) && TextFieldService.validarNumero(cpf)) {
 			RecepcionistaDAO recepcionistaDAO = new RecepcionistaDAO();
 			recepcionistaDAO.inserir(recepcionista);
+			return true;
 		}
+		return false;
 	}
 	
 	private boolean verificarDadosObrigatorios(Recepcionista recepcionista) {

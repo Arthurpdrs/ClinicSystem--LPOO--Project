@@ -137,7 +137,7 @@ public class JanelaCadastrarProfissional {
 		nomeTextField.setColumns(10);
 		frmClinicsystem.getContentPane().add(nomeTextField);
 		
-		erroLbl = new JLabel("Preencha todos os campos obrigatórios (Indicados pelo * )");
+		erroLbl = new JLabel("");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -147,7 +147,6 @@ public class JanelaCadastrarProfissional {
 		erroLbl.setBounds(415, 508, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
-		//Botão
 		JButton enviarBtn = new JButton("Enviar");
 		enviarBtn.setBorderPainted(false);
 		enviarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -177,16 +176,25 @@ public class JanelaCadastrarProfissional {
 		        if (funcao.equals("MEDICO")) {
 		        	MedicoService medicoService = new MedicoService();
 		        	try {
-						medicoService.cadastrar(nome, telefone, email, cpf, login, senha, crm, especialidade);
-						funcionarioService.inserirLogin(login, senha, "MEDICO", cpf);
+						if (medicoService.cadastrar(nome, telefone, email, cpf, login, senha, crm, especialidade) == false) {
+							erroLbl.setText("Verifique os valores inseridos");
+						} else {
+							funcionarioService.inserirLogin(login, senha, "MEDICO", cpf);
+							erroLbl.setText("Profissional cadastrado com sucesso");
+						}
 					} catch (SQLException e) {
 						erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
 					}
 		        } else{
 		        	RecepcionistaService recepecionistaService = new RecepcionistaService();
 		        	try {
-						recepecionistaService.cadastrar(nome, telefone, email, cpf, login, senha);
-						funcionarioService.inserirLogin(login, senha, "RECEPCIONISTA", cpf);
+		        		
+		        		if (recepecionistaService.cadastrar(nome, telefone, email, cpf, login, senha) == false) {
+							erroLbl.setText("Verifique os valores inseridos");
+						} else {
+							funcionarioService.inserirLogin(login, senha, "RECEPCIONISTA", cpf);
+							erroLbl.setText("Profissional cadastrado com sucesso");
+						}
 		        	} catch (SQLException e) {
 						erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
 					}
@@ -259,7 +267,6 @@ public class JanelaCadastrarProfissional {
 		emailLbl.setBounds(802, 161, 277, 24);
 		frmClinicsystem.getContentPane().add(emailLbl);
 		
-		//Botão
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		limparBtn.setForeground(Color.GRAY);
@@ -272,7 +279,15 @@ public class JanelaCadastrarProfissional {
 		
 		limparBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		        nomeTextField.setText("");
+		        senhaPasswordField.setText("");
+		        usuarioTextField.setText("");
+		        telefoneTextField.setText("");
+		        emailTextField.setText("");
+		        crmTextField.setText("");
+		        especialidadeTextField.setText("");
+		        cpfTextField.setText("");
+		        erroLbl.setText("");
 		    }
 		});
 		

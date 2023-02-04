@@ -37,15 +37,17 @@ public class MedicoService extends FuncionarioService{
 }
 	
 	
-	public void cadastrar(String nome, String telefone, String email, String cpf, String login, String senha, String crm, String especialidade) throws SQLException {
+	public boolean cadastrar(String nome, String telefone, String email, String cpf, String login, String senha, String crm, String especialidade) throws SQLException {
 		
 		Medico medico = new Medico(nome, telefone, email, cpf, login, senha, crm, especialidade);
 		
-		if(verificarDadosObrigatorios(medico)) {
-			
+		if(verificarDadosObrigatorios(medico) && TextFieldService.validarEmail(email) && TextFieldService.validarNumero(cpf) && TextFieldService.validarCRM(crm)) {
 			MedicoDAO medicoDAO = new MedicoDAO();
 			medicoDAO.inserir(medico);
+			return true;
 		}
+		
+		return false;
 	}
 	
 	private boolean verificarDadosObrigatorios(Medico medico) {

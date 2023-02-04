@@ -275,7 +275,6 @@ public class JanelaPrincipalAdmin {
 		medicosBoxLbl.setBounds(300, 235, 276, 124);
 		frmClinicsystem.getContentPane().add(medicosBoxLbl);
 		
-		//Botão
 		JButton menuSairBtn = new JButton("  Sair");
 		menuSairBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuSairBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -289,9 +288,9 @@ public class JanelaPrincipalAdmin {
 		
 		menuSairBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	System.clearProperty("cargo");
+                System.clearProperty("cpf_logado");
 		    	System.exit(0);
-                        System.clearProperty("cargo");
 		    }
 		});
 		
