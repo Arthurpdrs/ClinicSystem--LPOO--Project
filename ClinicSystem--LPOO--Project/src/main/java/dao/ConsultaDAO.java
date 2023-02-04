@@ -30,9 +30,9 @@ public class ConsultaDAO {
 			consulta.setMedico(medico);
 			medico.setCpf(resultado.getString("Medico_CPF"));
 			consulta.setDataConsulta(resultado.getString("Data_consulta"));
-			consulta.setValor(resultado.getDouble("Valor"));
-			consulta.setPago(resultado.getBoolean("Pago"));
-			consulta.setHorario(resultado.getTime("Hora_consulta"));
+			consulta.setValor(resultado.getString("Valor"));
+			consulta.setPago(resultado.getString("Pago"));
+			consulta.setHorario(resultado.getString("Hora_consulta"));
 			retorno.add(consulta);
 		}
 		consultaDAO.fecharConexao();
@@ -45,9 +45,9 @@ public class ConsultaDAO {
 		stmt.setString(1, consulta.getPaciente().getCpf());
 		stmt.setString(2, consulta.getMedico().getCpf());
 		stmt.setString(3, consulta.getDataConsulta());
-		stmt.setDouble(4, consulta.getValor());
-		stmt.setBoolean(5, consulta.getPago());
-		stmt.setTime(6, consulta.getHorario());
+		stmt.setString(4, consulta.getValor());
+		stmt.setString(5, consulta.getPago());
+		stmt.setString(6, consulta.getHorario());
 		boolean execucao = stmt.execute();
 		consultaDAO.fecharConexao();
 		return execucao;
@@ -59,9 +59,9 @@ public class ConsultaDAO {
 		stmt.setString(1, consulta.getPaciente().getCpf());
 		stmt.setString(2, consulta.getMedico().getCpf());
 		stmt.setString(3, consulta.getDataConsulta());
-		stmt.setDouble(4, consulta.getValor());
-		stmt.setBoolean(5, consulta.getPago());
-		stmt.setTime(6, consulta.getHorario());
+		stmt.setString(4, consulta.getValor());
+		stmt.setString(5, consulta.getPago());
+		stmt.setString(6, consulta.getHorario());
 		boolean execucao = stmt.execute();
 		consultaDAO.fecharConexao();
 		return execucao;

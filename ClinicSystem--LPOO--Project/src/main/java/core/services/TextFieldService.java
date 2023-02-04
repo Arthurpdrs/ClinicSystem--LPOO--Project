@@ -74,6 +74,30 @@ public class TextFieldService extends PlainDocument {
     	}
     }
     
+    public static boolean validarTextFieldData(JTextField textField) {
+    	String numero = textField.getText();
+    	String string = numero.replaceAll("\\s+", "").replaceAll("/", "");
+    	if (string.length() != 8) {
+    		return true;
+    	} else {
+    		if (string.matches("[0-9]+")) {
+    			return true;
+    		} else {
+	    		textField.setText("");
+	    		return false;
+    		}
+    	}
+    }
+    
+    public static boolean validarData(String numero) {
+    	String string = numero.replaceAll("/", "");
+    	if (string.matches("[0-9]+") && string.length() == 8) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
     public static boolean validarTextFieldHorario(JTextField textField) {
     	String numero = textField.getText();
     	String string = numero.replaceAll("\\s+", "").replaceAll(":", "");
@@ -88,6 +112,17 @@ public class TextFieldService extends PlainDocument {
     		}
     	}
     }
+    
+    public static String extrairCpfDaString(String stringRecebida) {
+    	String pedaco = "";
+    	if (stringRecebida.length() < 14) {
+    		pedaco = stringRecebida;
+    	} else {
+    		pedaco = stringRecebida.substring(1, 12);
+    	}
+		return pedaco;
+    }
+    
     
     public static void main(String[] args) {
 	}

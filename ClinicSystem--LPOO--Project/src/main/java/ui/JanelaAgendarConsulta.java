@@ -13,6 +13,7 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.SwingConstants;
 
 import core.model.Paciente;
+import core.services.ConsultaService;
 import core.services.MedicoService;
 import core.services.PacienteService;
 import core.services.TextFieldService;
@@ -67,6 +68,7 @@ public class JanelaAgendarConsulta {
 	private JButton pesquisarBtn;
 	private JLabel avisoLbl;
 	private JLabel codigoDoPacienteLbl;
+	private JTextField dataTextField;
 
 	/**
 	 * Launch the application.
@@ -176,11 +178,27 @@ public class JanelaAgendarConsulta {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		    	String celular = celularTextField.getText();
 		        String cpf = cpfTextField.getText();
-		        String email =emailTextField.getText();
+		        String email = emailTextField.getText();
 		        String horario = horarioTextField.getText();
 		        String valor = valorTextField.getText();
-		        String observacao =observacaoTextField.getText();
-		        String nomeResponsavel = responsavelTextField.getText();
+		        String observacao = observacaoTextField.getText();
+		        String data = dataTextField.getText();
+		        String cpfResponsavel = TextFieldService.extrairCpfDaString(responsavelTextField.getText());
+		        String cpfMedico = TextFieldService.extrairCpfDaString(medicoComboBox.getSelectedItem().toString());
+		        String estadoPagamento = estadoComboBox.getSelectedItem().toString();
+		        String nome = nomeTextField.getText();
+		        ConsultaService consultaService = new ConsultaService();
+		        try {
+		        	if (consultaService.inserir(nome, celular, cpf, email, horario, valor, observacao, estadoPagamento, cpfResponsavel, cpfMedico, data)) {
+		        		erroLbl.setText("Consulta agendada com sucesso");
+		        	} else {
+		        		erroLbl.setText("Verifique os campos informados");
+		        	}
+					
+		        } catch (SQLException e) {
+					e.printStackTrace();
+				}
+		        
 		    }
 		});
 		
@@ -349,10 +367,30 @@ public class JanelaAgendarConsulta {
 		});
 		frmClinicsystem.getContentPane().add(especialidadeComboBox);
 		
-		JDateChooser dataDaConsultaDateChooser = new JDateChooser();
-		dataDaConsultaDateChooser.setDateFormatString("dd/MM/yyyy");
-		dataDaConsultaDateChooser.setBounds(812, 388, 277, 50);
-		frmClinicsystem.getContentPane().add(dataDaConsultaDateChooser);
+		
+		try {
+			dataTextField = new JFormattedTextField(new MaskFormatter("**/**/****"));
+		} catch (ParseException e1) {
+			erroLbl.setText("Ocorreu um erro inesperado");
+		}
+		dataTextField.setToolTipText("");
+		dataTextField.setMargin(new Insets(10, 10, 10, 10));
+		dataTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		dataTextField.setForeground(Color.GRAY);
+		dataTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		dataTextField.setColumns(10);
+		dataTextField.setBackground(Color.WHITE);
+		dataTextField.setActionCommand("");
+		dataTextField.setBounds(812, 388, 277, 50);
+		dataTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldData(dataTextField))) {
+					erroLbl.setText("O campo data deve conter apenas números");
+				}
+			}
+		});
+		frmClinicsystem.getContentPane().add(dataTextField);
 		
 		codigoDoPacienteTextField = new JTextField(new TextFieldService(11), null, 0);
 		codigoDoPacienteTextField.setToolTipText("");
