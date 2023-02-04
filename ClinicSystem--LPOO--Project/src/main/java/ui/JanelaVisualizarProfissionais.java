@@ -271,11 +271,18 @@ public class JanelaVisualizarProfissionais {
 		
 		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		        String cpf = codigoDoProfissionalTextField.getText();
+		        FuncionarioService funcionarioService = new FuncionarioService();
+				try {
+						System.out.println(funcionarioService.filtrar(profissionaisTable, cpf));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		    }
 		});
 		
-		avisoLbl = new JLabel("Não foi possível encontrar o profissional");
+		avisoLbl = new JLabel("");
 		avisoLbl.setOpaque(true);
 		avisoLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		avisoLbl.setForeground(new Color(0, 102, 255));
@@ -295,7 +302,7 @@ public class JanelaVisualizarProfissionais {
 		        	FuncionarioService funcionarioService = new FuncionarioService();
 					funcionarioService.visualizarProfissionais(profissionaisTable);
 				} catch (SQLException e) {
-					e.printStackTrace();
+					erroLbl.setText("Ocorreu um erro inesperado");
 				}
 			}
 		});

@@ -29,6 +29,26 @@ FabricaConexao recepcionistaDAO = new FabricaConexao();
 		recepcionistaDAO.fecharConexao();
 		return retorno;
 	}
+    
+    public List<Recepcionista> filtrar(String cpf) throws SQLException {
+    	String sql = "SELECT * FROM Recepcionista WHERE CPF = ?";
+		List<Recepcionista> retorno = new ArrayList();
+		PreparedStatement stmt = recepcionistaDAO.getConexao().prepareStatement(sql);
+		stmt.setString(1, cpf);
+		ResultSet resultado = stmt.executeQuery();
+		while(resultado.next()) {
+			Recepcionista recepcionista = new Recepcionista();
+			recepcionista.setCpf(resultado.getString("CPF"));
+			recepcionista.setNome(resultado.getString("Nome"));
+			recepcionista.setTelefone(resultado.getString("Telefone"));
+			recepcionista.setEmail(resultado.getString("Email"));
+			recepcionista.setLogin(resultado.getString("Login"));
+			recepcionista.setSenha(resultado.getString("Senha"));
+			retorno.add(recepcionista);
+		}
+		recepcionistaDAO.fecharConexao();
+		return retorno;
+	}
 	
 	public void inserir(Recepcionista recepcionista) throws SQLException {
 		String sql = "INSERT INTO Recepcionista(CPF, Nome, Telefone, Email, Login, Senha) VALUES(?, ?, ?, ?, ?, ?)";

@@ -85,6 +85,58 @@ public class FuncionarioService {
 		return false;
 }
 	
+	public boolean filtrar(JTable jtable, String cpf) throws SQLException {
+		if (TextFieldService.validarNumero(cpf)) {
+			DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+			
+			RecepcionistaDAO recepcionistaDAO = new RecepcionistaDAO();
+			List<Recepcionista> recepcionistas = recepcionistaDAO.filtrar(cpf);
+			
+			MedicoDAO medicoDAO = new MedicoDAO();
+			List<Medico> medicos = medicoDAO.filtrar(cpf);
+			
+			
+			if ((recepcionistas.size() > 0) || (medicos.size() > 0)) {
+		        model.setNumRows(0);
+		        if (recepcionistas.size() > 0) {
+					for (Recepcionista recepcionista : recepcionistas) {
+							model.addRow(new Object[] {
+									recepcionista.getNome(),
+									recepcionista.getLogin(),
+									recepcionista.getSenha(),
+									recepcionista.getCpf(),
+									recepcionista.getEmail(),
+									recepcionista.getTelefone(),
+									"RECEPCIONISTA",
+									"",
+									""
+							});
+						}
+					}
+		        
+		        
+		        if (medicos.size() > 0) {
+					for (Medico medico: medicos) {
+							model.addRow(new Object[] {
+									medico.getNome(),
+									medico.getLogin(),
+									medico.getSenha(),
+									medico.getCpf(),
+									medico.getEmail(),
+									medico.getTelefone(),
+									"MEDICO",
+									medico.getEspecialidade(),
+									medico.getCrm()
+							});
+						}
+					}
+		        jtable.setModel(model);
+				return true;
+			}
+		}
+		return false;
+}
+	
 	public boolean inserir(String usuario, String senha, String cargo, String cpf) throws SQLException {
 		if (usuario.isBlank() || senha.isBlank() || cargo.isBlank() || cpf.isBlank()) {
 			return false;
