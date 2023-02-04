@@ -5,7 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import core.model.Consulta;
 import core.model.Medico;
@@ -76,4 +79,29 @@ public class ConsultaDAO {
 		consultaDAO.fecharConexao();
 		return execucao;
 	}
+	
+	public void TotalConsultas(Consulta consulta) throws SQLException {
+		Date data = new Date();
+		
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String dataAtual = dateFormat.format(data);
+		String sql = "SELECT COUNT(*) as Data_consulta FROM Consulta WHERE Data_consulta=?";
+		
+		PreparedStatement count = consultaDAO.getConexao().prepareStatement(sql);
+		count.setString(1, dataAtual);
+		ResultSet resultado = count.executeQuery();
+		
+	        while(resultado.next()){
+	
+	            consulta.setTotalConsulta(resultado.getString("Data_consulta"));
+	        
+	        }
+	        
+	        consultaDAO.fecharConexao();
+	        
+	       
+	}
+
 }
+

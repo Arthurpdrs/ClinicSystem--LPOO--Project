@@ -8,6 +8,7 @@ public class Consulta {
 	private Paciente paciente;
 	private String valor;
 	private String pago;
+	private String totalConsulta;
 	
 
 	public Consulta(
@@ -16,13 +17,15 @@ public class Consulta {
 			Medico medico,
 			Paciente paciente,
 			String valor,
-			String pago) {
+			String pago,
+			String totalConsulta) {
 
 		this.dataConsulta = dataConsulta;
 		this.medico = medico;
 		this.paciente = paciente;
 		this.valor = valor;
 		this.pago = pago;
+		this.totalConsulta = totalConsulta;
 	}
 	
 	public Consulta() {}
@@ -82,6 +85,15 @@ public class Consulta {
 	public void setPago(String pago) {
 		this.pago = pago;
 	}
+	
+	public String getTotalConsulta() {
+		return totalConsulta;
+	}
+
+	public void setTotalConsulta(String totalConsulta) {
+		this.totalConsulta = totalConsulta;
+	}
+
 	
 	
 	

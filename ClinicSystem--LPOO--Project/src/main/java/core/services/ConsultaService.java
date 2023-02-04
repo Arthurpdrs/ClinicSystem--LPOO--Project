@@ -36,5 +36,16 @@ public class ConsultaService {
 			return true;
 		}
 	}
-
+	
+	public String totalConsultasDia() throws SQLException {
+		Consulta consulta = new Consulta();
+		ConsultaDAO consultadao = new ConsultaDAO();
+		
+		consultadao.TotalConsultas(consulta);
+		String totalconsultasdia = consulta.getTotalConsulta();
+		if(totalconsultasdia.equals(null)) {
+			totalconsultasdia = "0";			
+		}
+		return totalconsultasdia;
+		}
 }
