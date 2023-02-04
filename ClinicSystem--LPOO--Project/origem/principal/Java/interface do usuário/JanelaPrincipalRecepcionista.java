@@ -290,6 +290,7 @@ public class JanelaPrincipalRecepcionista {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		    	//Inserir ação aqui
 		    	System.exit(0);
+                        System.clearProperty("cargo");
 		    }
 		});
 		
