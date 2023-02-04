@@ -5,9 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import core.model.Consulta;
+import core.model.Estatistica;
 import core.model.Medico;
 import core.model.Paciente;
 import core.model.Pessoa;
@@ -76,4 +80,20 @@ public class ConsultaDAO {
 		consultaDAO.fecharConexao();
 		return execucao;
 	}
+
+	public Estatistica filtrarData(Consulta consulta) throws SQLException {
+		Estatistica estatistica = new Estatistica();
+		String sql = "SELECT COUNT(*) as Data_consulta FROM Consulta WHERE Data_consulta = ?";
+
+		PreparedStatement count = consultaDAO.getConexao().prepareStatement(sql);
+		count.setString(1, consulta.getDataConsulta());
+		ResultSet resultado = count.executeQuery();
+
+	    while(resultado.next()){
+	    	estatistica.setValor(resultado.getString("Data_consulta"));
+	    }
+	        consultaDAO.fecharConexao();
+			return estatistica;
+	}
+	
 }

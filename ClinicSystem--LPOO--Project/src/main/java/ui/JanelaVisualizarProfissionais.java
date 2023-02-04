@@ -127,7 +127,7 @@ public class JanelaVisualizarProfissionais {
 		barraAzul.setOpaque(true);
 		frmClinicsystem.getContentPane().add(barraAzul);
 		
-		erroLbl = new JLabel("Excluído com sucesso");
+		erroLbl = new JLabel("");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -274,10 +274,13 @@ public class JanelaVisualizarProfissionais {
 		        String cpf = codigoDoProfissionalTextField.getText();
 		        FuncionarioService funcionarioService = new FuncionarioService();
 				try {
-						System.out.println(funcionarioService.filtrar(profissionaisTable, cpf));
+					if(funcionarioService.filtrar(profissionaisTable, cpf)) {
+						avisoLbl.setText("");
+					} else {
+						avisoLbl.setText("Não foi possível encontrar o paciente");
+					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					avisoLbl.setText("Ocorreu um erro inesperado");
 				}
 		    }
 		});

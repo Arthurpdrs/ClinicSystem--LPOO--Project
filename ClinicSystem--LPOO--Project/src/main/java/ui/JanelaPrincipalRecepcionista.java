@@ -6,10 +6,17 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+
+import core.services.ConsultaService;
+import core.services.FuncionarioService;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.Toolkit;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 public class JanelaPrincipalRecepcionista {
 
 	private JFrame frmClinicsystem;
@@ -316,5 +323,16 @@ public class JanelaPrincipalRecepcionista {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				try {
+		        	ConsultaService consultaService = new ConsultaService();
+		        	consultaService.filtrarData(numeroConsultasLbl);
+				} catch (SQLException e) {
+					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
+				}
+			}
+		});
 	}
 }

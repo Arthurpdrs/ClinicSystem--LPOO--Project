@@ -160,16 +160,15 @@ public class JanelaCadastrarProfissional {
 		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		        
-		    	String nome = nomeTextField.getText().toLowerCase().trim();
+		    	String nome = nomeTextField.getText().toUpperCase().trim();
 		        String login = usuarioTextField.getText().toLowerCase().trim();
 		        String senha = new String(senhaPasswordField.getPassword());
 		        String funcao = (String)funcaoComboBox.getSelectedItem();
 		        String telefone = telefoneTextField.getText().trim();
 		        String email = emailTextField.getText().toLowerCase().trim();
 		        String cpf = cpfTextField.getText().trim();
-		        String crm = crmTextField.getText().toLowerCase().trim();
-		        String especialidade = especialidadeTextField.getText().toLowerCase().trim();
-		        
+		        String crm = crmTextField.getText().trim();
+		        String especialidade = especialidadeTextField.getText().toUpperCase().trim();
 
 	        	FuncionarioService funcionarioService = new FuncionarioService();
 	        	
