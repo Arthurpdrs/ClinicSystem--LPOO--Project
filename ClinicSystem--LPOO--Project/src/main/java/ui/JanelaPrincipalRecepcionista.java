@@ -8,7 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
 import core.services.ConsultaService;
+import core.services.EstatisticaService;
 import core.services.FuncionarioService;
+import core.services.PacienteService;
 
 import java.awt.Font;
 import javax.swing.JButton;
@@ -83,7 +85,7 @@ public class JanelaPrincipalRecepcionista {
 		iconeRecepcionistasLbl.setBounds(630, 267, 62, 62);
 		frmClinicsystem.getContentPane().add(iconeRecepcionistasLbl);
 		
-		JLabel numeroPacientesLbl = new JLabel("20000");
+		final JLabel numeroPacientesLbl = new JLabel("");
 		numeroPacientesLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroPacientesLbl.setForeground(Color.WHITE);
 		numeroPacientesLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -327,8 +329,7 @@ public class JanelaPrincipalRecepcionista {
 		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
-		        	ConsultaService consultaService = new ConsultaService();
-		        	consultaService.filtrarData(numeroConsultasLbl);
+					EstatisticaService.totalConsultasDia(numeroConsultasLbl);
 				} catch (SQLException e) {
 					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
 				}

@@ -8,7 +8,6 @@ import java.util.Date;
 import javax.swing.JLabel;
 
 import core.model.Consulta;
-import core.model.Estatistica;
 import core.model.Medico;
 import core.model.Paciente;
 import core.model.Responsavel;
@@ -41,23 +40,6 @@ public class ConsultaService {
 			consultaDAO.inserir(consulta);
 			return true;
 		}
-	}
-	
-	public boolean filtrarData(JLabel label) throws SQLException {
-		Date data = new Date();
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		String dataAtual = dateFormat.format(data);
-		if (!(label.equals(null))) {
-			ConsultaDAO consultaDAO = new ConsultaDAO();
-			Consulta consulta = new Consulta();
-			consulta.setDataConsulta(dataAtual);
-			Estatistica estatistica = consultaDAO.filtrarData(consulta);
-			label.setText(estatistica.getValor());
-			return true;
-		} else {
-			return true;
-		}
-		
 	}
 	
 }

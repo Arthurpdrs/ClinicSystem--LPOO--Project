@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.model.Consulta;
 import core.model.Paciente;
 import core.model.Responsavel;
 
@@ -163,7 +164,6 @@ public class PacienteDAO {
 		
 	}
 
-	
 	public boolean excluir(String cpf) throws SQLException {
 		String sql = "DELETE FROM Paciente WHERE CPF = ?";
 		PreparedStatement delete = conexao.getConexao().prepareStatement(sql);
