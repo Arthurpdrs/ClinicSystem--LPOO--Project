@@ -9,10 +9,13 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
 
@@ -20,11 +23,15 @@ import core.model.Responsavel;
 import core.services.EnderecoService;
 import core.services.PacienteService;
 import core.services.ResponsavelService;
+import core.services.TextFieldService;
 
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -52,7 +59,7 @@ public class JanelaCadastrarPaciente {
 	private JLabel tipoSanguineoLbl;
 	private JComboBox tipoSanguineoComboBox;
 	private JLabel dataDeNascimentoLbl;
-	private JDateChooser dataDeNascimentoDateChooser;
+	private JTextField dataTextField;
 	private JTextField responsavelNomeCompletoTextField;
 	private JLabel NomeCompletoResponsavelLbl;
 	private JTextField responsavelCelularTextField;
@@ -175,37 +182,39 @@ public class JanelaCadastrarPaciente {
 		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		        
-		    	String nome = nomeTextField.getText().toLowerCase().trim();
-		        String email = emailTextField.getText().toLowerCase().trim();
-		        String cpf = cpfTextField.getText().toLowerCase().trim();
+		    	String nome = nomeTextField.getText();
+		        String email = emailTextField.getText();
+		        String cpf = cpfTextField.getText();
 		        String tipoSanguineo = (String) tipoSanguineoComboBox.getSelectedItem();
-		        String alergia = alergiaTextField.getText().toLowerCase().trim();
-		        String celular = celularTextField.getText().toLowerCase().trim();
-		        String observacao = observacaoTextField.getText().toLowerCase().trim();
-		        Date dataDeNascimento = dataDeNascimentoDateChooser.getDate();
-		        SimpleDateFormat FormatadorDaData = new SimpleDateFormat("dd/MM/yyyy");
-		        String dataNascimentoFormatada = FormatadorDaData.format(dataDeNascimento);
+		        String alergia = alergiaTextField.getText();
+		        String celular = celularTextField.getText();
+		        String observacao = observacaoTextField.getText();
+		        String dataDeNascimento = dataTextField.getText();
 		        String logradouro = logradouroTextField.getText().toLowerCase();
-		        String numero = numeroTextField.getText().toLowerCase().trim();
-		        String bairro = bairroTextField.getText().toLowerCase().trim();
-		        String cidade = cidadeTextField.getText().toLowerCase().trim();
-		        String cep = cepTextField.getText().toLowerCase().trim();
-		        String nomeResponsavel = responsavelNomeCompletoTextField.getText().toLowerCase().trim();
-		        String celularResponsavel = celularTextField.getText().trim();
-		        String cpfResponsavel = responsavelCpfTextField.getText().trim();
+		        String numero = numeroTextField.getText();
+		        String bairro = bairroTextField.getText();
+		        String cidade = cidadeTextField.getText();
+		        String cep = cepTextField.getText();
+		        String nomeResponsavel = responsavelNomeCompletoTextField.getText();
+		        String celularResponsavel = responsavelCelularTextField.getText();
+		        String cpfResponsavel = responsavelCpfTextField.getText();
 		        
 		        PacienteService paciente = new PacienteService();
 		        String endereco = EnderecoService.montarEndereco(logradouro, numero, bairro, cidade, cep);
 		        ResponsavelService responsavelService = new ResponsavelService();
 		        Responsavel responsavel = null;
+		        
+		        if(!(nomeResponsavel.isBlank() && celularResponsavel.isBlank() && cpfResponsavel.isBlank())) {
+		        	
+		        	try {
+						responsavel = responsavelService.inserir(nomeResponsavel, cpfResponsavel, celularResponsavel);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+		        }
+				System.out.println(celular);
 				try {
-					responsavel = responsavelService.inserir(nomeResponsavel, cpfResponsavel, celularResponsavel);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
-				try {
-					paciente.cadastrar(nome, celular, email, cpf, tipoSanguineo, alergia, dataNascimentoFormatada, endereco, observacao, responsavel);
+					paciente.cadastrar(nome, celular, email, cpf, tipoSanguineo, alergia, dataDeNascimento, endereco, observacao, responsavel);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -349,7 +358,7 @@ public class JanelaCadastrarPaciente {
 		dataDeNascimentoLbl.setBounds(883, 161, 196, 24);
 		frmClinicsystem.getContentPane().add(dataDeNascimentoLbl);
 		
-		JComboBox tipoSanguineoComboBox = new JComboBox();
+		tipoSanguineoComboBox = new JComboBox();
 		tipoSanguineoComboBox.setFont(new Font("Arial", Font.PLAIN, 12));
 		tipoSanguineoComboBox.setForeground(new Color(128, 128, 128));
 		tipoSanguineoComboBox.setBackground(Color.WHITE);
@@ -357,10 +366,29 @@ public class JanelaCadastrarPaciente {
 		tipoSanguineoComboBox.setBounds(883, 100, 196, 50);
 		frmClinicsystem.getContentPane().add(tipoSanguineoComboBox);
 		
-		JDateChooser dataDeNascimentoDateChooser = new JDateChooser();
-		dataDeNascimentoDateChooser.setDateFormatString("dd/MM/yyyy");
-		dataDeNascimentoDateChooser.setBounds(883, 196, 196, 50);
-		frmClinicsystem.getContentPane().add(dataDeNascimentoDateChooser);
+		try {
+			dataTextField = new JFormattedTextField(new MaskFormatter("**/**/****"));
+		} catch (ParseException e1) {
+			erroLbl.setText("Ocorreu um erro inesperado");
+		}
+		dataTextField.setToolTipText("");
+		dataTextField.setMargin(new Insets(10, 10, 10, 10));
+		dataTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		dataTextField.setForeground(Color.GRAY);
+		dataTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		dataTextField.setColumns(10);
+		dataTextField.setBackground(Color.WHITE);
+		dataTextField.setActionCommand("");
+		dataTextField.setBounds(883, 196, 196, 50);
+		dataTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldData(dataTextField))) {
+					erroLbl.setText("O campo data deve conter apenas números");
+				}
+			}
+		});
+		frmClinicsystem.getContentPane().add(dataTextField);
 		
 		responsavelNomeCompletoTextField = new JTextField();
 		responsavelNomeCompletoTextField.setToolTipText("Do responsável");

@@ -21,7 +21,6 @@ FabricaConexao responsavelDAO = new FabricaConexao();
 			responsavel.setCpf(resultado.getString("CPF"));
 			responsavel.setNome(resultado.getString("Nome"));
 			responsavel.setTelefone(resultado.getString("Telefone"));
-			responsavel.setEmail(resultado.getString("Email"));
 			retorno.add(responsavel);
 		}
 		responsavelDAO.fecharConexao();
@@ -30,6 +29,11 @@ FabricaConexao responsavelDAO = new FabricaConexao();
 	
 	public boolean inserir(Responsavel responsavel) throws SQLException {
 		String sql = "INSERT INTO Responsavel(CPF, Nome, Telefone) VALUES(?, ?, ?)";
+		
+		if(responsavel == null) {
+			return false;
+		}
+		
 		PreparedStatement stmt = responsavelDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, responsavel.getCpf());
 		stmt.setString(2, responsavel.getNome());

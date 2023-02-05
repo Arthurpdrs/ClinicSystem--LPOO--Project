@@ -107,16 +107,25 @@ public class PacienteDAO {
 		}
 	
 	public boolean adicionar(Paciente paciente, Responsavel responsavel) throws SQLException {
-		String sql = "INSERT INTO Paciente(Nome, Tipo_sanguineo, Alergia, Data_nascimento, CPF, Responsavel_CPF, Endereco, Observacao) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Paciente(Nome, Tipo_sanguineo, Alergia, Data_nascimento, CPF, Responsavel_CPF, Endereco, Observacao, Telefone, Email) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		String cpfResponsavel = "";
+		
+		if(responsavel != null) {
+			cpfResponsavel = responsavel.getCpf();
+		}
+		
 		PreparedStatement insert = pacienteDAO.getConexao().prepareStatement(sql);
 		insert.setString(1, paciente.getNome());
 		insert.setString(2, paciente.getTipoSanguineo());
 		insert.setString(3, paciente.getAlergia());
 		insert.setString(4, paciente.getDataNascimento());
 		insert.setString(5, paciente.getCpf());
-		insert.setString(6, responsavel.getCpf());
+		insert.setString(6, cpfResponsavel);
 		insert.setString(7, paciente.getEndereco());
 		insert.setString(8, paciente.getObservacao());
+		insert.setString(9, paciente.getTelefone());
+		insert.setString(10, paciente.getTelefone());
 		boolean execucao = insert.execute();
 		pacienteDAO.fecharConexao();
 		return execucao;
