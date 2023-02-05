@@ -35,9 +35,9 @@ public class ClinicaDAO {
 		stmt.setString(4, clinica.getSenha());
 		stmt.setString(4, clinica.getSenha());
 		stmt.setString(5, clinica.getEndereco());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		clinicaDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 
 }
