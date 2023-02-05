@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 
 import core.model.Paciente;
 import dao.ConsultaDAO;
+import dao.MedicoDAO;
 import dao.PacienteDAO;
 import dao.RecepcionistaDAO;
 
@@ -60,6 +61,16 @@ public class EstatisticaService {
 			return false;
 		}
 		label.setText(recepcionistaDAO.totalRecepcionista());
+		return true;
+	}
+	
+	public static boolean totalMedico(JLabel label) throws SQLException {
+		MedicoDAO medicoDAO = new MedicoDAO();
+		if(medicoDAO.totalMedico().equals(null)) {
+			label.setText("0");
+			return false;
+		}
+		label.setText(medicoDAO.totalMedico());
 		return true;
 	}
 	

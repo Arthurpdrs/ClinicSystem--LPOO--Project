@@ -232,7 +232,7 @@ public class JanelaPrincipalRecepcionista {
 		textoPacientesLbl.setBounds(725, 100, 130, 59);
 		frmClinicsystem.getContentPane().add(textoPacientesLbl);
 		
-		JLabel numeroMedicosLbl = new JLabel("20000");
+		final JLabel numeroMedicosLbl = new JLabel("20000");
 		numeroMedicosLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroMedicosLbl.setForeground(Color.WHITE);
 		numeroMedicosLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -333,6 +333,7 @@ public class JanelaPrincipalRecepcionista {
 					EstatisticaService.totalConsultasDia(numeroConsultasLbl);
 					EstatisticaService.totalPacientes(numeroPacientesLbl);
 					EstatisticaService.totalRecepcionista(numeroRecepcionistasLbl);
+					EstatisticaService.totalMedico(numeroMedicosLbl);
 				} catch (SQLException e) {
 					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
 				}

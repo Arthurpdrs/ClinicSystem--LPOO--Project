@@ -136,4 +136,16 @@ FabricaConexao medicoDAO = new FabricaConexao();
 		medicoDAO.fecharConexao();
 		return execucao;
 	}
+	
+	public String totalMedico() throws SQLException {
+		String sql = "SELECT COUNT(*) as Total FROM Medico";
+		PreparedStatement count = medicoDAO.getConexao().prepareStatement(sql);
+		ResultSet resultado = count.executeQuery();
+		String retorno = "";
+		if(resultado.next()){
+			retorno = resultado.getString("Total");
+			}
+		medicoDAO.fecharConexao();
+		return retorno;
+	}
 }
