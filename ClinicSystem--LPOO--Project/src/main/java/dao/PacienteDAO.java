@@ -12,14 +12,14 @@ import core.model.Responsavel;
 
 
 public class PacienteDAO {
-	FabricaConexao conexao = new FabricaConexao();
+	FabricaConexao pacienteDAO = new FabricaConexao();
 	String Responsavel_CPF = null;
 	
 	public List<Paciente> listar() throws SQLException{
 		String sql = "SELECT * FROM Paciente";
 		List<Paciente> retornoLista = new ArrayList();
 
-		PreparedStatement select = conexao.getConexao().prepareStatement(sql);
+		PreparedStatement select = pacienteDAO.getConexao().prepareStatement(sql);
 		ResultSet resultado = select.executeQuery();
 		
 		while(resultado.next()) {
@@ -37,7 +37,7 @@ public class PacienteDAO {
 			Responsavel responsavel = new Responsavel();
 			if (resultado.getString("Responsavel_CPF") != null) {
 				String sqlResponsavel = "SELECT CPF, Nome, Telefone FROM Responsavel WHERE CPF = ?";
-				PreparedStatement selectResponsavel = conexao.getConexao().prepareStatement(sqlResponsavel);
+				PreparedStatement selectResponsavel = pacienteDAO.getConexao().prepareStatement(sqlResponsavel);
 				selectResponsavel.setString(1, resultado.getString("Responsavel_CPF"));
 				ResultSet resultadoResponsavel = selectResponsavel.executeQuery();
 				while (resultadoResponsavel.next()) {
@@ -55,7 +55,7 @@ public class PacienteDAO {
 			retornoLista.add(paciente);			
 		}
 		
-		conexao.fecharConexao();
+		pacienteDAO.fecharConexao();
 		return retornoLista;
 
 		}
@@ -64,7 +64,7 @@ public class PacienteDAO {
 		String sql = "SELECT * FROM Paciente WHERE CPF = ?";
 		List<Paciente> retornoLista = new ArrayList();
 		
-		PreparedStatement select = conexao.getConexao().prepareStatement(sql);
+		PreparedStatement select = pacienteDAO.getConexao().prepareStatement(sql);
 		select.setString(1, cpf);
 		ResultSet resultado = select.executeQuery();
 		
@@ -83,7 +83,7 @@ public class PacienteDAO {
 			Responsavel responsavel = new Responsavel();
 			if (resultado.getString("Responsavel_CPF") != null) {
 				String sqlResponsavel = "SELECT CPF, Nome, Telefone FROM Responsavel WHERE CPF = ?";
-				PreparedStatement selectResponsavel = conexao.getConexao().prepareStatement(sqlResponsavel);
+				PreparedStatement selectResponsavel = pacienteDAO.getConexao().prepareStatement(sqlResponsavel);
 				selectResponsavel.setString(1, resultado.getString("Responsavel_CPF"));
 				ResultSet resultadoResponsavel = selectResponsavel.executeQuery();
 				while (resultadoResponsavel.next()) {
@@ -101,14 +101,14 @@ public class PacienteDAO {
 			retornoLista.add(paciente);			
 		}
 		
-		conexao.fecharConexao();
+		pacienteDAO.fecharConexao();
 		return retornoLista;
 
 		}
 	
 	public boolean adicionar(Paciente paciente, Responsavel responsavel) throws SQLException {
 		String sql = "INSERT INTO Paciente(Nome, Tipo_sanguineo, Alergia, Data_nascimento, CPF, Responsavel_CPF, Endereco, Observacao) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement insert = conexao.getConexao().prepareStatement(sql);
+		PreparedStatement insert = pacienteDAO.getConexao().prepareStatement(sql);
 		insert.setString(1, paciente.getNome());
 		insert.setString(2, paciente.getTipoSanguineo());
 		insert.setString(3, paciente.getAlergia());
@@ -118,13 +118,13 @@ public class PacienteDAO {
 		insert.setString(7, paciente.getEndereco());
 		insert.setString(8, paciente.getObservacao());
 		boolean execucao = insert.execute();
-		conexao.fecharConexao();
+		pacienteDAO.fecharConexao();
 		return execucao;
 	}
 	
 	public boolean alterar(Paciente paciente, Responsavel responsavel) throws SQLException {
 		String sql = "UPDATE Paciente SET Nome = ?, Tipo_sanguineo = ?, Alergia = ?, Data_nascimento = ?, Responsavel_CPF = ?, Endereco = ?, Observacao = ? WHERE CPF = ?";
-			PreparedStatement insert = conexao.getConexao().prepareStatement(sql);
+			PreparedStatement insert = pacienteDAO.getConexao().prepareStatement(sql);
 			insert.setString(1, paciente.getNome());
 			insert.setString(2, paciente.getTipoSanguineo());
 			insert.setString(3, paciente.getAlergia());
@@ -134,7 +134,7 @@ public class PacienteDAO {
 			insert.setString(7, paciente.getObservacao());
 			insert.setString(8, paciente.getCpf());
 			boolean execucao = insert.execute();
-			conexao.fecharConexao();
+			pacienteDAO.fecharConexao();
 			return execucao;
 	}
 	
@@ -144,7 +144,7 @@ public class PacienteDAO {
 	public List<Paciente> filtrar(Paciente paciente) throws SQLException {
 		String sql = "SELECT * FROM Paciente WHERE CPF = ? ";
 		List<Paciente> retornoDados = new ArrayList();
-		PreparedStatement select = conexao.getConexao().prepareStatement(sql);
+		PreparedStatement select = pacienteDAO.getConexao().prepareStatement(sql);
 		select.setString(1, paciente.getCpf());
 		ResultSet resultado = select.executeQuery();
 			
@@ -158,7 +158,7 @@ public class PacienteDAO {
 				
 			}
 			
-		conexao.fecharConexao();	
+		pacienteDAO.fecharConexao();	
 		return retornoDados;
 		
 		
@@ -166,20 +166,28 @@ public class PacienteDAO {
 
 	public boolean excluir(String cpf) throws SQLException {
 		String sql = "DELETE FROM Paciente WHERE CPF = ?";
-		PreparedStatement delete = conexao.getConexao().prepareStatement(sql);
+		PreparedStatement delete = pacienteDAO.getConexao().prepareStatement(sql);
 		delete.setString(1, cpf);
 		boolean execucao = delete.execute();
-		conexao.fecharConexao();
+		pacienteDAO.fecharConexao();
 		return execucao;
 	}
 	
 
 
 	
-	public String TotalPacientes() {
-		
-		return null;
-		
+	public String totalPacientes() throws SQLException {
+		String sql = "SELECT COUNT(*) as CPF FROM Paciente";
+		PreparedStatement count = pacienteDAO.getConexao().prepareStatement(sql);
+		ResultSet resultado = count.executeQuery();
+		String retorno = "";
+		if(resultado.next()){
+			retorno = resultado.getString("CPF");
 		}
+
+		pacienteDAO.fecharConexao();
+		return retorno;
+	}
+
 	
 }

@@ -189,4 +189,13 @@ public class PacienteService {
 			return true;
 		}
 	}
+
+	public String totalPaciente() throws SQLException {
+		Paciente paciente = new Paciente();
+		PacienteDAO pacientedao = new PacienteDAO();
+		
+		paciente.setTotalPacientes(pacientedao.totalPacientes());
+		return paciente.getTotalPacientes();
+	}
+	
 }
