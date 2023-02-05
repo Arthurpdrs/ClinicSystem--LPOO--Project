@@ -31,7 +31,7 @@ public class TextFieldServiceTestes {
 	@Test
 	public void testValidarTextFieldNumerica() {
 		JTextField textFieldValido = new JTextField("12345678901");
-		JTextField textFieldInvalido = new JTextField("aaaaaaaaaaaaaaaa");
+		JTextField textFieldInvalido = new JTextField("1234567890a");
 		
 		assertTrue(TextFieldService.validarTextFieldNumerica(textFieldValido));
 		assertFalse(TextFieldService.validarTextFieldNumerica(textFieldInvalido));

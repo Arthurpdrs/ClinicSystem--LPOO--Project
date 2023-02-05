@@ -60,7 +60,7 @@ public class TextFieldService extends PlainDocument {
     public static boolean validarTextFieldNumerica(JTextField textField) {
     	String numero = textField.getText();
     	String string = numero.replaceAll("\\s+", "").replaceAll("-", "").replaceAll(":", "");
-    	if (string.length() != 11) {
+    	if (string.length() < 11) {
     		return true;
     	} else {
     		if (string.matches("[0-9]+")) {
