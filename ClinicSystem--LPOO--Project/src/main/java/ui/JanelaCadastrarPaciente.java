@@ -146,7 +146,7 @@ public class JanelaCadastrarPaciente {
 		barraAzul.setOpaque(true);
 		frmClinicsystem.getContentPane().add(barraAzul);
 		
-		nomeTextField = new JTextField();
+		nomeTextField = new JTextField(new TextFieldService(100), null, 0);
 		nomeTextField.setToolTipText("");
 		nomeTextField.setActionCommand("");
 		nomeTextField.setBackground(Color.WHITE);
@@ -204,6 +204,9 @@ public class JanelaCadastrarPaciente {
 		        ResponsavelService responsavelService = new ResponsavelService();
 		        Responsavel responsavel = null;
 		        
+		        if (endereco.length() > 100) {
+		        	erroLbl.setText("O endereço ultrapassa cem caracteres");
+		        }
 		        if(!(nomeResponsavel.isBlank() && celularResponsavel.isBlank() && cpfResponsavel.isBlank())) {
 		        	
 		        	try {
@@ -212,7 +215,6 @@ public class JanelaCadastrarPaciente {
 						e.printStackTrace();
 					}
 		        }
-				System.out.println(celular);
 				try {
 					paciente.cadastrar(nome, celular, email, cpf, tipoSanguineo, alergia, dataDeNascimento, endereco, observacao, responsavel);
 				} catch (SQLException e) {
@@ -230,7 +232,7 @@ public class JanelaCadastrarPaciente {
 		logradouroLbl.setBounds(22, 257, 277, 24);
 		frmClinicsystem.getContentPane().add(logradouroLbl);
 		
-		logradouroTextField = new JTextField();
+		logradouroTextField = new JTextField(new TextFieldService(100), null, 0);
 		logradouroTextField.setToolTipText("");
 		logradouroTextField.setMargin(new Insets(10, 10, 10, 10));
 		logradouroTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -250,7 +252,7 @@ public class JanelaCadastrarPaciente {
 		cpfLbl.setBounds(596, 65, 277, 24);
 		frmClinicsystem.getContentPane().add(cpfLbl);
 		
-		cpfTextField = new JTextField();
+		cpfTextField = new JTextField(new TextFieldService(11), null, 0);
 		cpfTextField.setToolTipText("");
 		cpfTextField.setMargin(new Insets(10, 10, 10, 10));
 		cpfTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -260,6 +262,14 @@ public class JanelaCadastrarPaciente {
 		cpfTextField.setBackground(Color.WHITE);
 		cpfTextField.setActionCommand("");
 		cpfTextField.setBounds(596, 100, 277, 50);
+		cpfTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(cpfTextField))) {
+					erroLbl.setText("O campo CPF deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(cpfTextField);
 		
 		emailLbl = new JLabel("*E-mail:");
@@ -270,7 +280,7 @@ public class JanelaCadastrarPaciente {
 		emailLbl.setBounds(309, 65, 225, 24);
 		frmClinicsystem.getContentPane().add(emailLbl);
 		
-		emailTextField = new JTextField();
+		emailTextField = new JTextField(new TextFieldService(100), null, 0);
 		emailTextField.setToolTipText("");
 		emailTextField.setMargin(new Insets(10, 10, 10, 10));
 		emailTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -290,7 +300,11 @@ public class JanelaCadastrarPaciente {
 		CelularLbl.setBounds(309, 161, 277, 24);
 		frmClinicsystem.getContentPane().add(CelularLbl);
 		
-		celularTextField = new JTextField();
+		try {
+			celularTextField = new JFormattedTextField(new MaskFormatter("** *****-****"));
+		} catch (ParseException e1) {
+			erroLbl.setText("Ocorreu um erro inesperado");
+		}
 		celularTextField.setToolTipText("");
 		celularTextField.setMargin(new Insets(10, 10, 10, 10));
 		celularTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -300,6 +314,14 @@ public class JanelaCadastrarPaciente {
 		celularTextField.setBackground(Color.WHITE);
 		celularTextField.setActionCommand("");
 		celularTextField.setBounds(309, 196, 277, 50);
+		celularTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(celularTextField))) {
+					erroLbl.setText("O campo de celular deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(celularTextField);
 		
 		alergiaLbl = new JLabel("Alergia:");
@@ -310,7 +332,7 @@ public class JanelaCadastrarPaciente {
 		alergiaLbl.setBounds(22, 161, 277, 24);
 		frmClinicsystem.getContentPane().add(alergiaLbl);
 		
-		alergiaTextField = new JTextField();
+		alergiaTextField = new JTextField(new TextFieldService(100), null, 0);
 		alergiaTextField.setToolTipText("");
 		alergiaTextField.setMargin(new Insets(10, 10, 10, 10));
 		alergiaTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -390,7 +412,7 @@ public class JanelaCadastrarPaciente {
 		});
 		frmClinicsystem.getContentPane().add(dataTextField);
 		
-		responsavelNomeCompletoTextField = new JTextField();
+		responsavelNomeCompletoTextField = new JTextField(new TextFieldService(100), null, 0);
 		responsavelNomeCompletoTextField.setToolTipText("Do responsável");
 		responsavelNomeCompletoTextField.setMargin(new Insets(10, 10, 10, 10));
 		responsavelNomeCompletoTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -410,7 +432,11 @@ public class JanelaCadastrarPaciente {
 		NomeCompletoResponsavelLbl.setBounds(309, 353, 277, 24);
 		frmClinicsystem.getContentPane().add(NomeCompletoResponsavelLbl);
 		
-		responsavelCelularTextField = new JTextField();
+		try {
+			responsavelCelularTextField = new JFormattedTextField(new MaskFormatter("** *****-****"));
+		} catch (ParseException e1) {
+			erroLbl.setText("Ocorreu um erro inesperado");
+		}
 		responsavelCelularTextField.setToolTipText("Do responsável");
 		responsavelCelularTextField.setMargin(new Insets(10, 10, 10, 10));
 		responsavelCelularTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -420,6 +446,14 @@ public class JanelaCadastrarPaciente {
 		responsavelCelularTextField.setBackground(Color.WHITE);
 		responsavelCelularTextField.setActionCommand("");
 		responsavelCelularTextField.setBounds(596, 388, 277, 50);
+		responsavelCelularTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(responsavelCelularTextField))) {
+					erroLbl.setText("O campo telefone deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(responsavelCelularTextField);
 		
 		celularResponsavelLbl = new JLabel("Celular (Responsável):");
@@ -430,7 +464,7 @@ public class JanelaCadastrarPaciente {
 		celularResponsavelLbl.setBounds(596, 353, 277, 24);
 		frmClinicsystem.getContentPane().add(celularResponsavelLbl);
 		
-		responsavelCpfTextField = new JTextField();
+		responsavelCpfTextField = new JTextField(new TextFieldService(11), null, 0);
 		responsavelCpfTextField.setToolTipText("Do responsável");
 		responsavelCpfTextField.setMargin(new Insets(10, 10, 10, 10));
 		responsavelCpfTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -440,6 +474,14 @@ public class JanelaCadastrarPaciente {
 		responsavelCpfTextField.setBackground(Color.WHITE);
 		responsavelCpfTextField.setActionCommand("");
 		responsavelCpfTextField.setBounds(883, 388, 196, 50);
+		responsavelCpfTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(responsavelCpfTextField))) {
+					erroLbl.setText("O campo CPF deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(responsavelCpfTextField);
 		
 		cpfResponsavelLbl = new JLabel("CPF (Responsável):");
@@ -461,7 +503,7 @@ public class JanelaCadastrarPaciente {
 		limparBtn.setBounds(891, 553, 89, 34);
 		frmClinicsystem.getContentPane().add(limparBtn);
 		
-		numeroTextField = new JTextField();
+		numeroTextField = new JTextField(new TextFieldService(20), null, 0);
 		numeroTextField.setToolTipText("");
 		numeroTextField.setMargin(new Insets(10, 10, 10, 10));
 		numeroTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -471,6 +513,14 @@ public class JanelaCadastrarPaciente {
 		numeroTextField.setBackground(Color.WHITE);
 		numeroTextField.setActionCommand("");
 		numeroTextField.setBounds(309, 292, 277, 50);
+		numeroTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(numeroTextField))) {
+					erroLbl.setText("O campo de número deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(numeroTextField);
 		
 		numeroLbl = new JLabel("Número:");
@@ -481,7 +531,7 @@ public class JanelaCadastrarPaciente {
 		numeroLbl.setBounds(309, 257, 277, 24);
 		frmClinicsystem.getContentPane().add(numeroLbl);
 		
-		bairroTextField = new JTextField();
+		bairroTextField = new JTextField(new TextFieldService(100), null, 0);
 		bairroTextField.setToolTipText("");
 		bairroTextField.setMargin(new Insets(10, 10, 10, 10));
 		bairroTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -501,7 +551,7 @@ public class JanelaCadastrarPaciente {
 		bairroLbl.setBounds(596, 257, 277, 24);
 		frmClinicsystem.getContentPane().add(bairroLbl);
 		
-		cidadeTextField = new JTextField();
+		cidadeTextField = new JTextField(new TextFieldService(100), null, 0);
 		cidadeTextField.setToolTipText("");
 		cidadeTextField.setMargin(new Insets(10, 10, 10, 10));
 		cidadeTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -521,7 +571,7 @@ public class JanelaCadastrarPaciente {
 		cidadeLbl.setBounds(883, 257, 196, 24);
 		frmClinicsystem.getContentPane().add(cidadeLbl);
 		
-		cepTextField = new JTextField();
+		cepTextField = new JTextField(new TextFieldService(20), null, 0);
 		cepTextField.setToolTipText("");
 		cepTextField.setMargin(new Insets(10, 10, 10, 10));
 		cepTextField.setHorizontalAlignment(SwingConstants.LEFT);

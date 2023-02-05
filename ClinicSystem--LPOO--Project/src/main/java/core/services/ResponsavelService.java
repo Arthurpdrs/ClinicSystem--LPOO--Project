@@ -15,7 +15,7 @@ public class ResponsavelService {
 		Responsavel responsavel = new Responsavel(nome, cpf, telefone);
 		ResponsavelDAO responsavelDao = new ResponsavelDAO();
 		
-		if(verificarDadosObrigatorios(responsavel)) {
+		if(verificarDadosObrigatorios(responsavel) || cpf.isBlank() || !(TextFieldService.validarNumero(telefone)) || !(TextFieldService.validarNumero(cpf)) || !(nome.length() <= 100)) {
 			responsavelDao.inserir(responsavel);
 		}
 		return responsavel;

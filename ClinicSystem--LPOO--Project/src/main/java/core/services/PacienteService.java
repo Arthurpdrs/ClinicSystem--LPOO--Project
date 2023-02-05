@@ -112,18 +112,21 @@ public class PacienteService {
 		return null;
 	}
 	
-	public void cadastrar(String nome, String telefone, String email, String cpf,
+	public boolean cadastrar(String nome, String telefone, String email, String cpf,
 			String tipoSanguineo, String alergia, String dataNascimento, String endereco, String observacao, Responsavel responsavel) throws SQLException {
 		
 		Paciente paciente = new Paciente(nome, telefone, email, cpf, tipoSanguineo, alergia,dataNascimento, endereco, observacao);
 		PacienteDAO pacienteDao = new PacienteDAO();
 		
-		if(verificarDadosObrigatorios(paciente)) {
-			
-			pacienteDao.adicionar(paciente, responsavel);
-			
+		if (!(TextFieldService.validarEmail(email)) || !(endereco.length() <= 100) || !(alergia.length() <= 100) || !(observacao.length() <= 500) || !(tipoSanguineo.length() <= 3) || nome.isBlank() || cpf.isBlank() || telefone.isBlank() || !(TextFieldService.validarData(dataNascimento))) {
+			return false;
+		} else {
+			if(verificarDadosObrigatorios(paciente)) {
+				pacienteDao.adicionar(paciente, responsavel);
+				return true;
+			}
+			return false;
 		}
-			
 	}
 	
 	private boolean verificarDadosObrigatorios(Paciente paciente) {
