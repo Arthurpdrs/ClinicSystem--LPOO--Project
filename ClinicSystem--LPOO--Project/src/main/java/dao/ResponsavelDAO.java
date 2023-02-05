@@ -38,9 +38,9 @@ FabricaConexao responsavelDAO = new FabricaConexao();
 		stmt.setString(1, responsavel.getCpf());
 		stmt.setString(2, responsavel.getNome());
 		stmt.setString(3, responsavel.getTelefone());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		responsavelDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public boolean alterar(Responsavel responsavel) throws SQLException {
