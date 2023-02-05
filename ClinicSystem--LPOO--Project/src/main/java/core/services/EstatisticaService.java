@@ -51,6 +51,9 @@ public class EstatisticaService {
 		return true;
 	}
 	
+	
+	
+	
 	public static void main(String[] args) {
 		
 	}

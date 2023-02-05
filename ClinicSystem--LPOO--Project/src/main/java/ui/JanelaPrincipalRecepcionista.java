@@ -40,6 +40,7 @@ public class JanelaPrincipalRecepcionista {
 	private JLabel iconePacientesLbl;
 	private JLabel iconeRecepcionistasLbl;
 	private JButton menuVisualizarConsultasBtn;
+	 
 
 	/**
 	 * Launch the application.
@@ -330,10 +331,16 @@ public class JanelaPrincipalRecepcionista {
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
 					EstatisticaService.totalConsultasDia(numeroConsultasLbl);
+					EstatisticaService.totalPacientes(numeroPacientesLbl);
 				} catch (SQLException e) {
 					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
 				}
 			}
+			
+		
 		});
+	
+	
+	
 	}
 }
