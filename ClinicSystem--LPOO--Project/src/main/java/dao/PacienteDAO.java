@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.model.Consulta;
+import core.model.Medico;
 import core.model.Paciente;
 import core.model.Responsavel;
 
@@ -59,6 +60,19 @@ public class PacienteDAO {
 		return retornoLista;
 
 		}
+	
+    public Paciente filtrarPaciente(String cpf) throws SQLException {
+    	String sql = "SELECT Nome FROM Paciente WHERE CPF = ?";
+		Paciente paciente = new Paciente();
+		PreparedStatement stmt = pacienteDAO.getConexao().prepareStatement(sql);
+		stmt.setString(1, cpf);
+		ResultSet resultado = stmt.executeQuery();
+		if(resultado.next()) {
+			paciente.setNome(resultado.getString("Nome"));
+		}
+		pacienteDAO.fecharConexao();
+		return paciente;
+	}
 	
 	public List<Paciente> filtrar(String cpf) throws SQLException{
 		String sql = "SELECT * FROM Paciente WHERE CPF = ?";

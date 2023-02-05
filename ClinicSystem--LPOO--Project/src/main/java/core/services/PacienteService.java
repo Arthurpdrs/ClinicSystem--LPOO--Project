@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import core.model.Medico;
 import core.model.Paciente;
 import core.model.Responsavel;
+import dao.MedicoDAO;
 import dao.PacienteDAO;
 import dao.ResponsavelDAO;
 
@@ -110,6 +113,26 @@ public class PacienteService {
 			}
 		}
 		return null;
+	}
+	
+	
+	
+	public boolean filtrarPaciente(JTextField cpf, JTextField nome) throws SQLException {
+		if (cpf != null) {
+			if (cpf.getText().isBlank() || cpf.getText().equals("") || !(TextFieldService.validarNumero(cpf.getText()))) {
+				return false;
+			} else {
+				PacienteDAO pacienteDAO = new PacienteDAO();
+				Paciente paciente = pacienteDAO.filtrarPaciente(cpf.getText());
+				if (paciente != null) {
+					if (paciente.getNome() != null) {
+						nome.setText(paciente.getNome());
+						cpf.setText(cpf.getText());
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	public boolean cadastrar(String nome, String telefone, String email, String cpf,

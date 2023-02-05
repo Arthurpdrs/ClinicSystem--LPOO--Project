@@ -11,13 +11,29 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.Cursor;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+import javax.swing.text.MaskFormatter;
+
 import com.toedter.calendar.JDateChooser;
+
+import core.services.FuncionarioService;
+import core.services.MedicoService;
+import core.services.PacienteService;
+import core.services.TextFieldService;
+
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
+import java.text.ParseException;
 
 public class JanelaNovoRegistro {
 
@@ -40,6 +56,7 @@ public class JanelaNovoRegistro {
 	private JLabel queixaLbl;
 	private JLabel dataLbl;
 	private JLabel avisoLbl;
+	private JTextField dataTextField;
 
 	/**
 	 * Launch the application.
@@ -98,7 +115,16 @@ public class JanelaNovoRegistro {
 		
 		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		       PacienteService pacienteService = new PacienteService();
+		       try {
+				if(pacienteService.filtrarPaciente(pesquisarTextField, nomeTextField)) {
+					avisoLbl.setText("");
+				} else {
+					avisoLbl.setText("Não foi possível encontrar o paciente");
+				}
+			} catch (SQLException e) {
+				avisoLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+			}
 		    }
 		});
 		
@@ -139,9 +165,10 @@ public class JanelaNovoRegistro {
 		nomeTextField.setHorizontalAlignment(SwingConstants.LEFT);
 		nomeTextField.setBounds(22, 196, 380, 50);
 		nomeTextField.setColumns(10);
+		nomeTextField.setEditable(false);
 		frmClinicsystem.getContentPane().add(nomeTextField);
 		
-		erroLbl = new JLabel("Registrado com sucesso");
+		erroLbl = new JLabel("");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -185,6 +212,7 @@ public class JanelaNovoRegistro {
 		cpfTextField.setColumns(10);
 		cpfTextField.setBackground(Color.WHITE);
 		cpfTextField.setActionCommand("");
+		cpfTextField.setEditable(false);
 		cpfTextField.setBounds(22, 292, 380, 50);
 		frmClinicsystem.getContentPane().add(cpfTextField);
 		
@@ -205,7 +233,7 @@ public class JanelaNovoRegistro {
 		    }
 		});
 		
-		pesquisarTextField = new JTextField();
+		pesquisarTextField = new JTextField(new TextFieldService(11), null, 0);
 		pesquisarTextField.setToolTipText("");
 		pesquisarTextField.setMargin(new Insets(10, 10, 10, 10));
 		pesquisarTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -215,6 +243,14 @@ public class JanelaNovoRegistro {
 		pesquisarTextField.setBackground(Color.WHITE);
 		pesquisarTextField.setActionCommand("");
 		pesquisarTextField.setBounds(22, 100, 646, 50);
+		pesquisarTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldNumerica(pesquisarTextField))) {
+					erroLbl.setText("O campo CPF deve conter apenas números");
+				}
+			}
+		});
 		frmClinicsystem.getContentPane().add(pesquisarTextField);
 		
 		codigoDoPacienteLbl = new JLabel("Pesquisar CPF do paciente:");
@@ -235,6 +271,7 @@ public class JanelaNovoRegistro {
 		nomeMedicoTextField.setBackground(Color.WHITE);
 		nomeMedicoTextField.setActionCommand("");
 		nomeMedicoTextField.setBounds(22, 388, 380, 50);
+		nomeMedicoTextField.setEditable(false);
 		frmClinicsystem.getContentPane().add(nomeMedicoTextField);
 		
 		nomeMedicoLbl = new JLabel("Nome do(a) médico(a):");
@@ -255,6 +292,7 @@ public class JanelaNovoRegistro {
 		especialidadeTextField.setBackground(Color.WHITE);
 		especialidadeTextField.setActionCommand("");
 		especialidadeTextField.setBounds(22, 491, 380, 50);
+		especialidadeTextField.setEditable(false);
 		frmClinicsystem.getContentPane().add(especialidadeTextField);
 		
 		especialidadeLbl = new JLabel("Especialidade do(a) médico(a):");
@@ -318,13 +356,31 @@ public class JanelaNovoRegistro {
 		dataLbl.setBounds(777, 65, 302, 24);
 		frmClinicsystem.getContentPane().add(dataLbl);
 		
-		JDateChooser dataDateChooser = new JDateChooser();
-		dataDateChooser.setDateFormatString("dd/MM/yyyy");
-		dataDateChooser.setForeground(Color.GRAY);
-		dataDateChooser.setBounds(777, 100, 302, 50);
-		frmClinicsystem.getContentPane().add(dataDateChooser);
+		try {
+			dataTextField = new JFormattedTextField(new MaskFormatter("**/**/****"));
+		} catch (ParseException e1) {
+			erroLbl.setText("Ocorreu um erro inesperado");
+		}
+		dataTextField.setToolTipText("");
+		dataTextField.setMargin(new Insets(10, 10, 10, 10));
+		dataTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		dataTextField.setForeground(Color.GRAY);
+		dataTextField.setFont(new Font("Arial", Font.PLAIN, 12));
+		dataTextField.setColumns(10);
+		dataTextField.setBackground(Color.WHITE);
+		dataTextField.setActionCommand("");
+		dataTextField.setBounds(777, 65, 302, 24);
+		dataTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(!(TextFieldService.validarTextFieldData(dataTextField))) {
+					erroLbl.setText("O campo data deve conter apenas números");
+				}
+			}
+		});
+		frmClinicsystem.getContentPane().add(dataTextField);
 		
-		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
+		avisoLbl = new JLabel("");
 		avisoLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		avisoLbl.setOpaque(true);
 		avisoLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -338,5 +394,16 @@ public class JanelaNovoRegistro {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				try {
+		        	MedicoService medicoService = new MedicoService();
+					medicoService.filtrarMedico(nomeMedicoTextField, especialidadeTextField);
+				} catch (SQLException e) {
+					erroLbl.setText("Ocorreu um erro inesperado");
+				}
+			}
+		});
 	}
 }

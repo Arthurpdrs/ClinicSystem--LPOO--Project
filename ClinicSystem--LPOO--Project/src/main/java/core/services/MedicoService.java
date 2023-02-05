@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import core.model.Medico;
@@ -17,6 +18,26 @@ import dao.PacienteDAO;
 import dao.RecepcionistaDAO;
 
 public class MedicoService {
+	
+	public boolean filtrarMedico(JTextField nome, JTextField especialidade) throws SQLException {
+		if (System.getProperty("cargo") == (null) || System.getProperty("cpf_logado") == (null)) {
+			return false;
+		} else {
+			if (System.getProperty("cargo").equals("MEDICO")){
+				return false;
+			}
+			String cpf = System.getProperty("cpf_logado");
+			MedicoDAO medicoDAO = new MedicoDAO();
+			Medico medico = medicoDAO.filtrarMedico(cpf);
+			if (medico != null) {
+				if (medico.getEspecialidade() != null && medico.getNome() != null) {
+					nome.setText(medico.getNome());
+					especialidade.setText(medico.getEspecialidade());
+				}
+			}
+		}
+		return false;
+	}
 	
 	public boolean filtrar(JComboBox jcombobox, String especialidade) throws SQLException {
 		if (especialidade.isBlank() || jcombobox == null) {

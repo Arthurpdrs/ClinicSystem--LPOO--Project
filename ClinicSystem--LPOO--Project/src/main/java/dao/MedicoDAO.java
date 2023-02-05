@@ -54,6 +54,26 @@ FabricaConexao medicoDAO = new FabricaConexao();
 		return retorno;
 	}
     
+    public Medico filtrarMedico(String cpf) throws SQLException {
+    	String sql = "SELECT * FROM Medico WHERE CPF = ?";
+		Medico medico = new Medico();
+		PreparedStatement stmt = medicoDAO.getConexao().prepareStatement(sql);
+		stmt.setString(1, cpf);
+		ResultSet resultado = stmt.executeQuery();
+		if(resultado.next()) {
+			medico.setCpf(resultado.getString("CPF"));
+			medico.setNome(resultado.getString("Nome"));
+			medico.setTelefone(resultado.getString("Telefone"));
+			medico.setEmail(resultado.getString("Email"));
+			medico.setLogin(resultado.getString("Login"));
+			medico.setSenha(resultado.getString("Senha"));
+			medico.setCrm(resultado.getString("CRM"));
+			medico.setEspecialidade(resultado.getString("Especialidade"));
+		}
+		medicoDAO.fecharConexao();
+		return medico;
+	}
+    
     public List<Medico> filtrarEspecialidade(String especialidade) throws SQLException {
     	String sql = "SELECT * FROM Medico WHERE Especialidade = ?";
 		List<Medico> retorno = new ArrayList();
