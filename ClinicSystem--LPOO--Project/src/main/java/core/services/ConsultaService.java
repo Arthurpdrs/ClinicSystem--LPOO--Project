@@ -47,16 +47,7 @@ public class ConsultaService {
 		ConsultaDAO consultadao = new ConsultaDAO();
 		
 		consulta.setTotalConsulta(consultadao.TotalConsultas());
-		
-		if(consulta.getTotalConsulta().equals(null)){
-			consulta.setTotalConsulta("0");			
-		}
 		return consulta.getTotalConsulta();
 		}
-	
-	public static void main(String[] args) throws SQLException {
-		ConsultaService consultaa = new ConsultaService(); 
-		System.out.print(consultaa.totalConsultasDia());
-	}
 	
 }
