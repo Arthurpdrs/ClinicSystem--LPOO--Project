@@ -58,9 +58,9 @@ public class FuncionarioDAO {
 			insertLogin.setString(2, cargo);
 			insertLogin.setString(3, senha);
 			insertLogin.setString(4, cpf);
-			boolean execucao = insertLogin.execute();
+			insertLogin.execute();
 			funcionarioDAO.fecharConexao();
-			return execucao;
+			return true;
 	}
 	
 	public boolean deletar(String cpf) throws SQLException {
