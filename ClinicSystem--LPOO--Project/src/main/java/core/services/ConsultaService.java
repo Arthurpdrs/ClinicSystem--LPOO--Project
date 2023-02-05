@@ -42,4 +42,12 @@ public class ConsultaService {
 		}
 	}
 	
+	public String totalConsultasDia() throws SQLException {
+		Consulta consulta = new Consulta();
+		ConsultaDAO consultadao = new ConsultaDAO();
+		
+		consulta.setTotalConsulta(consultadao.TotalConsultas());
+		return consulta.getTotalConsulta();
+		}
+	
 }

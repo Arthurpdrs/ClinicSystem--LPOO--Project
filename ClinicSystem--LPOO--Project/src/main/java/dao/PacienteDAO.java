@@ -176,16 +176,8 @@ public class PacienteDAO {
 
 
 	
-
-	
-	public String visualizarAgenda() {
-		String sql = "";
-		return "";
+	public String TotalPacientes() {
 		
-	}
-
-	
-	public String pacienteDia() {
 		return null;
 		
 		}

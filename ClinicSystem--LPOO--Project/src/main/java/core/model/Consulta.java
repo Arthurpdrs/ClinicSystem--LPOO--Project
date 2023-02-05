@@ -8,6 +8,7 @@ public class Consulta {
 	private Paciente paciente;
 	private String valor;
 	private String pago;
+	private String totalConsulta;
 	
 
 	public Consulta(
@@ -82,6 +83,15 @@ public class Consulta {
 	public void setPago(String pago) {
 		this.pago = pago;
 	}
+	
+	public String getTotalConsulta() {
+		return totalConsulta;
+	}
+
+	public void setTotalConsulta(String totalConsulta) {
+		this.totalConsulta = totalConsulta;
+	}
+
 	
 	
 	
