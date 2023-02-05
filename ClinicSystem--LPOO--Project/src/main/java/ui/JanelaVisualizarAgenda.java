@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import com.toedter.calendar.JCalendar;
+
+import core.services.ConsultaService;
 
 public class JanelaVisualizarAgenda {
 
@@ -127,7 +130,7 @@ public class JanelaVisualizarAgenda {
 		calendar.setBounds(31, 65, 1048, 346);
 		frmClinicsystem.getContentPane().add(calendar);
 		
-		JLabel erroLbl = new JLabel("Ocorreu um erro inesperado. Tente novamente.");
+		final JLabel erroLbl = new JLabel("Ocorreu um erro inesperado. Tente novamente.");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -139,12 +142,19 @@ public class JanelaVisualizarAgenda {
 		
 		calendar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
 		       public void propertyChange(java.beans.PropertyChangeEvent evt) {
-		    	   //Pega qual é a data selecionada no calendário
 		    	   Date dataInicial = calendar.getDate();
-		    	   //Formata a data
 		           SimpleDateFormat FormatadorDaData = new SimpleDateFormat("dd/MM/yyyy");
-		           //Data Formatada
-		           String dataFormatada = FormatadorDaData.format(dataInicial);	       
+		           String dataFormatada = FormatadorDaData.format(dataInicial);	  
+		           ConsultaService consultaService = new ConsultaService();
+				   try {
+					if(consultaService.horariosConsultas(agendaTable, dataFormatada)) {
+						erroLbl.setText("Visualizando consultas do dia " + dataFormatada);
+					} else {
+						erroLbl.setText("");
+					}
+				   } catch (SQLException e) {
+						erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+				   }
 		       }
 		});
 		
