@@ -57,6 +57,9 @@ public class JanelaNovoRegistro {
 	private JLabel dataLbl;
 	private JLabel avisoLbl;
 	private JTextField dataTextField;
+	private JTextArea queixaTextArea;
+	private JTextArea observacaoTextArea;
+	private JTextArea prescricaoTextArea;
 
 	/**
 	 * Launch the application.
@@ -229,7 +232,16 @@ public class JanelaNovoRegistro {
 		
 		limparBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		       cpfTextField.setText("");
+		       dataTextField.setText("");
+		       erroLbl.setText("");
+		       avisoLbl.setText("");
+		       nomeMedicoTextField.setText("");
+		       nomeTextField.setText("");
+		       especialidadeTextField.setText("");
+		       queixaTextArea.setText("");
+		       observacaoTextArea.setText("");
+		       prescricaoTextArea.setText("");
 		    }
 		});
 		
@@ -311,14 +323,14 @@ public class JanelaNovoRegistro {
 		queixaLbl.setBounds(415, 161, 380, 24);
 		frmClinicsystem.getContentPane().add(queixaLbl);
 		
-		JTextArea queixaTextArea = new JTextArea();
+		queixaTextArea = new JTextArea(new TextFieldService(100));
 		queixaTextArea.setForeground(Color.GRAY);
 		queixaTextArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		queixaTextArea.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		queixaTextArea.setBounds(412, 196, 667, 146);
 		frmClinicsystem.getContentPane().add(queixaTextArea);
 		
-		JTextArea prescricaoTextArea = new JTextArea();
+		prescricaoTextArea = new JTextArea(new TextFieldService(100));
 		prescricaoTextArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		prescricaoTextArea.setForeground(Color.GRAY);
 		prescricaoTextArea.setBorder(new LineBorder(Color.LIGHT_GRAY));
@@ -333,7 +345,7 @@ public class JanelaNovoRegistro {
 		prescricaoLbl.setBounds(418, 361, 357, 24);
 		frmClinicsystem.getContentPane().add(prescricaoLbl);
 		
-		JTextArea observacaoTextArea = new JTextArea();
+		observacaoTextArea = new JTextArea(new TextFieldService(100));
 		observacaoTextArea.setForeground(Color.GRAY);
 		observacaoTextArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		observacaoTextArea.setBorder(new LineBorder(Color.LIGHT_GRAY));
@@ -369,7 +381,7 @@ public class JanelaNovoRegistro {
 		dataTextField.setColumns(10);
 		dataTextField.setBackground(Color.WHITE);
 		dataTextField.setActionCommand("");
-		dataTextField.setBounds(777, 65, 302, 24);
+		dataTextField.setBounds(777, 100, 302, 50);
 		dataTextField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
