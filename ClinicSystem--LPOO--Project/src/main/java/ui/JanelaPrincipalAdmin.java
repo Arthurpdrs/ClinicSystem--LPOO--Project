@@ -312,6 +312,7 @@ public class JanelaPrincipalAdmin {
 					EstatisticaService.totalPacientes(numeroPacientesLbl);
 					EstatisticaService.totalRecepcionista(numeroRecepcionistasLbl);
 					EstatisticaService.totalMedico(numeroMedicosLbl);
+					EstatisticaService.totalFuncionario(numeroFuncionariosLbl);
 				} catch (SQLException e) {
 					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
 				}

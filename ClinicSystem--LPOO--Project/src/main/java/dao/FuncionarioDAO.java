@@ -72,4 +72,16 @@ public class FuncionarioDAO {
 		return true;
 	}
 	
+	public String totalFuncionarios() throws SQLException {
+		String sql = "SELECT COUNT(*) as Total FROM Login where Cargo = 'MEDICO' or Cargo = 'RECEPCIONISTA'";
+		PreparedStatement count = funcionarioDAO.getConexao().prepareStatement(sql);
+		ResultSet resultado = count.executeQuery();
+		String retorno = "";
+		if(resultado.next()){
+			retorno = resultado.getString("Total");
+		}
+		funcionarioDAO.fecharConexao();
+		return retorno;
+	}
+
 }
