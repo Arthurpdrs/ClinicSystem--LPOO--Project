@@ -146,24 +146,6 @@ public class JanelaPrincipalMedico {
 		    }
 		});
 		
-		//Botão
-		menuVisualizarHistoricoBtn = new JButton("  Histórico de consultas");
-		menuVisualizarHistoricoBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		menuVisualizarHistoricoBtn.setHorizontalAlignment(SwingConstants.LEFT);
-		menuVisualizarHistoricoBtn.setForeground(new Color(0, 102, 255));
-		menuVisualizarHistoricoBtn.setFont(new Font("Arial", Font.PLAIN, 16));
-		menuVisualizarHistoricoBtn.setContentAreaFilled(false);
-		menuVisualizarHistoricoBtn.setBorderPainted(false);
-		menuVisualizarHistoricoBtn.setBackground(Color.WHITE);
-		menuVisualizarHistoricoBtn.setBounds(-1, 145, 276, 34);
-		frmClinicsystem.getContentPane().add(menuVisualizarHistoricoBtn);
-		
-		menuVisualizarHistoricoBtn.addActionListener(new java.awt.event.ActionListener() {
-		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		    	JanelaVisualizarHistoricoDeConsultas janelaHistorico = new JanelaVisualizarHistoricoDeConsultas();
-		    	janelaHistorico.getJanela().setVisible(true);
-		    }
-		});
 		
 		//Botão
 		menuAgendaDeConsultasBtn = new JButton("  Agenda de consultas");
@@ -174,7 +156,7 @@ public class JanelaPrincipalMedico {
 		menuAgendaDeConsultasBtn.setContentAreaFilled(false);
 		menuAgendaDeConsultasBtn.setBorderPainted(false);
 		menuAgendaDeConsultasBtn.setBackground(Color.WHITE);
-		menuAgendaDeConsultasBtn.setBounds(-1, 190, 276, 34);
+		menuAgendaDeConsultasBtn.setBounds(-1, 145, 276, 34);
 		frmClinicsystem.getContentPane().add(menuAgendaDeConsultasBtn);
 		
 		menuAgendaDeConsultasBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +217,7 @@ public class JanelaPrincipalMedico {
 		menuSairBtn.setContentAreaFilled(false);
 		menuSairBtn.setBorderPainted(false);
 		menuSairBtn.setBackground(Color.WHITE);
-		menuSairBtn.setBounds(-1, 280, 276, 34);
+		menuSairBtn.setBounds(-1, 235, 276, 34);
 		frmClinicsystem.getContentPane().add(menuSairBtn);
 		
 		menuSairBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -255,7 +237,7 @@ public class JanelaPrincipalMedico {
 		menuVisualizarProntuariosBtn.setContentAreaFilled(false);
 		menuVisualizarProntuariosBtn.setBorderPainted(false);
 		menuVisualizarProntuariosBtn.setBackground(Color.WHITE);
-		menuVisualizarProntuariosBtn.setBounds(-1, 235, 276, 34);
+		menuVisualizarProntuariosBtn.setBounds(-1, 190, 276, 34);
 		frmClinicsystem.getContentPane().add(menuVisualizarProntuariosBtn);
 		
 		menuVisualizarProntuariosBtn.addActionListener(new java.awt.event.ActionListener() {
