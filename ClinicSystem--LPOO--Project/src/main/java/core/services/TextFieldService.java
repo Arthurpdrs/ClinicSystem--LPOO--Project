@@ -15,9 +15,6 @@ public class TextFieldService extends PlainDocument {
         this.numeroMaximoDeCaracteres = numeroMaximoDeCaracteres;
     }
     
-    public TextFieldService() {
-    }
-    
     @Override
     public void insertString(int offset, String string, AttributeSet atributo) throws BadLocationException {
  
