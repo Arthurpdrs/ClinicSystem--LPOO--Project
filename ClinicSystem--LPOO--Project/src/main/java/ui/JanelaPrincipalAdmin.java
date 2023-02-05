@@ -6,10 +6,16 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+
+import core.services.EstatisticaService;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.Toolkit;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 public class JanelaPrincipalAdmin {
 
 	private JFrame frmClinicsystem;
@@ -76,7 +82,7 @@ public class JanelaPrincipalAdmin {
 		iconeRecepcionistasLbl.setBounds(630, 267, 62, 62);
 		frmClinicsystem.getContentPane().add(iconeRecepcionistasLbl);
 		
-		JLabel numeroPacientesLbl = new JLabel("20000");
+		final JLabel numeroPacientesLbl = new JLabel("20000");
 		numeroPacientesLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroPacientesLbl.setForeground(Color.WHITE);
 		numeroPacientesLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -223,7 +229,7 @@ public class JanelaPrincipalAdmin {
 		textoPacientesLbl.setBounds(725, 100, 130, 59);
 		frmClinicsystem.getContentPane().add(textoPacientesLbl);
 		
-		JLabel numeroMedicosLbl = new JLabel("20000");
+		final JLabel numeroMedicosLbl = new JLabel("20000");
 		numeroMedicosLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroMedicosLbl.setForeground(Color.WHITE);
 		numeroMedicosLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -298,5 +304,21 @@ public class JanelaPrincipalAdmin {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				try {
+					
+					EstatisticaService.totalPacientes(numeroPacientesLbl);
+					EstatisticaService.totalRecepcionista(numeroRecepcionistasLbl);
+					EstatisticaService.totalMedico(numeroMedicosLbl);
+				} catch (SQLException e) {
+					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
+				}
+			}
+			
+		
+		});
+	
 	}
 }
