@@ -158,7 +158,7 @@ public class PacienteService {
 	}
 	
 	public boolean alterar(String cpf, String nome, String email, String telefone, String alergia, String tipoSanguineo, String dataNascimento, String endereco, String cpfResponsavel, String nomeResponsavel, String TelefoneResponsavel, String observacao) throws SQLException {
-		if (!(TextFieldService.validarNumero(cpf)) || !(TextFieldService.validarNumero(telefone)) || !(TextFieldService.validarEmail(email)) || !(TextFieldService.validarData(dataNascimento)) || nome.isBlank()) {
+		if (!(TextFieldService.validarNumero(cpf)) || !(TextFieldService.validarNumero(telefone)) || !(TextFieldService.validarEmail(email)) || !(TextFieldService.validarData(dataNascimento)) || nome.isBlank() || (endereco.length() > 100) || (nomeResponsavel.length() > 100) || (TelefoneResponsavel.length() > 13) || (nome.length() > 100) ||  (observacao.length() > 500) ||(alergia.length() > 100) ||(tipoSanguineo.length() > 20)) {
 			return false;
 		} else {
 			Paciente paciente = new Paciente ();
@@ -174,7 +174,7 @@ public class PacienteService {
 			
 
 			Responsavel responsavel = new Responsavel("", "", "", "");
-			if (cpfResponsavel != null) {
+			if (cpfResponsavel != null && !(cpfResponsavel.equals(""))) {
 				if(TextFieldService.validarNumero(cpfResponsavel) && TextFieldService.validarNumero(TelefoneResponsavel) && (nomeResponsavel.length() < 100)){
 				responsavel.setCpf(cpfResponsavel);
 				responsavel.setTelefone(TelefoneResponsavel);

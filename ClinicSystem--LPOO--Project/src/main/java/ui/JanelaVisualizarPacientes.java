@@ -161,14 +161,14 @@ public class JanelaVisualizarPacientes {
 		        	String nomeResponsavel = ""; 
 		        	String telefoneResponsavel = "";
 		        	String cpfResponsavel = "";
-		        	if (!(pacientesTable.getValueAt(linha, 9).equals(null))) {
+		        	if (!(pacientesTable.getValueAt(linha, 9) == null)) {
 		        		nomeResponsavel = pacientesTable.getValueAt(linha, 9).toString();
 		        	}
 		        	
-		        	if (!(pacientesTable.getValueAt(linha, 10).equals(null))) {
+		        	if (!(pacientesTable.getValueAt(linha, 10) == null)) {
 		        		telefoneResponsavel = pacientesTable.getValueAt(linha, 10).toString();
 		        	}
-		        	if (!(pacientesTable.getValueAt(linha, 11).equals(null))) {
+		        	if (!(pacientesTable.getValueAt(linha, 11)== null)) {
 		        		cpfResponsavel = pacientesTable.getValueAt(linha, 11).toString();
 		        	}
 		       

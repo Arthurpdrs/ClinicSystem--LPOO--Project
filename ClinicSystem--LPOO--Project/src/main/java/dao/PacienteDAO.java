@@ -132,7 +132,7 @@ public class PacienteDAO {
 	}
 	
 	public boolean alterar(Paciente paciente, Responsavel responsavel) throws SQLException {
-		String sql = "UPDATE Paciente SET Nome = ?, Tipo_sanguineo = ?, Alergia = ?, Data_nascimento = ?, Responsavel_CPF = ?, Endereco = ?, Observacao = ? WHERE CPF = ?";
+		String sql = "UPDATE Paciente SET Nome = ?, Tipo_sanguineo = ?, Alergia = ?, Data_nascimento = ?, Responsavel_CPF = ?, Endereco = ?, Observacao = ?, Email = ? WHERE CPF = ?";
 			PreparedStatement insert = pacienteDAO.getConexao().prepareStatement(sql);
 			insert.setString(1, paciente.getNome());
 			insert.setString(2, paciente.getTipoSanguineo());
@@ -141,10 +141,11 @@ public class PacienteDAO {
 			insert.setString(5, responsavel.getCpf());
 			insert.setString(6, paciente.getEndereco());
 			insert.setString(7, paciente.getObservacao());
-			insert.setString(8, paciente.getCpf());
-			boolean execucao = insert.execute();
+			insert.setString(8, paciente.getEmail());
+			insert.setString(9, paciente.getCpf());
+			insert.execute();
 			pacienteDAO.fecharConexao();
-			return execucao;
+			return true;
 	}
 	
 	
