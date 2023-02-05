@@ -85,5 +85,18 @@ FabricaConexao recepcionistaDAO = new FabricaConexao();
 		recepcionistaDAO.fecharConexao();
 		return execucao;
 	}
+	
+	public String totalRecepcionista() throws SQLException {
+		String sql = "SELECT COUNT(*) as Total FROM Recepcionista";
+		PreparedStatement count = recepcionistaDAO.getConexao().prepareStatement(sql);
+		ResultSet resultado = count.executeQuery();
+		String retorno = "";
+		if(resultado.next()){
+			retorno = resultado.getString("Total");
+			}
+		recepcionistaDAO.fecharConexao();
+		return retorno;
+	}
+
 }
 

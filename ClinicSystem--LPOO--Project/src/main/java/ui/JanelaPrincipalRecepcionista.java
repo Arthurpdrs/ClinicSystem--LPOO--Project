@@ -332,6 +332,7 @@ public class JanelaPrincipalRecepcionista {
 				try {
 					EstatisticaService.totalConsultasDia(numeroConsultasLbl);
 					EstatisticaService.totalPacientes(numeroPacientesLbl);
+					EstatisticaService.totalRecepcionista(numeroRecepcionistasLbl);
 				} catch (SQLException e) {
 					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
 				}
