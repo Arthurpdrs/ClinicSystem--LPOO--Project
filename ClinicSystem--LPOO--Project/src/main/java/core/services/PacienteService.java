@@ -113,13 +113,15 @@ public class PacienteService {
 	}
 	
 	public void cadastrar(String nome, String telefone, String email, String cpf,
-			String tipoSanguineo, String alergia, String dataNascimento, String endereco, String observacao) throws SQLException {
+			String tipoSanguineo, String alergia, String dataNascimento, String endereco, String observacao, Responsavel responsavel) throws SQLException {
 		
 		Paciente paciente = new Paciente(nome, telefone, email, cpf, tipoSanguineo, alergia,dataNascimento, endereco, observacao);
+		PacienteDAO pacienteDao = new PacienteDAO();
 		
 		if(verificarDadosObrigatorios(paciente)) {
-			PacienteDAO pacienteDao = new PacienteDAO();
-			pacienteDao.adicionar(paciente, null);
+			
+			pacienteDao.adicionar(paciente, responsavel);
+			
 		}
 			
 	}

@@ -11,6 +11,12 @@ public class Responsavel extends Pessoa{
 		
 	}
 	
+	public Responsavel(String nome, String cpf, String telefone) {
+		this.setNome(nome);
+		this.setCpf(cpf);
+		this.setTelefone(telefone);
+	}
+	
 	public Responsavel () {
 		
 	}

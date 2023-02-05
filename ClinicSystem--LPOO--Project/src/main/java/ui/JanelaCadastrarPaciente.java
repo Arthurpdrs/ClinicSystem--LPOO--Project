@@ -15,9 +15,18 @@ import java.awt.Cursor;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import com.toedter.calendar.JDateChooser;
+
+import core.model.Responsavel;
+import core.services.EnderecoService;
+import core.services.PacienteService;
+import core.services.ResponsavelService;
+
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class JanelaCadastrarPaciente {
 
@@ -41,7 +50,9 @@ public class JanelaCadastrarPaciente {
 	private JLabel observacaoLbl;
 	private JTextField observacaoTextField;
 	private JLabel tipoSanguineoLbl;
+	private JComboBox tipoSanguineoComboBox;
 	private JLabel dataDeNascimentoLbl;
+	private JDateChooser dataDeNascimentoDateChooser;
 	private JTextField responsavelNomeCompletoTextField;
 	private JLabel NomeCompletoResponsavelLbl;
 	private JTextField responsavelCelularTextField;
@@ -163,7 +174,42 @@ public class JanelaCadastrarPaciente {
 		
 		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		        
+		    	String nome = nomeTextField.getText().toLowerCase().trim();
+		        String email = emailTextField.getText().toLowerCase().trim();
+		        String cpf = cpfTextField.getText().toLowerCase().trim();
+		        String tipoSanguineo = (String) tipoSanguineoComboBox.getSelectedItem();
+		        String alergia = alergiaTextField.getText().toLowerCase().trim();
+		        String celular = celularTextField.getText().toLowerCase().trim();
+		        String observacao = observacaoTextField.getText().toLowerCase().trim();
+		        Date dataDeNascimento = dataDeNascimentoDateChooser.getDate();
+		        SimpleDateFormat FormatadorDaData = new SimpleDateFormat("dd/MM/yyyy");
+		        String dataNascimentoFormatada = FormatadorDaData.format(dataDeNascimento);
+		        String logradouro = logradouroTextField.getText().toLowerCase();
+		        String numero = numeroTextField.getText().toLowerCase().trim();
+		        String bairro = bairroTextField.getText().toLowerCase().trim();
+		        String cidade = cidadeTextField.getText().toLowerCase().trim();
+		        String cep = cepTextField.getText().toLowerCase().trim();
+		        String nomeResponsavel = responsavelNomeCompletoTextField.getText().toLowerCase().trim();
+		        String celularResponsavel = celularTextField.getText().trim();
+		        String cpfResponsavel = responsavelCpfTextField.getText().trim();
+		        
+		        PacienteService paciente = new PacienteService();
+		        String endereco = EnderecoService.montarEndereco(logradouro, numero, bairro, cidade, cep);
+		        ResponsavelService responsavelService = new ResponsavelService();
+		        Responsavel responsavel = null;
+				try {
+					responsavel = responsavelService.inserir(nomeResponsavel, cpfResponsavel, celularResponsavel);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+				try {
+					paciente.cadastrar(nome, celular, email, cpf, tipoSanguineo, alergia, dataNascimentoFormatada, endereco, observacao, responsavel);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		        
 		    }
 		});
 		
@@ -469,7 +515,21 @@ public class JanelaCadastrarPaciente {
 		
 		limparBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	nomeTextField.setText("");
+		    	emailTextField.setText("");
+		    	cpfTextField.setText("");
+		    	alergiaTextField.setText("");
+		        celularTextField.setText("");
+		        observacaoTextField.setText("");
+		        logradouroTextField.setText("");
+		        numeroTextField.setText("");
+		        bairroTextField.setText("");
+		        cidadeTextField.setText("");
+		        cepTextField.setText("");
+		        NomeCompletoResponsavelLbl.setText("");
+		        responsavelCpfTextField.setText("");
+		        responsavelCelularTextField.setText("");
+		        erroLbl.setText("");
 		    }
 		});
 		
