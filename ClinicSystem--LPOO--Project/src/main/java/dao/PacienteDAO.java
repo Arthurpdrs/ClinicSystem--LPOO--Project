@@ -177,17 +177,16 @@ public class PacienteDAO {
 
 	
 	public String totalPacientes() throws SQLException {
-		String sql = "SELECT COUNT(*) as CPF FROM Paciente";
+		String sql = "SELECT COUNT(*) as Total FROM Paciente";
 		PreparedStatement count = pacienteDAO.getConexao().prepareStatement(sql);
 		ResultSet resultado = count.executeQuery();
 		String retorno = "";
 		if(resultado.next()){
-			retorno = resultado.getString("CPF");
+			retorno = resultado.getString("Total");
 		}
 
 		pacienteDAO.fecharConexao();
 		return retorno;
 	}
 
-	
 }

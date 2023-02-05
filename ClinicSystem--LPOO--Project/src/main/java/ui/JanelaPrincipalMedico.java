@@ -22,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import core.services.ConsultaService;
+import core.services.EstatisticaService;
 public class JanelaPrincipalMedico {
 
 	private JFrame frmClinicsystem;
@@ -78,7 +79,7 @@ public class JanelaPrincipalMedico {
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
 		
-		JLabel numeroPacientesLbl = new JLabel("*");
+		final JLabel numeroPacientesLbl = new JLabel("*");
 		numeroPacientesLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroPacientesLbl.setForeground(Color.WHITE);
 		numeroPacientesLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -305,6 +306,8 @@ public class JanelaPrincipalMedico {
 					String dataAtual = dateFormat.format(data);
 					ConsultaService consultaService = new ConsultaService();
 					consultaService.horariosConsultas(consultasDoDiaTable, dataAtual);
+					EstatisticaService.totalConsultasDiaMedico(numeroConsultasLbl);
+					EstatisticaService.totalPacientes(numeroPacientesLbl);
 				} catch(SQLException e) {
 					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
 				}

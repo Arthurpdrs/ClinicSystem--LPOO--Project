@@ -110,4 +110,22 @@ public class ConsultaDAO {
 		consultaDAO.fecharConexao();
 		return retorno;
 	}
+	
+	public String TotalConsultasMedico(String cpf) throws SQLException {
+		Date data = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String dataAtual = dateFormat.format(data);
+		String sql = "SELECT COUNT(*) as Data_consulta FROM Consulta WHERE Data_consulta= ? AND Medico_CPF = ?";
+		PreparedStatement count = consultaDAO.getConexao().prepareStatement(sql);
+		count.setString(1, dataAtual);
+		count.setString(2, cpf);
+		ResultSet resultado = count.executeQuery();
+		String retorno = "";
+		if(resultado.next()){
+			retorno = resultado.getString("Data_consulta");
+		}
+
+		consultaDAO.fecharConexao();
+		return retorno;
+	}
 }

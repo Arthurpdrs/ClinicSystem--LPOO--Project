@@ -10,7 +10,6 @@ public class Paciente extends Pessoa{
 	private Responsavel responsavel;
 	private String endereco;
 	private String observacao;
-	private String totalPacientes;
 
 	public Paciente(
 			String nome,
@@ -91,14 +90,5 @@ public class Paciente extends Pessoa{
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
-	public String getTotalPacientes() {
-		return totalPacientes;
-	}
-
-	public void setTotalPacientes(String totalPacientes) {
-		this.totalPacientes = totalPacientes;
-	}
-
 
 }
