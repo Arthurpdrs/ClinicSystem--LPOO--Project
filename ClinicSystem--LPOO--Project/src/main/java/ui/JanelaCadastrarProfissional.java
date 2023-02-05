@@ -332,6 +332,8 @@ public class JanelaCadastrarProfissional {
 			public void keyPressed(KeyEvent e) {
 				if(!(TextFieldService.validarCRM(crmTextField.getText()))) {
 					erroLbl.setText("O campo CRM deve conter apenas números");
+				} else {
+					erroLbl.setText("");
 				}
 			}
 		});

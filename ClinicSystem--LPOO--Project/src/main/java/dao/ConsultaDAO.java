@@ -42,6 +42,20 @@ public class ConsultaDAO {
 		return retorno;
 	}
 	
+    public List<String> filtrarMedicoEData(String cpf, String dataAtual) throws SQLException {
+    	String sql = "SELECT Hora_consulta FROM Consulta WHERE Medico_CPF = ? AND Data_consulta = ?";
+		List<String> retorno = new ArrayList();
+		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
+		stmt.setString(1, cpf);
+		stmt.setString(2, dataAtual);
+		ResultSet resultado = stmt.executeQuery();
+		while(resultado.next()) {
+			retorno.add(resultado.getString("Hora_consulta"));
+		}
+		consultaDAO.fecharConexao();
+		return retorno;
+	}
+    
 	public boolean inserir(Consulta consulta) throws SQLException {
 		String sql = "INSERT INTO Consulta(Paciente_CPF, Medico_CPF, Data_consulta, Valor, Pago, Hora_consulta) VALUES(?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);

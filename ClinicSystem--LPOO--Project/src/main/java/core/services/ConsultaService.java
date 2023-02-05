@@ -1,18 +1,16 @@
 package core.services;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
-import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import core.model.Consulta;
 import core.model.Medico;
 import core.model.Paciente;
 import core.model.Responsavel;
 import dao.ConsultaDAO;
-
 public class ConsultaService {
 	
 	public boolean inserir(String nome, String telefone, String cpf, String email, String horario, String valor, String observacao, String estadoPagamento, String cpfResponsavel, String cpfMedico, String data) throws SQLException {
@@ -49,5 +47,32 @@ public class ConsultaService {
 		consulta.setTotalConsulta(consultadao.TotalConsultas());
 		return consulta.getTotalConsulta();
 		}
+	
+	public boolean horariosConsultas(JTable jtable, String dataAtual) throws SQLException {
+		if (System.getProperty("cargo") == (null) || System.getProperty("cpf_logado") == (null)) {
+			return false;
+		} else {
+			if (System.getProperty("cargo").equals("MEDICO")){
+				return false;
+			}
+			String cpf = System.getProperty("cpf_logado");
+			DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+			ConsultaDAO consultaDAO = new ConsultaDAO();
+			List<String> horarios = consultaDAO.filtrarMedicoEData(cpf, dataAtual);
+			
+	        model.setNumRows(0);
+			if (horarios.size() > 0) {
+				for (String horario : horarios) {
+						model.addRow(new Object[] {
+								horario
+						});
+					}
+				jtable.setModel(model);
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 	
 }

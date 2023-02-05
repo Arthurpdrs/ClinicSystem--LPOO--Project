@@ -87,11 +87,11 @@ public class JanelaVisualizarAgenda {
 			new Object[][] {
 			},
 			new String[] {
-				"Hor\u00E1rio", "Paciente", "CPF", "Respons\u00E1vel", "Estado"
+				"Hor\u00E1rio"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false
+				false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];

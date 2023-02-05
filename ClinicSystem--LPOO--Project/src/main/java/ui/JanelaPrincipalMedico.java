@@ -10,9 +10,18 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.Toolkit;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import core.services.ConsultaService;
 public class JanelaPrincipalMedico {
 
 	private JFrame frmClinicsystem;
@@ -69,7 +78,7 @@ public class JanelaPrincipalMedico {
 		frmClinicsystem.getContentPane().setBackground(new Color(255, 255, 255));
 		frmClinicsystem.getContentPane().setLayout(null);
 		
-		JLabel numeroPacientesLbl = new JLabel("20000");
+		JLabel numeroPacientesLbl = new JLabel("*");
 		numeroPacientesLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroPacientesLbl.setForeground(Color.WHITE);
 		numeroPacientesLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -181,7 +190,7 @@ public class JanelaPrincipalMedico {
 		textoConsultasLbl.setBounds(385, 100, 191, 59);
 		frmClinicsystem.getContentPane().add(textoConsultasLbl);
 		
-		numeroConsultasLbl = new JLabel("20000");
+		numeroConsultasLbl = new JLabel("*");
 		numeroConsultasLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroConsultasLbl.setForeground(Color.WHITE);
 		numeroConsultasLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -287,5 +296,19 @@ public class JanelaPrincipalMedico {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				try {
+					Date data = new Date();
+					DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+					String dataAtual = dateFormat.format(data);
+					ConsultaService consultaService = new ConsultaService();
+					consultaService.horariosConsultas(consultasDoDiaTable, dataAtual);
+				} catch(SQLException e) {
+					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
+				}
+			}
+		});
 	}
 }

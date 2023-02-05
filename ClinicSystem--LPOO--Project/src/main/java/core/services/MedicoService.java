@@ -43,7 +43,7 @@ public class MedicoService {
 		
 		Medico medico = new Medico(nome, telefone, email, cpf, login, senha, crm, especialidade);
 		
-		if(verificarDadosObrigatorios(medico) && TextFieldService.validarEmail(email) && TextFieldService.validarNumero(cpf) && TextFieldService.validarCRM(crm) && (especialidade.length() < 45)) {
+		if(verificarDadosObrigatorios(medico) && TextFieldService.validarEmail(email) && TextFieldService.validarNumero(telefone) && TextFieldService.validarNumero(cpf) && TextFieldService.validarCRM(crm) && (especialidade.length() < 45)) {
 			MedicoDAO medicoDAO = new MedicoDAO();
 			medicoDAO.inserir(medico);
 			return true;
