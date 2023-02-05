@@ -67,9 +67,9 @@ public class FuncionarioDAO {
 		String sqlDeletarLogin = "DELETE FROM Login WHERE CPF = ?";
 		PreparedStatement deleteLogin = funcionarioDAO.getConexao().prepareStatement(sqlDeletarLogin);
 		deleteLogin.setString(1, cpf);
-		boolean execucao = deleteLogin.execute();
+		deleteLogin.execute();
 		funcionarioDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 }

@@ -39,9 +39,9 @@ FabricaConexao adminDAO = new FabricaConexao();
 		stmt.setString(4, admin.getEmail());
 		stmt.setString(5, admin.getLogin());
 		stmt.setString(6, admin.getSenha());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		adminDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public boolean alterar(Admin admin) throws SQLException {
@@ -53,9 +53,9 @@ FabricaConexao adminDAO = new FabricaConexao();
 		stmt.setString(4, admin.getEmail());
 		stmt.setString(5, admin.getLogin());
 		stmt.setString(6, admin.getSenha());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		adminDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public boolean remover(Admin admin) throws SQLException {
@@ -63,9 +63,9 @@ FabricaConexao adminDAO = new FabricaConexao();
 		PreparedStatement stmt = adminDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, admin.getCpf());
 		stmt.execute();
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		adminDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 }
 
