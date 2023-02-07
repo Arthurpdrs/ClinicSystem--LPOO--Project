@@ -70,25 +70,23 @@ public class ConsultaDAO {
 		return true;
 	}
 	
-	public boolean alterar(Consulta consulta) throws SQLException {
-		String sql = "UPDATE Consulta SET Data_consulta=?, Valor=?, Pago=?, Hora_consulta=? WHERE (Paciente_CPF=? AND Medico_CPF=?)";
+	public boolean alterar(Consulta consulta, Integer id) throws SQLException {
+		String sql = "UPDATE Consulta SET Data_consulta=?, Valor=?, Pago=?, Hora_consulta=? WHERE id = ?";
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
-		stmt.setString(1, consulta.getPaciente().getCpf());
-		stmt.setString(2, consulta.getMedico().getCpf());
-		stmt.setString(3, consulta.getDataConsulta());
-		stmt.setString(4, consulta.getValor());
-		stmt.setString(5, consulta.getPago());
-		stmt.setString(6, consulta.getHorario());
+		stmt.setString(1, consulta.getDataConsulta());
+		stmt.setString(2, consulta.getValor());
+		stmt.setString(3, consulta.getPago());
+		stmt.setString(4, consulta.getHorario());
+		stmt.setInt(5, id);
 		stmt.execute();
 		consultaDAO.fecharConexao();
 		return true;
 	}
 	
-	public boolean remover(Consulta consulta) throws SQLException {
-		String sql = "DELETE FROM Consulta WHERE (Paciente_CPF=? AND Medico_CPF=?)";
+	public boolean remover(Integer id) throws SQLException {
+		String sql = "DELETE FROM Consulta WHERE id = ?";
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
-		stmt.setString(1, consulta.getPaciente().getCpf());
-		stmt.setString(2, consulta.getMedico().getCpf());
+		stmt.setInt(1, id);
 		stmt.execute();
 		consultaDAO.fecharConexao();
 		return true;
