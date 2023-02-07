@@ -14,10 +14,17 @@ import javax.swing.JButton;
 import java.awt.Cursor;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import core.services.ConsultaService;
+import core.services.PacienteService;
+
 import javax.swing.JScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 
 public class JanelaVisualizarConsultas {
 
@@ -84,11 +91,11 @@ public class JanelaVisualizarConsultas {
 			new Object[][] {
 			},
 			new String[] {
-				"Nome completo", "E-mail", "CPF", "Observa\u00E7\u00E3o", "Especialidade", "Respons\u00E1vel", "M\u00E9dico(a)", "Data da consulta", "Hor\u00E1rio da consulta", "Valor", "Estado"
+				"Nome completo", "E-mail", "CPF", "Observa\u00E7\u00E3o", "Especialidade", "M\u00E9dico(a)", "Data da consulta", "Hor\u00E1rio da consulta", "Valor", "Estado", "ID"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				true, true, false, true, true, true, true, true, true, true, true
+				false, false, false, false, false, false, true, true, true, true, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -163,7 +170,6 @@ public class JanelaVisualizarConsultas {
 		codigoDoPacienteLbl.setBounds(32, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
-		//Botão
 		JButton excluirBtn = new JButton("Excluir");
 		excluirBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		excluirBtn.setForeground(Color.GRAY);
@@ -176,7 +182,22 @@ public class JanelaVisualizarConsultas {
 		
 		excluirBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	int linha = consultasTable.getSelectedRow();
+		        if(linha != -1) {
+		        	int id = Integer.parseInt(consultasTable.getValueAt(linha, 11).toString());
+		        	ConsultaService consultaService = new ConsultaService();
+		        	try {
+		        		if(consultaService.remover(id)) {
+		        			erroLbl.setText("Consulta apagada com sucesso.");
+		        			((DefaultTableModel) consultasTable.getModel()).removeRow(linha);
+		        		} else {
+		        			erroLbl.setText("Não foi possível deletar a consulta.");
+		        		}
+						
+					} catch (SQLException e) {
+						erroLbl.setText("Ocorreu um erro inesperado");
+					}
+		        }
 		    }
 		});
 		
@@ -249,5 +270,16 @@ public class JanelaVisualizarConsultas {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				try {
+					ConsultaService consultaService = new ConsultaService();
+					consultaService.visualizarConsultas(consultasTable);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }

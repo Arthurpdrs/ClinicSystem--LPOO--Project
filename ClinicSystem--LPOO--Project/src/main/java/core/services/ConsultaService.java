@@ -11,6 +11,7 @@ import core.model.Medico;
 import core.model.Paciente;
 import core.model.Responsavel;
 import dao.ConsultaDAO;
+import dao.PacienteDAO;
 public class ConsultaService {
 	
 	public boolean inserir(String nome, String telefone, String cpf, String email, String horario, String valor, String observacao, String estadoPagamento, String cpfResponsavel, String cpfMedico, String data) throws SQLException {
@@ -39,6 +40,35 @@ public class ConsultaService {
 			return true;
 		}
 	}
+	
+	public boolean visualizarConsultas(JTable jtable) throws SQLException {
+		DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+		ConsultaDAO consultaDAO = new ConsultaDAO();
+		List<Consulta> consultas = consultaDAO.listar();
+		
+         model.setNumRows(0);
+		if (consultas.size() > 0) {
+			for (Consulta consulta : consultas) {
+					model.addRow(new Object[] {
+							consulta.getPaciente().getNome(),
+							consulta.getPaciente().getEmail(),
+							consulta.getPaciente().getCpf(),
+							consulta.getPaciente().getObservacao(),
+							consulta.getMedico().getEspecialidade(),
+							consulta.getMedico().getNome(),
+							consulta.getDataConsulta(),
+							consulta.getHorario(),
+							consulta.getValor(),
+							consulta.getPago(),
+							consulta.getId()
+							
+					});
+				}
+				jtable.setModel(model);
+				return true;
+			} 
+		return false;
+}
 	
 	public String totalConsultasDia() throws SQLException {
 		Consulta consulta = new Consulta();
@@ -73,6 +103,19 @@ public class ConsultaService {
 				return false;
 			}
 		}
+		
 	}
+	
+	public boolean remover(int id) throws SQLException {
+		if (id == 0) {
+			return false;
+		} else {
+			ConsultaDAO consultaDAO = new ConsultaDAO();
+			consultaDAO.remover(id);
+			return true;
+		}
+	}
+	
+	
 	
 }

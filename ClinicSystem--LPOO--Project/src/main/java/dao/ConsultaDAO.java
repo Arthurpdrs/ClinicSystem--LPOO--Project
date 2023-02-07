@@ -14,6 +14,7 @@ import core.model.Consulta;
 import core.model.Medico;
 import core.model.Paciente;
 import core.model.Pessoa;
+import core.model.Responsavel;
 
 public class ConsultaDAO {
 	
@@ -28,14 +29,39 @@ public class ConsultaDAO {
 			Consulta consulta = new Consulta();
 			Paciente paciente = new Paciente();
 			Medico medico = new Medico();
-			consulta.setPaciente(paciente);
+			
 			paciente.setCpf(resultado.getString("Paciente_CPF"));
-			consulta.setMedico(medico);
+			
 			medico.setCpf(resultado.getString("Medico_CPF"));
+			
 			consulta.setDataConsulta(resultado.getString("Data_consulta"));
 			consulta.setValor(resultado.getString("Valor"));
 			consulta.setPago(resultado.getString("Pago"));
 			consulta.setHorario(resultado.getString("Hora_consulta"));
+			consulta.setId(resultado.getInt("id"));
+			
+			String sqlPaciente = "SELECT Nome, Email, Observacao FROM Paciente WHERE CPF = ?";
+			PreparedStatement selectPaciente = consultaDAO.getConexao().prepareStatement(sqlPaciente);
+			selectPaciente.setString(1, resultado.getString("Paciente_CPF"));
+			ResultSet resultadoPaciente = selectPaciente.executeQuery();
+			if (resultadoPaciente.next()) {
+				paciente.setNome(resultadoPaciente.getString("Nome"));
+				paciente.setEmail(resultadoPaciente.getString("Email"));
+				paciente.setObservacao(resultadoPaciente.getString("Observacao"));
+			}
+			
+			String sqlMedico = "SELECT Nome, Especialidade FROM Medico WHERE CPF = ?";
+			PreparedStatement selectMedico = consultaDAO.getConexao().prepareStatement(sqlMedico);
+			selectMedico.setString(1, resultado.getString("Medico_CPF"));
+			ResultSet resultadoMedico = selectMedico.executeQuery();
+			if (resultadoMedico.next()) {
+				medico.setNome(resultadoMedico.getString("Nome"));
+				medico.setEspecialidade(resultadoMedico.getString("Especialidade"));
+			}
+		
+			consulta.setMedico(medico);
+			consulta.setPaciente(paciente);
+			
 			retorno.add(consulta);
 		}
 		consultaDAO.fecharConexao();

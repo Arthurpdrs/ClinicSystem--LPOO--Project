@@ -9,7 +9,9 @@ public class Consulta {
 	private String valor;
 	private String pago;
 	private String totalConsulta;
+	private int id;
 	
+
 
 	public Consulta(
 			String dataConsulta,
@@ -92,6 +94,13 @@ public class Consulta {
 		this.totalConsulta = totalConsulta;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	
 	
