@@ -300,15 +300,6 @@ public class JanelaVisualizarProfissionais {
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
-		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				try {
-		        	FuncionarioService funcionarioService = new FuncionarioService();
-					funcionarioService.visualizarProfissionais(profissionaisTable);
-				} catch (SQLException e) {
-					erroLbl.setText("Ocorreu um erro inesperado");
-				}
-			}
-		});
+		
 	}
 }

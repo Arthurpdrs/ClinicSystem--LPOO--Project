@@ -26,10 +26,10 @@ public class ProntuarioDAO {
 			Medico medico = new Medico();
 			prontuario.setPaciente(paciente);
 			paciente.setCpf(resultado.getString("Paciente_CPF"));
-                        paciente.setNome(resultado.getString("Paciente_Nome"));
+            paciente.setNome(resultado.getString("Paciente_Nome"));
 			prontuario.setMedico(medico);
 			medico.setNome(resultado.getString("Medico_Nome"));
-                        medico.setEspecialidade(resultado.getString("Medico_Especialidade"));
+            medico.setEspecialidade(resultado.getString("Medico_Especialidade"));
 			prontuario.setQueixa(resultado.getString("Queixa"));
 			prontuario.setPrescricao(resultado.getString("Prescricao"));
 			prontuario.setObservacao(resultado.getString("Observacao"));
@@ -45,17 +45,17 @@ public class ProntuarioDAO {
 		List<Prontuario> retorno = new ArrayList();
 		PreparedStatement stmt = prontuarioDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, cpf);
-                ResultSet resultado = stmt.executeQuery();
+        ResultSet resultado = stmt.executeQuery();
 		while(resultado.next()) {
 			Prontuario prontuario = new Prontuario();
 			Paciente paciente = new Paciente();
 			Medico medico = new Medico();
 			prontuario.setPaciente(paciente);
 			paciente.setCpf(resultado.getString("Paciente_CPF"));
-                        paciente.setNome(resultado.getString("Paciente_Nome"));
+            paciente.setNome(resultado.getString("Paciente_Nome"));
 			prontuario.setMedico(medico);
 			medico.setNome(resultado.getString("Medico_Nome"));
-                        medico.setEspecialidade(resultado.getString("Medico_Especialidade"));
+            medico.setEspecialidade(resultado.getString("Medico_Especialidade"));
 			prontuario.setQueixa(resultado.getString("Queixa"));
 			prontuario.setPrescricao(resultado.getString("Prescricao"));
 			prontuario.setObservacao(resultado.getString("Observacao"));

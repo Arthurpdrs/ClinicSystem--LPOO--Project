@@ -1,6 +1,10 @@
 package core.services;
 
 import java.sql.SQLException;
+import java.util.List;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import core.model.Medico;
 import core.model.Paciente;
@@ -32,4 +36,54 @@ public class ProntuarioService {
 		}
 	}
 	
+	public boolean visualizarProntuarios(JTable jtable) throws SQLException {
+		DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+		ProntuarioDAO prontuarioDAO = new ProntuarioDAO();
+		List<Prontuario> prontuarios = prontuarioDAO.listar();
+		
+	     model.setNumRows(0);
+		if (prontuarios.size() > 0) {
+			for (Prontuario prontuario : prontuarios) {
+					model.addRow(new Object[] {
+							prontuario.getPaciente().getNome(),
+							prontuario.getPaciente().getCpf(),
+							prontuario.getMedico().getNome(),
+							prontuario.getMedico().getEspecialidade(),
+							prontuario.getData(),
+							prontuario.getQueixa(),
+							prontuario.getPrescricao(),
+							prontuario.getObservacao()
+					});
+				}
+				jtable.setModel(model);
+				return true;
+			} 
+		return false;
+}
+	public boolean filtrar(JTable jtable, String cpf) throws SQLException {
+		if (TextFieldService.validarNumero(cpf)) {
+		DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+		ProntuarioDAO prontuarioDAO = new ProntuarioDAO();
+		List<Prontuario> prontuarios = prontuarioDAO.filtrar(cpf);
+		
+	     model.setNumRows(0);
+		if (prontuarios.size() > 0) {
+			for (Prontuario prontuario : prontuarios) {
+					model.addRow(new Object[] {
+							prontuario.getPaciente().getNome(),
+							prontuario.getPaciente().getCpf(),
+							prontuario.getMedico().getNome(),
+							prontuario.getMedico().getEspecialidade(),
+							prontuario.getData(),
+							prontuario.getQueixa(),
+							prontuario.getPrescricao(),
+							prontuario.getObservacao()
+					});
+				}
+				jtable.setModel(model);
+				return true;
+			} 
+		}
+		return false;
+}
 }

@@ -15,12 +15,17 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import core.services.FuncionarioService;
+import core.services.ProntuarioService;
 import core.services.TextFieldService;
 
 import javax.swing.JScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 
 public class JanelaVisualizarProntuarios {
 
@@ -150,8 +155,24 @@ public class JanelaVisualizarProntuarios {
 		frmClinicsystem.getContentPane().add(pesquisarBtn);
 		
 		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
+			ProntuarioService prontuarioService = new ProntuarioService();
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	String cpf = codigoDoPacienteTextField.getText();
+		    	if (TextFieldService.validarNumero(cpf)) {
+		    		try {
+						prontuarioService.filtrar(prontuariosTable, cpf);
+						avisoLbl.setText("");
+					} catch (SQLException e) {
+						avisoLbl.setText("Ocorreu um erro inesperado");
+					}
+		    	} else {
+		    		try {
+		    			avisoLbl.setText("Não foi possível encontrar o paciente");
+						prontuarioService.visualizarProntuarios(prontuariosTable);
+					} catch (SQLException e) {
+						avisoLbl.setText("Ocorreu um erro inesperado");
+					}
+		    	}
 		    }
 		});
 		
@@ -168,5 +189,16 @@ public class JanelaVisualizarProntuarios {
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				try {
+		        	ProntuarioService prontuarioService = new ProntuarioService();
+					prontuarioService.visualizarProntuarios(prontuariosTable);
+				} catch (SQLException e) {
+					avisoLbl.setText("Ocorreu um erro inesperado");
+				}
+			}
+		});
 	}
 }
