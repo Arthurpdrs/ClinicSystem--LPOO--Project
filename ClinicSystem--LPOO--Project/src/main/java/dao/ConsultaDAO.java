@@ -70,7 +70,7 @@ public class ConsultaDAO {
 		return true;
 	}
 	
-	public boolean alterar(Consulta consulta, Integer id) throws SQLException {
+	public boolean alterar(Consulta consulta, int id) throws SQLException {
 		String sql = "UPDATE Consulta SET Data_consulta=?, Valor=?, Pago=?, Hora_consulta=? WHERE id = ?";
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, consulta.getDataConsulta());
@@ -83,7 +83,7 @@ public class ConsultaDAO {
 		return true;
 	}
 	
-	public boolean remover(Integer id) throws SQLException {
+	public boolean remover(int id) throws SQLException {
 		String sql = "DELETE FROM Consulta WHERE id = ?";
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
 		stmt.setInt(1, id);
