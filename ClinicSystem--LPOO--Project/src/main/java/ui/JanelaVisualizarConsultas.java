@@ -277,7 +277,7 @@ public class JanelaVisualizarConsultas {
 		        	String data = consultasTable.getValueAt(linha, 6).toString();
 		        	String horario = consultasTable.getValueAt(linha, 7).toString();
 		        	String profissional = consultasTable.getValueAt(linha, 5).toString();
-		        		if(TextFieldService.validarEmail(email) && TextFieldService.validarData(data) && TextFieldService.validarHorario(horario)) {
+		        		if(TextFieldService.validarData(data) && TextFieldService.validarHorario(horario)) {
 		        			try {
 								if(EmailService.enviarEmail("lembrete", email, nome, data, horario, profissional)) {
 									erroLbl.setText("E-mail enviado com sucesso.");
@@ -325,7 +325,7 @@ public class JanelaVisualizarConsultas {
 		        	String data = consultasTable.getValueAt(linha, 6).toString();
 		        	String horario = consultasTable.getValueAt(linha, 7).toString();
 		        	String profissional = consultasTable.getValueAt(linha, 5).toString();
-		        		if(TextFieldService.validarEmail(email) && TextFieldService.validarData(data) && TextFieldService.validarHorario(horario)) {
+		        		if(TextFieldService.validarData(data) && TextFieldService.validarHorario(horario)) {
 		        			try {
 								if(EmailService.enviarEmail("cancelamento", email, nome, data, horario, profissional)) {
 									erroLbl.setText("E-mail enviado com sucesso.");
