@@ -121,12 +121,10 @@ public class JanelaNovoRegistro {
 		
 		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		       PacienteService pacienteService = new PacienteService();
-		       Pessoa paciente  = new Pessoa(); 
+		       PacienteService pacienteService = new PacienteService(); 
 		       try {
 				if(pacienteService.filtrarPaciente(pesquisarTextField, nomeTextField)) {
-					cpfTextField.setText(paciente.getNome());
-					
+					;
 					avisoLbl.setText("");
 				} else {
 					avisoLbl.setText("Não foi possível encontrar o paciente");
