@@ -194,7 +194,15 @@ public class JanelaNovoRegistro {
 		
 		enviarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	String nome_paciente = nomeTextField.getText().toUpperCase().trim();
+		        String cpf_paciente = cpfTextField.getText().toUpperCase().trim();
+		        String queixa = queixaTextArea.getText().toUpperCase().trim();
+		        String data = dataTextField.getText().toUpperCase().trim();
+		        String observacao = observacaoTextArea.getText().toUpperCase().trim();
+		        String prescricao = prescricaoTextArea.getText().toUpperCase().trim();
+		        String nome_medico = nomeMedicoTextField.getText().toUpperCase().trim();	
+		        String especialidade = especialidadeTextField.getText().toUpperCase().trim();
+
 		    }
 		});
 		

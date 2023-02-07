@@ -29,7 +29,7 @@ public class ProntuarioDAO {
                         paciente.setNome(resultado.getString("Paciente_Nome"));
 			prontuario.setMedico(medico);
 			medico.setNome(resultado.getString("Medico_Nome"));
-                        medico.setEspecialidade(resultado.getString("Medico_Especialidade"))
+                        medico.setEspecialidade(resultado.getString("Medico_Especialidade"));
 			prontuario.setQueixa(resultado.getString("Queixa"));
 			prontuario.setPrescricao(resultado.getString("Prescricao"));
 			prontuario.setObservacao(resultado.getString("Observacao"));
@@ -55,7 +55,7 @@ public class ProntuarioDAO {
                         paciente.setNome(resultado.getString("Paciente_Nome"));
 			prontuario.setMedico(medico);
 			medico.setNome(resultado.getString("Medico_Nome"));
-                        medico.setEspecialidade(resultado.getString("Medico_Especialidade"))
+                        medico.setEspecialidade(resultado.getString("Medico_Especialidade"));
 			prontuario.setQueixa(resultado.getString("Queixa"));
 			prontuario.setPrescricao(resultado.getString("Prescricao"));
 			prontuario.setObservacao(resultado.getString("Observacao"));
