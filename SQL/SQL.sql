@@ -77,7 +77,7 @@ CREATE TABLE `Clinica` (
 
 LOCK TABLES `Clinica` WRITE;
 /*!40000 ALTER TABLE `Clinica` DISABLE KEYS */;
-INSERT INTO `Clinica` VALUES ('QQQQQQQQQQQQQQQQQQQQ','naoresponda_clinicdata@outlook.com','clinicdata00_','81999999999','Avenida Governador Agamenon Magalhães, 84, Santo Amaro, Recife, PE',1);
+INSERT INTO `Clinica` VALUES ('ClinicSystem','naoresponda_clinicdata@outlook.com','clinicdata00_','81 99999-9999','Avenida Governador Agamenon Magalhães, 84, Santo Amaro, Recife, PE',1);
 /*!40000 ALTER TABLE `Clinica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,15 +91,13 @@ DROP TABLE IF EXISTS `Consulta`;
 CREATE TABLE `Consulta` (
   `Paciente_CPF` varchar(12) NOT NULL,
   `Medico_CPF` varchar(12) NOT NULL,
-  `Data_consulta` date NOT NULL,
-  `Valor` double NOT NULL,
-  `Pago` tinyint NOT NULL,
-  `Hora_consulta` time NOT NULL,
-  PRIMARY KEY (`Paciente_CPF`,`Medico_CPF`),
-  KEY `fk_Consulta_Medico1_idx` (`Medico_CPF`),
-  CONSTRAINT `fk_Consulta_Medico1` FOREIGN KEY (`Medico_CPF`) REFERENCES `Medico` (`CPF`),
-  CONSTRAINT `fk_Consulta_Paciente` FOREIGN KEY (`Paciente_CPF`) REFERENCES `Paciente` (`CPF`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `Data_consulta` varchar(100) DEFAULT NULL,
+  `Valor` varchar(100) DEFAULT NULL,
+  `Pago` varchar(100) DEFAULT NULL,
+  `Hora_consulta` varchar(100) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COMMENT='	';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +106,34 @@ CREATE TABLE `Consulta` (
 
 LOCK TABLES `Consulta` WRITE;
 /*!40000 ALTER TABLE `Consulta` DISABLE KEYS */;
+INSERT INTO `Consulta` VALUES ('81737291927','34567890987','07/02/2023','Não informa','PAGO','14:00',3),('99999999999','91847548218','07/02/2023','100','PENDENTE','15:40',4);
 /*!40000 ALTER TABLE `Consulta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Login`
+--
+
+DROP TABLE IF EXISTS `Login`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Login` (
+  `Usuario` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `Cargo` varchar(100) NOT NULL,
+  `CPF` varchar(45) DEFAULT NULL,
+  `Senha` varchar(45) NOT NULL,
+  PRIMARY KEY (`Usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Login`
+--
+
+LOCK TABLES `Login` WRITE;
+/*!40000 ALTER TABLE `Login` DISABLE KEYS */;
+INSERT INTO `Login` VALUES ('arthur','MEDICO','34567890987','123456'),('diana','RECEPCIONISTA','98765434567','123456'),('paulo','MEDICO','91847548218','oluap');
+/*!40000 ALTER TABLE `Login` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -137,6 +162,7 @@ CREATE TABLE `Medico` (
 
 LOCK TABLES `Medico` WRITE;
 /*!40000 ALTER TABLE `Medico` DISABLE KEYS */;
+INSERT INTO `Medico` VALUES ('34567890987','ARTHUR PEDROSA','81 91111-1111','arthur@gmail.com','arthur','123456','111111','PEDIATRIA'),('91847548218','PAULO','81 99999-9999','pauloandrejanga@gmail.com','paulo','oluap','988172','PEDIATRIA');
 /*!40000 ALTER TABLE `Medico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,15 +178,14 @@ CREATE TABLE `Paciente` (
   `Nome` varchar(100) NOT NULL,
   `Telefone` varchar(13) NOT NULL,
   `Email` varchar(100) NOT NULL,
-  `Tipo_sanguineo` varchar(3) NOT NULL,
-  `Alergia` varchar(100) NOT NULL,
-  `Data_nascimento` date NOT NULL,
-  `Responsavel_CPF` varchar(12) DEFAULT NULL,
-  `Endereco` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Observacao` varchar(500) DEFAULT NULL,
+  `Tipo_sanguineo` varchar(20) DEFAULT 'Não informado',
+  `Alergia` varchar(100) DEFAULT 'Não informado',
+  `Data_nascimento` varchar(100) NOT NULL,
+  `Responsavel_CPF` varchar(12) DEFAULT 'N/E',
+  `Endereco` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'Não informado',
+  `Observacao` varchar(500) DEFAULT 'Não informado',
   PRIMARY KEY (`CPF`),
-  KEY `fk_Paciente_Responsavel1_idx` (`Responsavel_CPF`),
-  CONSTRAINT `fk_Paciente_Responsavel1` FOREIGN KEY (`Responsavel_CPF`) REFERENCES `Responsavel` (`CPF`)
+  KEY `fk_Paciente_Responsavel1_idx` (`Responsavel_CPF`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -170,7 +195,7 @@ CREATE TABLE `Paciente` (
 
 LOCK TABLES `Paciente` WRITE;
 /*!40000 ALTER TABLE `Paciente` DISABLE KEYS */;
-INSERT INTO `Paciente` VALUES ('10000000000','Gabriel Vaz Luna de Almeida','81 98888-0000','gabrielvaz@gmail.com','A+','Nenhuma','2009-04-13','12349990034','Avenida Guanabara, s/n, Bairro Novo, Olinda, PE','Nenhuma'),('20000000000','Aline Pereira Brasil','81 90461-6222','alinep@hotmail.com','B-','Nenhuma','1995-12-12',NULL,'Rua Rio Branco, 16, Centro, Igarassu, PE','Nenhuma');
+INSERT INTO `Paciente` VALUES ('10827914407','arthur','81986613467','modify@gmail.com','B+','nao','24/10/1996','','rua 1 1 test test 50000000','n'),('77777777777','joao','81988888888','alberto@gmail.com','B+','a','15/08/1979','33333333333','rua 1 1 test test 50000000','nao'),('81737291927','Paulo','81 98888-8888','pauloandrejanga@gmail.com','B+','Não informado','14/02/2000','','Não informado','Não informado'),('99999999999','Diana','81986613467','dksc@discente.ifpe.edu.br','B+','nao','24/10/1996','','rua 1 1 test test 50000000','n');
 /*!40000 ALTER TABLE `Paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,16 +207,14 @@ DROP TABLE IF EXISTS `Prontuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Prontuario` (
-  `Paciente_CPF` varchar(12) NOT NULL,
-  `Medico_CPF` varchar(12) NOT NULL,
-  `Queixa` varchar(100) DEFAULT NULL,
+  `Observacao` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `Data_prontuario` varchar(100) DEFAULT NULL,
   `Prescricao` varchar(100) DEFAULT NULL,
-  `Observacao` varchar(100) DEFAULT NULL,
-  `Data_prontuario` date NOT NULL,
-  PRIMARY KEY (`Paciente_CPF`,`Medico_CPF`),
-  KEY `fk_Prontuario_Medico1_idx` (`Medico_CPF`),
-  CONSTRAINT `fk_Prontuario_Medico1` FOREIGN KEY (`Medico_CPF`) REFERENCES `Medico` (`CPF`),
-  CONSTRAINT `fk_Prontuario_Paciente1` FOREIGN KEY (`Paciente_CPF`) REFERENCES `Paciente` (`CPF`)
+  `Medico_Especialidade` varchar(45) NOT NULL,
+  `Medico_Nome` varchar(100) NOT NULL,
+  `Paciente_CPF` varchar(12) NOT NULL,
+  `Paciente_Nome` varchar(100) NOT NULL,
+  `Queixa` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -201,6 +224,7 @@ CREATE TABLE `Prontuario` (
 
 LOCK TABLES `Prontuario` WRITE;
 /*!40000 ALTER TABLE `Prontuario` DISABLE KEYS */;
+INSERT INTO `Prontuario` VALUES ('OBS','07/02/2023','PRESCRICAO','PEDIATRIA','PAULO','77777777777','JOAO','QUEIXA'),('OBS','07/02/2023','PRESCRICAO','PEDIATRIA','PAULO','77777777777','JOAO','QUEIXA');
 /*!40000 ALTER TABLE `Prontuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,7 +252,7 @@ CREATE TABLE `Recepcionista` (
 
 LOCK TABLES `Recepcionista` WRITE;
 /*!40000 ALTER TABLE `Recepcionista` DISABLE KEYS */;
-INSERT INTO `Recepcionista` VALUES ('12244455498','Joaquina','81 99900-8888','joaquina@clinicsystem.com','joaquina','joaquina123');
+INSERT INTO `Recepcionista` VALUES ('98765434567','DIANA','81 99999-9999','diana@gmail.com.br','diana','123456');
 /*!40000 ALTER TABLE `Recepcionista` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,10 +264,9 @@ DROP TABLE IF EXISTS `Responsavel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Responsavel` (
-  `CPF` varchar(12) NOT NULL,
+  `CPF` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `Nome` varchar(100) NOT NULL,
   `Telefone` varchar(13) NOT NULL,
-  `Email` varchar(100) NOT NULL,
   PRIMARY KEY (`CPF`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -254,7 +277,7 @@ CREATE TABLE `Responsavel` (
 
 LOCK TABLES `Responsavel` WRITE;
 /*!40000 ALTER TABLE `Responsavel` DISABLE KEYS */;
-INSERT INTO `Responsavel` VALUES ('12349990034','Maria Josefa Laercio Bezerra','81 98873-1233','mariajosefa@yahoo.com');
+INSERT INTO `Responsavel` VALUES ('33333333333','Inácio','81988888888');
 /*!40000 ALTER TABLE `Responsavel` ENABLE KEYS */;
 UNLOCK TABLES;
 SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
@@ -268,4 +291,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-02 22:11:36
+-- Dump completed on 2023-02-07 13:28:40
