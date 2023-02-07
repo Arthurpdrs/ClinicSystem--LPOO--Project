@@ -124,7 +124,7 @@ public class JanelaNovoRegistro {
 		       PacienteService pacienteService = new PacienteService(); 
 		       try {
 				if(pacienteService.filtrarPaciente(pesquisarTextField, nomeTextField)) {
-					;
+					cpfTextField.setText(pesquisarTextField.getText());
 					avisoLbl.setText("");
 				} else {
 					avisoLbl.setText("Não foi possível encontrar o paciente");
@@ -211,9 +211,8 @@ public class JanelaNovoRegistro {
 		        try {
 		        	if(prontuarioService.inserir(queixa, observacao, data, prescricao, cpf_paciente, nome_paciente, nome_medico, especialidade) == false) {
 		        		erroLbl.setText("Verifique os valores inseridos");
-		        	}else {
-		        		prontuarioService.inserir(queixa, observacao, data, prescricao, cpf_paciente, nome_paciente, nome_medico, especialidade);
-		        		erroLbl.setText("Prontuario enviado com sucesso!");	
+		        	} else {
+		        	    erroLbl.setText("Registro enviado com sucesso");	
 		        	}
 		       }
 		       catch(SQLException e){

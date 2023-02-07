@@ -127,7 +127,7 @@ public class PacienteService {
 				if (paciente != null) {
 					if (paciente.getNome() != null) {
 						nome.setText(paciente.getNome());
-						cpf.setText(cpf.getText());
+						return true;
 					}
 				}
 			}

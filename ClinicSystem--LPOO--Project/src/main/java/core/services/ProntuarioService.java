@@ -9,7 +9,7 @@ import dao.ProntuarioDAO;
 
 public class ProntuarioService {
 	public boolean inserir(String queixa, String observacao, String data_prontuario, String Prescricao,  String paciente_cpf, String paciente_nome, String nome_medico, String especialidade) throws SQLException {
-		if (queixa.isBlank() || observacao.isBlank() || data_prontuario.isBlank() || Prescricao.isBlank()  || paciente_cpf.isBlank()|| paciente_nome.isBlank()) {
+		if (queixa.isBlank() || observacao.isBlank() || data_prontuario.isBlank() || Prescricao.isBlank()  || paciente_cpf.isBlank()|| paciente_nome.isBlank() || !(TextFieldService.validarData(data_prontuario)) || !(TextFieldService.validarNumero(paciente_cpf))) {
 			return false;
 		}
 		else {
@@ -25,16 +25,11 @@ public class ProntuarioService {
 			prontuario.setPrescricao(Prescricao);
 			paciente.setNome(paciente_nome);
 			paciente.setCpf(paciente_cpf);
+			prontuario.setPaciente(paciente);
+			prontuario.setMedico(medico);
 			prontuarioDAO.inserir(prontuario);			
-			return true;
-			
-			
-			
+			return true;		
 		}
-		
-		
-		
-		
 	}
 	
 }
