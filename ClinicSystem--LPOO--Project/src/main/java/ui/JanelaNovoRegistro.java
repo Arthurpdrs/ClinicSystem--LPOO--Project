@@ -20,9 +20,12 @@ import javax.swing.text.MaskFormatter;
 
 import com.toedter.calendar.JDateChooser;
 
+import core.model.Paciente;
+import core.model.Pessoa;
 import core.services.FuncionarioService;
 import core.services.MedicoService;
 import core.services.PacienteService;
+import core.services.ProntuarioService;
 import core.services.TextFieldService;
 
 import java.awt.Toolkit;
@@ -119,8 +122,11 @@ public class JanelaNovoRegistro {
 		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		       PacienteService pacienteService = new PacienteService();
+		       Pessoa paciente  = new Pessoa(); 
 		       try {
 				if(pacienteService.filtrarPaciente(pesquisarTextField, nomeTextField)) {
+					cpfTextField.setText(paciente.getNome());
+					
 					avisoLbl.setText("");
 				} else {
 					avisoLbl.setText("Não foi possível encontrar o paciente");
@@ -202,7 +208,20 @@ public class JanelaNovoRegistro {
 		        String prescricao = prescricaoTextArea.getText().toUpperCase().trim();
 		        String nome_medico = nomeMedicoTextField.getText().toUpperCase().trim();	
 		        String especialidade = especialidadeTextField.getText().toUpperCase().trim();
-
+		        
+		        ProntuarioService prontuarioService = new ProntuarioService();
+		        try {
+		        	if(prontuarioService.inserir(queixa, observacao, data, prescricao, cpf_paciente, nome_paciente, nome_medico, especialidade) == false) {
+		        		erroLbl.setText("Verifique os valores inseridos");
+		        	}else {
+		        		prontuarioService.inserir(queixa, observacao, data, prescricao, cpf_paciente, nome_paciente, nome_medico, especialidade);
+		        		erroLbl.setText("Prontuario enviado com sucesso!");	
+		        	}
+		       }
+		       catch(SQLException e){
+		    	   erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+		       }
+		        
 		    }
 		});
 		
@@ -419,7 +438,9 @@ public class JanelaNovoRegistro {
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
 		        	MedicoService medicoService = new MedicoService();
+		        	
 					medicoService.filtrarMedico(nomeMedicoTextField, especialidadeTextField);
+					
 				} catch (SQLException e) {
 					erroLbl.setText("Ocorreu um erro inesperado");
 				}
