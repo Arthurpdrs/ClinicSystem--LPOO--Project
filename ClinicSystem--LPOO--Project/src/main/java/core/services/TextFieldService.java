@@ -33,7 +33,7 @@ public class TextFieldService extends PlainDocument {
     }
 
     public static boolean validarEmail(String email) {
-    	String expressaoVerificadora = "^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}.[a-z]{2,}$";
+    	String expressaoVerificadora = "^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,255}.[a-z]{2,255}.[a-z]{2,255}$";
 		Pattern padrao = Pattern.compile(expressaoVerificadora);
     	if (email.isBlank()) {
     		email = "";
