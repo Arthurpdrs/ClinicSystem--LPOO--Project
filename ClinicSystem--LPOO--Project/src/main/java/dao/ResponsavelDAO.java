@@ -49,17 +49,17 @@ FabricaConexao responsavelDAO = new FabricaConexao();
 		stmt.setString(1, responsavel.getNome());
 		stmt.setString(2, responsavel.getTelefone());
 		stmt.setString(3, responsavel.getCpf());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		responsavelDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public boolean remover(Responsavel responsavel) throws SQLException {
 		String sql = "DELETE FROM Responsavel WHERE CPF = ?";
 		PreparedStatement stmt = responsavelDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, responsavel.getCpf());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		responsavelDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 }

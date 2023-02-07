@@ -50,7 +50,7 @@ FabricaConexao recepcionistaDAO = new FabricaConexao();
 		return retorno;
 	}
 	
-	public void inserir(Recepcionista recepcionista) throws SQLException {
+	public boolean inserir(Recepcionista recepcionista) throws SQLException {
 		String sql = "INSERT INTO Recepcionista(CPF, Nome, Telefone, Email, Login, Senha) VALUES(?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = recepcionistaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, recepcionista.getCpf());
@@ -61,6 +61,7 @@ FabricaConexao recepcionistaDAO = new FabricaConexao();
 		stmt.setString(6, recepcionista.getSenha());
 		stmt.execute();
 		recepcionistaDAO.fecharConexao();
+		return true;
 	}
 	
 	public boolean alterar(Recepcionista recepcionista) throws SQLException {
@@ -72,18 +73,18 @@ FabricaConexao recepcionistaDAO = new FabricaConexao();
 		stmt.setString(4, recepcionista.getEmail());
 		stmt.setString(5, recepcionista.getLogin());
 		stmt.setString(6, recepcionista.getSenha());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		recepcionistaDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public boolean excluir(Recepcionista recepcionista) throws SQLException {
 		String sql = "DELETE FROM Recepcionista WHERE (CPF=?)";
 		PreparedStatement stmt = recepcionistaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, recepcionista.getCpf());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		recepcionistaDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public String totalRecepcionista() throws SQLException {

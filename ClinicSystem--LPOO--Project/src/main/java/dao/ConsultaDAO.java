@@ -65,9 +65,9 @@ public class ConsultaDAO {
 		stmt.setString(4, consulta.getValor());
 		stmt.setString(5, consulta.getPago());
 		stmt.setString(6, consulta.getHorario());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		consultaDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public boolean alterar(Consulta consulta) throws SQLException {
@@ -79,9 +79,9 @@ public class ConsultaDAO {
 		stmt.setString(4, consulta.getValor());
 		stmt.setString(5, consulta.getPago());
 		stmt.setString(6, consulta.getHorario());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		consultaDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public boolean remover(Consulta consulta) throws SQLException {
@@ -89,9 +89,9 @@ public class ConsultaDAO {
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, consulta.getPaciente().getCpf());
 		stmt.setString(2, consulta.getMedico().getCpf());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		consultaDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public String TotalConsultas() throws SQLException {

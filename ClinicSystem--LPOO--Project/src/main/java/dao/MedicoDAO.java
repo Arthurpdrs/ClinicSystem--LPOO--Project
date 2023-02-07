@@ -107,9 +107,9 @@ FabricaConexao medicoDAO = new FabricaConexao();
 		stmt.setString(6, medico.getSenha());
 		stmt.setString(7, medico.getCrm());
 		stmt.setString(8, medico.getEspecialidade());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		medicoDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public boolean alterar(Medico medico) throws SQLException {
@@ -123,18 +123,18 @@ FabricaConexao medicoDAO = new FabricaConexao();
 		stmt.setString(6, medico.getSenha());
 		stmt.setString(7, medico.getCrm());
 		stmt.setString(8, medico.getEspecialidade());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		medicoDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public boolean excluir(Medico medico) throws SQLException {
 		String sql = "DELETE FROM Medico WHERE (CPF=?)";
 		PreparedStatement stmt = medicoDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, medico.getCpf());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		medicoDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public String totalMedico() throws SQLException {
