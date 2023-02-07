@@ -20,10 +20,59 @@ public class ConsultaDAO {
 	
 	FabricaConexao consultaDAO = new FabricaConexao();
 	
-    public List<Consulta> listar() throws SQLException {
+	public List<Consulta> listar() throws SQLException {
     	String sql = "SELECT * FROM Consulta";
 		List<Consulta> retorno = new ArrayList();
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
+		ResultSet resultado = stmt.executeQuery();
+		while(resultado.next()) {
+			Consulta consulta = new Consulta();
+			Paciente paciente = new Paciente();
+			Medico medico = new Medico();
+			
+			paciente.setCpf(resultado.getString("Paciente_CPF"));
+			
+			medico.setCpf(resultado.getString("Medico_CPF"));
+			
+			consulta.setDataConsulta(resultado.getString("Data_consulta"));
+			consulta.setValor(resultado.getString("Valor"));
+			consulta.setPago(resultado.getString("Pago"));
+			consulta.setHorario(resultado.getString("Hora_consulta"));
+			consulta.setId(resultado.getInt("id"));
+			
+			String sqlPaciente = "SELECT Nome, Email, Observacao FROM Paciente WHERE CPF = ?";
+			PreparedStatement selectPaciente = consultaDAO.getConexao().prepareStatement(sqlPaciente);
+			selectPaciente.setString(1, resultado.getString("Paciente_CPF"));
+			ResultSet resultadoPaciente = selectPaciente.executeQuery();
+			if (resultadoPaciente.next()) {
+				paciente.setNome(resultadoPaciente.getString("Nome"));
+				paciente.setEmail(resultadoPaciente.getString("Email"));
+				paciente.setObservacao(resultadoPaciente.getString("Observacao"));
+			}
+			
+			String sqlMedico = "SELECT Nome, Especialidade FROM Medico WHERE CPF = ?";
+			PreparedStatement selectMedico = consultaDAO.getConexao().prepareStatement(sqlMedico);
+			selectMedico.setString(1, resultado.getString("Medico_CPF"));
+			ResultSet resultadoMedico = selectMedico.executeQuery();
+			if (resultadoMedico.next()) {
+				medico.setNome(resultadoMedico.getString("Nome"));
+				medico.setEspecialidade(resultadoMedico.getString("Especialidade"));
+			}
+		
+			consulta.setMedico(medico);
+			consulta.setPaciente(paciente);
+			
+			retorno.add(consulta);
+		}
+		consultaDAO.fecharConexao();
+		return retorno;
+	}
+	
+	public List<Consulta> filtrar(String cpf) throws SQLException {
+    	String sql = "SELECT * FROM Consulta WHERE Paciente_CPF = ?";
+		List<Consulta> retorno = new ArrayList();
+		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
+		stmt.setString(1, cpf);
 		ResultSet resultado = stmt.executeQuery();
 		while(resultado.next()) {
 			Consulta consulta = new Consulta();
@@ -96,14 +145,14 @@ public class ConsultaDAO {
 		return true;
 	}
 	
-	public boolean alterar(Consulta consulta, int id) throws SQLException {
+	public boolean alterar(Consulta consulta) throws SQLException {
 		String sql = "UPDATE Consulta SET Data_consulta=?, Valor=?, Pago=?, Hora_consulta=? WHERE id = ?";
 		PreparedStatement stmt = consultaDAO.getConexao().prepareStatement(sql);
 		stmt.setString(1, consulta.getDataConsulta());
 		stmt.setString(2, consulta.getValor());
 		stmt.setString(3, consulta.getPago());
 		stmt.setString(4, consulta.getHorario());
-		stmt.setInt(5, id);
+		stmt.setInt(5, consulta.getId());
 		stmt.execute();
 		consultaDAO.fecharConexao();
 		return true;

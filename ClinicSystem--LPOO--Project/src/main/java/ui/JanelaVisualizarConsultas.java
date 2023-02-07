@@ -16,7 +16,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import core.services.ConsultaService;
+import core.services.EmailService;
 import core.services.PacienteService;
+import core.services.TextFieldService;
 
 import javax.swing.JScrollPane;
 import java.awt.Toolkit;
@@ -123,7 +125,7 @@ public class JanelaVisualizarConsultas {
 		barraAzul.setOpaque(true);
 		frmClinicsystem.getContentPane().add(barraAzul);
 		
-		erroLbl = new JLabel("Excluído com sucesso");
+		erroLbl = new JLabel("");
 		erroLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		erroLbl.setOpaque(true);
 		erroLbl.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -133,7 +135,6 @@ public class JanelaVisualizarConsultas {
 		erroLbl.setBounds(31, 545, 1055, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
-		//Botão
 		JButton editarBtn = new JButton("Editar");
 		editarBtn.setBorderPainted(false);
 		editarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -146,11 +147,27 @@ public class JanelaVisualizarConsultas {
 		
 		editarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+				int linha = consultasTable.getSelectedRow();
+		        if(linha != -1) {
+		        	int id = Integer.parseInt(consultasTable.getValueAt(linha, 10).toString());
+		        	String data = consultasTable.getValueAt(linha, 6).toString();
+		            String horario = consultasTable.getValueAt(linha, 7).toString();
+		            String valor = consultasTable.getValueAt(linha, 8).toString();
+		            String pago = consultasTable.getValueAt(linha, 9).toString();
+		        	ConsultaService consultaService = new ConsultaService();
+		        	try {
+						if(consultaService.alterar(data, valor, pago, horario, id)) {
+							erroLbl.setText("Consulta editada com sucesso");
+						} else {
+							erroLbl.setText("Verifique os campos e formatos informados");
+						}
+					} catch (SQLException e) {
+						erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");					}
+		        }
 		    }
 		});
 		
-		codigoDoPacienteTextField = new JTextField();
+		codigoDoPacienteTextField = new JTextField(new TextFieldService(11), null, 0);
 		codigoDoPacienteTextField.setToolTipText("");
 		codigoDoPacienteTextField.setMargin(new Insets(10, 10, 10, 10));
 		codigoDoPacienteTextField.setHorizontalAlignment(SwingConstants.LEFT);
@@ -184,7 +201,7 @@ public class JanelaVisualizarConsultas {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		    	int linha = consultasTable.getSelectedRow();
 		        if(linha != -1) {
-		        	int id = Integer.parseInt(consultasTable.getValueAt(linha, 11).toString());
+		        	int id = Integer.parseInt(consultasTable.getValueAt(linha, 10).toString());
 		        	ConsultaService consultaService = new ConsultaService();
 		        	try {
 		        		if(consultaService.remover(id)) {
@@ -201,7 +218,6 @@ public class JanelaVisualizarConsultas {
 		    }
 		});
 		
-		//Botão
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarConsultas.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));
@@ -214,11 +230,32 @@ public class JanelaVisualizarConsultas {
 		
 		pesquisarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+	 		      String cpf = codigoDoPacienteTextField.getText();
+
+				  ConsultaService consultaService = new ConsultaService();
+	 		      if (TextFieldService.validarNumero(cpf)) {
+				      try {
+						boolean retorno = consultaService.filtrar(consultasTable, cpf);
+						if (retorno == false) {
+							avisoLbl.setText("Não foi possível encontrar a consulta");
+							consultaService.visualizarConsultas(consultasTable);
+						} else {
+							avisoLbl.setText("");
+						}
+					} catch (SQLException e) {
+						avisoLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+					}
+	 		      } else {
+	 		    	  avisoLbl.setText("CPF inválido");
+	 		    	  try {
+						consultaService.visualizarConsultas(consultasTable);
+					} catch (SQLException e) {
+						avisoLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+					}
+	 		      }
 		    }
 		});
 		
-		//Botão
 		JButton lembrarBtn = new JButton("");
 		lembrarBtn.setToolTipText("Enviar lembrete de consulta via e-mail");
 		lembrarBtn.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -233,7 +270,27 @@ public class JanelaVisualizarConsultas {
 		
 		lembrarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	int linha = consultasTable.getSelectedRow();
+		        if(linha != -1) {
+		        	String email = consultasTable.getValueAt(linha, 1).toString();
+		        	String nome = consultasTable.getValueAt(linha, 0).toString();
+		        	String data = consultasTable.getValueAt(linha, 6).toString();
+		        	String horario = consultasTable.getValueAt(linha, 7).toString();
+		        	String profissional = consultasTable.getValueAt(linha, 5).toString();
+		        		if(TextFieldService.validarEmail(email) && TextFieldService.validarData(data) && TextFieldService.validarHorario(horario)) {
+		        			try {
+								if(EmailService.enviarEmail("lembrete", email, nome, data, horario, profissional)) {
+									erroLbl.setText("E-mail enviado com sucesso.");
+								} else {
+									erroLbl.setText("Não foi possível enviar o e-mail.");
+								}
+							} catch (SQLException e) {
+								erroLbl.setText("Não foi possível enviar o e-mail.");
+							}
+		        		} else {
+		        			erroLbl.setText("Não foi possível enviar o e-mail. Verifique os campos e formatos informados");
+		        		}
+		        }
 		    }
 		});
 		
@@ -250,7 +307,7 @@ public class JanelaVisualizarConsultas {
 		cancelarBtn.setBounds(130, 567, 89, 49);
 		frmClinicsystem.getContentPane().add(cancelarBtn);
 		
-		avisoLbl = new JLabel("Não foi possível encontrar o paciente");
+		avisoLbl = new JLabel("");
 		avisoLbl.setOpaque(true);
 		avisoLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		avisoLbl.setForeground(new Color(0, 102, 255));
@@ -261,7 +318,27 @@ public class JanelaVisualizarConsultas {
 		
 		cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		        //Inserir ação aqui
+		    	int linha = consultasTable.getSelectedRow();
+		        if(linha != -1) {
+		        	String email = consultasTable.getValueAt(linha, 1).toString();
+		        	String nome = consultasTable.getValueAt(linha, 0).toString();
+		        	String data = consultasTable.getValueAt(linha, 6).toString();
+		        	String horario = consultasTable.getValueAt(linha, 7).toString();
+		        	String profissional = consultasTable.getValueAt(linha, 5).toString();
+		        		if(TextFieldService.validarEmail(email) && TextFieldService.validarData(data) && TextFieldService.validarHorario(horario)) {
+		        			try {
+								if(EmailService.enviarEmail("cancelamento", email, nome, data, horario, profissional)) {
+									erroLbl.setText("E-mail enviado com sucesso.");
+								} else {
+									erroLbl.setText("Não foi possível enviar o e-mail.");
+								}
+							} catch (SQLException e) {
+								erroLbl.setText("Não foi possível enviar o e-mail.");
+							}
+		        		} else {
+		        			erroLbl.setText("Não foi possível enviar o e-mail. Verifique os campos e formatos informados");
+		        		}
+		        }
 		    }
 		});
 		

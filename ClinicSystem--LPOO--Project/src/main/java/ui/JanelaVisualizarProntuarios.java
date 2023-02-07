@@ -14,6 +14,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import core.services.TextFieldService;
+
 import javax.swing.JScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -115,7 +118,7 @@ public class JanelaVisualizarProntuarios {
 		barraAzul.setOpaque(true);
 		frmClinicsystem.getContentPane().add(barraAzul);
 		
-		codigoDoPacienteTextField = new JTextField();
+		codigoDoPacienteTextField = new JTextField(new TextFieldService(11), null, 0);
 		codigoDoPacienteTextField.setToolTipText("");
 		codigoDoPacienteTextField.setMargin(new Insets(10, 10, 10, 10));
 		codigoDoPacienteTextField.setHorizontalAlignment(SwingConstants.LEFT);

@@ -21,6 +21,7 @@ import core.services.FuncionarioService;
 import core.services.MedicoService;
 import core.services.PacienteService;
 import core.services.RecepcionistaService;
+import core.services.TextFieldService;
 
 import javax.swing.JScrollPane;
 import java.awt.Toolkit;
@@ -187,7 +188,7 @@ public class JanelaVisualizarProfissionais {
 		});
 		
 		
-		codigoDoProfissionalTextField = new JTextField();
+		codigoDoProfissionalTextField = new JTextField(new TextFieldService(11), null, 0);
 		codigoDoProfissionalTextField.setToolTipText("");
 		codigoDoProfissionalTextField.setMargin(new Insets(10, 10, 10, 10));
 		codigoDoProfissionalTextField.setHorizontalAlignment(SwingConstants.LEFT);

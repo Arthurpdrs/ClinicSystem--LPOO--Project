@@ -48,6 +48,7 @@ public class JanelaDadosClinica {
 	private JPasswordField senhaTextField;
 	private JTextField enderecoTextField;
 	private JLabel enderecoDaClinicaLbl;
+	private JLabel logoMenu;
 
 	/**
 	 * Launch the application.
@@ -95,19 +96,10 @@ public class JanelaDadosClinica {
 			}
 		});
 		
-		JButton logoMenuBtn = new JButton("");
-		logoMenuBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		logoMenuBtn.setOpaque(false);
-		logoMenuBtn.setContentAreaFilled(false);
-		logoMenuBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		logoMenuBtn.setBorderPainted(false);
-		logoMenuBtn.setBorder(null);
-		logoMenuBtn.setIcon(new ImageIcon(JanelaDadosClinica.class.getResource("/midia/logo_menu.png")));
-		logoMenuBtn.setBounds(919, -1, 160, 55);
-		frmClinicsystem.getContentPane().add(logoMenuBtn);
+		logoMenu = new JLabel("");
+		logoMenu.setIcon(new ImageIcon(JanelaNovoRegistro.class.getResource("/midia/logo_menu.png")));
+		logoMenu.setBounds(919, -1, 160, 55);
+		frmClinicsystem.getContentPane().add(logoMenu);
 		
 		titulodapaginaLbl = new JLabel("Alterar dados da clínica");
 		titulodapaginaLbl.setHorizontalAlignment(SwingConstants.LEFT);

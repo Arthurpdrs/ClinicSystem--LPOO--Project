@@ -187,7 +187,7 @@ public class JanelaVisualizarPacientes {
 		    }
 		});
 		
-		codigoDoPacienteTextField = new JTextField();
+		codigoDoPacienteTextField = new JTextField(new TextFieldService(11), null, 0);
 		codigoDoPacienteTextField.setToolTipText("");
 		codigoDoPacienteTextField.setMargin(new Insets(10, 10, 10, 10));
 		codigoDoPacienteTextField.setHorizontalAlignment(SwingConstants.LEFT);

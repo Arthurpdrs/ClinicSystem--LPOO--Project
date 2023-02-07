@@ -70,6 +70,55 @@ public class ConsultaService {
 		return false;
 }
 	
+	public boolean filtrar(JTable jtable, String cpf) throws SQLException {
+		if (cpf.isBlank() || (TextFieldService.validarNumero(cpf) == false)) {
+			return false;
+		} else {
+			DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+			ConsultaDAO consultaDAO = new ConsultaDAO();
+			List<Consulta> consultas = consultaDAO.filtrar(cpf);
+			
+	         model.setNumRows(0);
+			if (consultas.size() > 0) {
+				for (Consulta consulta : consultas) {
+						model.addRow(new Object[] {
+								consulta.getPaciente().getNome(),
+								consulta.getPaciente().getEmail(),
+								consulta.getPaciente().getCpf(),
+								consulta.getPaciente().getObservacao(),
+								consulta.getMedico().getEspecialidade(),
+								consulta.getMedico().getNome(),
+								consulta.getDataConsulta(),
+								consulta.getHorario(),
+								consulta.getValor(),
+								consulta.getPago(),
+								consulta.getId()
+								
+						});
+					}
+					jtable.setModel(model);
+					return true;
+				}
+		}
+		return false;
+}
+	
+	public boolean alterar(String data, String valor, String pago, String horario, int id) throws SQLException {
+		if (!(TextFieldService.validarData(data)) || !(TextFieldService.validarHorario(horario)) || (valor.length() > 100) || (pago.length() >100)) {
+			return false;
+		} else {
+			Consulta consulta = new Consulta();
+			consulta.setHorario(horario);
+			consulta.setDataConsulta(data);
+			consulta.setValor(valor);
+			consulta.setPago(pago);
+			consulta.setId(id);
+			ConsultaDAO consultaDAO = new ConsultaDAO();
+			consultaDAO.alterar(consulta);
+			return true;
+		}
+	}
+	
 	public String totalConsultasDia() throws SQLException {
 		Consulta consulta = new Consulta();
 		ConsultaDAO consultadao = new ConsultaDAO();
