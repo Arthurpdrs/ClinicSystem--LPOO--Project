@@ -1,3 +1,7 @@
-/serviceTestesJUnit/
-/uiTestesJUnit/
 /core/
+/dao/
+/daoTestesJUnit/
+/midia/
+/serviceTestesJUnit/
+/ui/
+/uiTestesJUnit/

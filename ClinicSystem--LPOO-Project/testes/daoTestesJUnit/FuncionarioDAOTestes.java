@@ -2,6 +2,7 @@ package daoTestesJUnit;
 
 import static org.junit.Assert.*;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import org.junit.Test;
 import dao.FuncionarioDAO;
 
@@ -78,5 +79,13 @@ public class FuncionarioDAOTestes {
 		}
 	}
 	
-	//falta testes para quando lançar exceção
+	@Test
+	public void testeInserirValoresNull() {
+		
+		FuncionarioDAO funcionario = new FuncionarioDAO ();
+		
+		assertThrows(SQLIntegrityConstraintViolationException.class,
+				() -> funcionario.inserir(null, null, null, null));
+				
+	}
 }

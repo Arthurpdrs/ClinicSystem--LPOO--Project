@@ -1,26 +1,11 @@
 package serviceTestesJUnit;
 
 import static org.junit.Assert.*;
-
 import java.sql.SQLException;
-import java.util.List;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import org.junit.Assert;
 import org.junit.Test;
-
-import core.model.Funcionario;
-import core.model.Medico;
-import core.model.Recepcionista;
 import core.services.FuncionarioService;
-import dao.FuncionarioDAO;
-import dao.MedicoDAO;
-import dao.RecepcionistaDAO;
 
 public class FuncionarioServiceTestes {
-
 	
 
 	@Test
@@ -30,24 +15,12 @@ public class FuncionarioServiceTestes {
 		
 		try {
 			funcionario.inserir("USER", "1234", "MEDICO", "11111111100");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		boolean login = false;
-		try {
-			login = funcionario.fazerLogin("USER", "1234");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		assertTrue(login);
-		
-		try {
+			boolean login = funcionario.fazerLogin("USER", "1234");
+			assertTrue(login);
 			funcionario.excluir("11111111100");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-				
 	}
 	
 	
@@ -58,24 +31,12 @@ public class FuncionarioServiceTestes {
 		
 		try {
 			funcionario.inserir("USER", "1234", "MEDICO", "11111111100");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		boolean login = true;
-		try {
-			login = funcionario.fazerLogin("USUARIO", "1234");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		assertFalse(login);
-		
-		try {
+			boolean login = funcionario.fazerLogin("USUARIO", "1234");
+			assertFalse(login);
 			funcionario.excluir("11111111100");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 
 	
@@ -86,67 +47,49 @@ public class FuncionarioServiceTestes {
 		
 		try {
 			funcionario.inserir("USER", "1234", "MEDICO", "11111111100");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		boolean login = true;
-		try {
-			login = funcionario.fazerLogin("USER", "4321");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		assertFalse(login);
-		
-		try {
+			boolean login = funcionario.fazerLogin("USER", "4321");
+			assertFalse(login);
 			funcionario.excluir("11111111100");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
-//	@Test //implementar a lógica correta p/ testar exceção SQL
-//	public void testeLoginValoresNull() {
-//		
-//		FuncionarioService funcionario = new FuncionarioService();	
-//		
-//		funcionario.inserir( null, null, null, null);
-//		
-//		assertThrows ();
-//							
-//	}
-	
+	@Test
+	public void testeLoginValoresNull() {
+		
+		FuncionarioService funcionario = new FuncionarioService();	
+		
+		assertThrows(NullPointerException.class,
+				() -> funcionario.inserir( null, null, null, null));
+							
+	}
+		
 	
 	@Test
 	public void testeInserirOk () {
 		
 		FuncionarioService funcionario = new FuncionarioService();
 		
-		boolean inserirOK = false;
 		try {
-			inserirOK = funcionario.inserir("USER", "1234", "MEDICO", "11111111100");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		assertTrue(inserirOK);
-		
-		try {
+			boolean inserirOK = funcionario.inserir("USER", "1234", "MEDICO", "11111111100");
+			assertTrue(inserirOK);
 			funcionario.excluir("11111111100");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-							
+		}					
 	}
 	
 	
-//	@Test   //implementar a lógica correta p/ testar exceção SQL
-//	public void testeInserirNOK() {
-//		
-//		FuncionarioService funcionario = new FuncionarioService ();
-//		
-//		
-//	}
+	@Test
+	public void testeInserirValoresNull() {
+		
+		FuncionarioService funcionario = new FuncionarioService ();
+		
+		assertThrows(NullPointerException.class,
+				() -> funcionario.inserir(null, null, null, null));
+				
+	}
 	
 	
 	@Test
@@ -154,24 +97,14 @@ public class FuncionarioServiceTestes {
 		
 		FuncionarioService funcionario = new FuncionarioService ();
 		
-		boolean excluirOK = false;
 		try {
 			funcionario.inserir("USER", "1234", "MEDICO", "11111111100");
+			boolean excluirOK = funcionario.excluir("11111111100");
+			assertTrue(excluirOK);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		try {
-			excluirOK = funcionario.excluir("11111111100");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		assertTrue(excluirOK);
-	
 	}
 	
 		
 }
-
-
-
