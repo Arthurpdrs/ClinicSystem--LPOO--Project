@@ -12,7 +12,7 @@ public class TextFieldServiceTestes {
 	
 	@Test
 	public void testValidarEmail() {
-		String emailValido = "email@dominio.com.br";
+		String emailValido = "email@discente.ifpe.edu.br";
 		String emailInvalido = "email@dominio";
 		
 		assertTrue(TextFieldService.validarEmail(emailValido));
