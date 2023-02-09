@@ -81,5 +81,19 @@ public class ProntuarioDAO {
 		prontuarioDAO.fecharConexao();
 		return true;
 	}
+	
+	public boolean remover(Prontuario prontuario) {
+		String sql = "DELETE FROM Prontuario WHERE Paciente_CPF=?";
+		try {
+			PreparedStatement stmt = prontuarioDAO.getConexao().prepareStatement(sql);
+			stmt.setString(1, prontuario.getPaciente().getCpf());
+			stmt.execute();
+			prontuarioDAO.fecharConexao();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }
