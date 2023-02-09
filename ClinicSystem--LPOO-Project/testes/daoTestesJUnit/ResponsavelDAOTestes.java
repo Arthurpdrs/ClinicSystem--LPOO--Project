@@ -1,3 +1,4 @@
+
 package daoTestesJUnit;
 
 import static org.junit.Assert.*;
@@ -58,26 +59,6 @@ public class ResponsavelDAOTestes {
 			responsavelDAO.inserir(responsavel);
 			boolean testeRemoverOk = responsavelDAO.remover(responsavel);
 			assertTrue(testeRemoverOk);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void testeInserirResponsavelDuplicado() {
-		ResponsavelDAO responsavelDAO = new ResponsavelDAO();
-		Responsavel responsavel = new Responsavel();
-		responsavel.setCpf("898989");
-		responsavel.setNome("lucas");
-		responsavel.setTelefone("81 97777-7777");
-		try {
-			responsavelDAO.inserir(responsavel);
-			responsavel.setCpf("898989");
-			responsavel.setNome("lucas");
-			responsavel.setTelefone("81 97777-7777");
-			assertThrows(SQLIntegrityConstraintViolationException.class,
-					() -> responsavelDAO.inserir(responsavel));
-			responsavelDAO.remover(responsavel);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

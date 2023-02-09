@@ -79,4 +79,16 @@ public class FuncionarioDAOTestes {
 		}
 	}
 	
+	@Test
+	public void testeInserirFuncionarioDuplicado() {
+		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+		try {
+			funcionarioDAO.inserir("francisco", "MEDICO", "888888", "444444");
+			assertThrows(SQLIntegrityConstraintViolationException.class,
+					() -> funcionarioDAO.inserir("francisco", "MEDICO", "888888", "444444"));
+			funcionarioDAO.deletar("444444");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
