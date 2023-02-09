@@ -1,5 +1,5 @@
 CREATE DATABASE  IF NOT EXISTS `bancolpoo` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `BancoLPOO`;
+USE `bancolpoo`;
 -- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: database-2.ckzqkucrjrxv.us-east-1.rds.amazonaws.com    Database: bancolpoo
