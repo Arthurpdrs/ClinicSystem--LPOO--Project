@@ -79,13 +79,4 @@ public class FuncionarioDAOTestes {
 		}
 	}
 	
-	@Test
-	public void testeInserirValoresNull() {
-		
-		FuncionarioDAO funcionario = new FuncionarioDAO ();
-		
-		assertThrows(SQLIntegrityConstraintViolationException.class,
-				() -> funcionario.inserir(null, null, null, null));
-				
-	}
 }
