@@ -113,16 +113,14 @@ FabricaConexao medicoDAO = new FabricaConexao();
 	}
 	
 	public boolean alterar(Medico medico) throws SQLException {
-		String sql = "UPDATE Medico SET Nome=?, Telefone=?, Email=?, Login=?, Senha=?, CRM=?, Especialidade=? WHERE (CPF=?)";
+		String sql = "UPDATE Medico SET Nome=?, Telefone=?, Email=?, CRM=?, Especialidade=? WHERE (CPF=?)";
 		PreparedStatement stmt = medicoDAO.getConexao().prepareStatement(sql);
-		stmt.setString(1, medico.getCpf());
-		stmt.setString(2, medico.getNome());
-		stmt.setString(3, medico.getTelefone());
-		stmt.setString(4, medico.getEmail());
-		stmt.setString(5, medico.getLogin());
-		stmt.setString(6, medico.getSenha());
-		stmt.setString(7, medico.getCrm());
-		stmt.setString(8, medico.getEspecialidade());
+		stmt.setString(1, medico.getNome());
+		stmt.setString(2, medico.getTelefone());
+		stmt.setString(3, medico.getEmail());
+		stmt.setString(4, medico.getCrm());
+		stmt.setString(5, medico.getEspecialidade());
+		stmt.setString(6, medico.getCpf());
 		stmt.execute();
 		medicoDAO.fecharConexao();
 		return true;

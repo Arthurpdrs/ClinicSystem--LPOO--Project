@@ -186,17 +186,20 @@ public class JanelaCadastrarPaciente {
 		        	erroLbl.setText("O endereço ultrapassa cem caracteres");
 		        }
 		        if(!(nomeResponsavel.isBlank() && celularResponsavel.isBlank() && cpfResponsavel.isBlank())) {
-		        	
 		        	try {
 						responsavel = responsavelService.inserir(nomeResponsavel, cpfResponsavel, celularResponsavel);
 					} catch (SQLException e) {
-						e.printStackTrace();
+						erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
 					}
 		        }
 				try {
-					paciente.cadastrar(nome, celular, email, cpf, tipoSanguineo, alergia, dataDeNascimento, endereco, observacao, responsavel);
+					if(paciente.cadastrar(nome, celular, email, cpf, tipoSanguineo, alergia, dataDeNascimento, endereco, observacao, responsavel)) {
+						erroLbl.setText("Paciente cadastrado com sucesso");
+					} else {
+						erroLbl.setText("Não foi possível cadastrar o paciente. Verifique os campos e formatos");
+					}
 				} catch (SQLException e) {
-					e.printStackTrace();
+					erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
 				}
 		        
 		    }
@@ -549,7 +552,7 @@ public class JanelaCadastrarPaciente {
 		cidadeLbl.setBounds(883, 257, 196, 24);
 		frmClinicsystem.getContentPane().add(cidadeLbl);
 		
-		cepTextField = new JTextField(new TextFieldService(20), null, 0);
+		cepTextField = new JTextField(new TextFieldService(8), null, 0);
 		cepTextField.setToolTipText("");
 		cepTextField.setMargin(new Insets(10, 10, 10, 10));
 		cepTextField.setHorizontalAlignment(SwingConstants.LEFT);

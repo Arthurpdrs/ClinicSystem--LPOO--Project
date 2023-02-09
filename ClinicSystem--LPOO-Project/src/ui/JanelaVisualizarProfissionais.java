@@ -81,7 +81,7 @@ public class JanelaVisualizarProfissionais {
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-					true, true, true, false, true, true, false, true, true
+					true, false, false, false, true, true, false, true, true
 				};
 				public boolean isCellEditable(int row, int column) {
 					return columnEditables[column];
@@ -161,7 +161,7 @@ public class JanelaVisualizarProfissionais {
 			        			erroLbl.setText("Verifique os valores inseridos");
 			        		}
     		        	} catch (SQLException e) {
-								erroLbl.setText("Ocorreu um erro inesperado. Tente novamente");
+								e.printStackTrace();
 						}
 		        	}
 		        }
@@ -213,6 +213,7 @@ public class JanelaVisualizarProfissionais {
 		        			MedicoService medicoService = new MedicoService();
 		        			try {
 								if(medicoService.excluir(cpf) && funcionarioService.excluir(cpf)) {
+									((DefaultTableModel) profissionaisTable.getModel()).removeRow(linha);
 									erroLbl.setText("Profissional excluído com sucesso");
 								} else {
 									erroLbl.setText("Não foi possível excluir o profissional");
@@ -225,6 +226,7 @@ public class JanelaVisualizarProfissionais {
 		        			RecepcionistaService recepcionistaService = new RecepcionistaService();
 		        			try {
 								if(recepcionistaService.excluir(cpf) && funcionarioService.excluir(cpf)) {
+									((DefaultTableModel) profissionaisTable.getModel()).removeRow(linha);
 									erroLbl.setText("Profissional excluído com sucesso");
 								} else {
 									erroLbl.setText("Não foi possível excluir o profissional");

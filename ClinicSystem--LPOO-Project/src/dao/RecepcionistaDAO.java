@@ -65,15 +65,14 @@ FabricaConexao recepcionistaDAO = new FabricaConexao();
 	}
 	
 	public boolean alterar(Recepcionista recepcionista) throws SQLException {
-		String sql = "UPDATE Recepcionista SET Nome=?, Telefone=?, Email=?, Login=?, Senha=? WHERE (CPF=?)";
+		String sql = "UPDATE Recepcionista SET Nome=?, Telefone=?, Email=? WHERE (CPF=?)";
 		PreparedStatement stmt = recepcionistaDAO.getConexao().prepareStatement(sql);
-		stmt.setString(1, recepcionista.getCpf());
-		stmt.setString(2, recepcionista.getNome());
-		stmt.setString(3, recepcionista.getTelefone());
-		stmt.setString(4, recepcionista.getEmail());
-		stmt.setString(5, recepcionista.getLogin());
-		stmt.setString(6, recepcionista.getSenha());
+		stmt.setString(1, recepcionista.getNome());
+		stmt.setString(2, recepcionista.getTelefone());
+		stmt.setString(3, recepcionista.getEmail());
+		stmt.setString(4, recepcionista.getCpf());
 		stmt.execute();
+		
 		recepcionistaDAO.fecharConexao();
 		return true;
 	}
