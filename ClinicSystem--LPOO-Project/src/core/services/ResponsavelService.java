@@ -38,4 +38,21 @@ public class ResponsavelService {
 			}
 				return true;
 		}
+	
+	public boolean deletar(String cpf) {
+		if (!(TextFieldService.validarNumero(cpf))) {
+			return false;
+		} else {
+			try {
+				Responsavel responsavel = new Responsavel();
+				ResponsavelDAO responsavelDAO = new ResponsavelDAO();
+				responsavel.setCpf(cpf);
+				responsavelDAO.remover(responsavel);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
+	}
+	
 }

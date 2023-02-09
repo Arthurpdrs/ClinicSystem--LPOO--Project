@@ -36,6 +36,7 @@ public class ProntuarioService {
 		}
 	}
 	
+	
 	public boolean visualizarProntuarios(JTable jtable) throws SQLException {
 		DefaultTableModel model = (DefaultTableModel) jtable.getModel();
 		ProntuarioDAO prontuarioDAO = new ProntuarioDAO();
@@ -54,12 +55,14 @@ public class ProntuarioService {
 							prontuario.getPrescricao(),
 							prontuario.getObservacao()
 					});
-				}
-				jtable.setModel(model);
-				return true;
-			} 
+			}
+			jtable.setModel(model);
+			return true;
+		} 
 		return false;
-}
+	}
+	
+	
 	public boolean filtrar(JTable jtable, String cpf) throws SQLException {
 		if (TextFieldService.validarNumero(cpf)) {
 		DefaultTableModel model = (DefaultTableModel) jtable.getModel();
@@ -79,11 +82,11 @@ public class ProntuarioService {
 							prontuario.getPrescricao(),
 							prontuario.getObservacao()
 					});
-				}
-				jtable.setModel(model);
-				return true;
-			} 
+			}
+			jtable.setModel(model);
+			return true;
+		} 
 		}
 		return false;
-}
+	}
 }

@@ -17,6 +17,7 @@ import dao.MedicoDAO;
 import dao.PacienteDAO;
 import dao.RecepcionistaDAO;
 
+
 public class MedicoService {
 	
 	public boolean filtrarMedico(JTextField nome, JTextField especialidade) throws SQLException {

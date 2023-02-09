@@ -23,6 +23,7 @@ public class TextFieldService extends PlainDocument {
             }
             
              String stringInserida = getText (0, getLength() );  
+             
              int tamanhoLimitado = stringInserida.length() + string.length(); 
                         
              if (tamanhoLimitado <= numeroMaximoDeCaracteres) {  
@@ -33,16 +34,20 @@ public class TextFieldService extends PlainDocument {
     }
 
     public static boolean validarEmail(String email) {
+    	
     	String expressaoVerificadora = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
 		Pattern padrao = Pattern.compile(expressaoVerificadora);
-    	if (email.isBlank()) {
+    	
+		if (email.isBlank()) {
     		email = "";
     	} 
     	return padrao.matcher(email).matches();
     }
 
     public static boolean validarNumero(String numero) {
+    	
     	String string = numero.replaceAll("\\s+", "").replaceAll("-", "");
+    	
     	if (string.matches("[0-9]+") && string.length() == 11) {
     		return true;
     	} 
@@ -50,7 +55,9 @@ public class TextFieldService extends PlainDocument {
     }
     
     public static boolean validarCRM(String numero) {
+    	
     	String string = numero.replaceAll("\\s+", "");
+    	
     	if (string.matches("[0-9]+") && string.length() == 6) {
     		return true;
     	} 
@@ -60,6 +67,7 @@ public class TextFieldService extends PlainDocument {
     public static boolean validarTextFieldNumerica(JTextField textField) {
     	String numero = textField.getText();
     	String string = numero.replaceAll("\\s+", "").replaceAll("-", "").replaceAll(":", "");
+    	
     	if (string.length() < 11) {
     		return true;
     	} else {
@@ -73,8 +81,10 @@ public class TextFieldService extends PlainDocument {
     }
     
     public static boolean validarTextFieldData(JTextField textField) {
+    	
     	String numero = textField.getText();
     	String string = numero.replaceAll("\\s+", "").replaceAll("/", "");
+    	
     	if (string.length() != 8) {
     		return true;
     	} else {
@@ -88,7 +98,9 @@ public class TextFieldService extends PlainDocument {
     }
     
     public static boolean validarData(String numero) {
+    	
     	String string = numero.replaceAll("/", "");
+    	
     	if (string.matches("[0-9]+") && string.length() == 8) {
     		return true;
     	} else {
@@ -97,8 +109,10 @@ public class TextFieldService extends PlainDocument {
     }
     
     public static boolean validarTextFieldHorario(JTextField textField) {
+    	
     	String numero = textField.getText();
     	String string = numero.replaceAll("\\s+", "").replaceAll(":", "");
+    	
     	if (string.length() != 4) {
     		return true;
     	} else {
@@ -112,8 +126,10 @@ public class TextFieldService extends PlainDocument {
     }
     
     public static boolean validarHorario(String horario) {
+    	
     	String numero = horario;
     	String string = numero.replaceAll("\\s+", "").replaceAll(":", "");
+    	
     	if (string.matches("[0-9]+") && string.length() == 4) {
     			return true;
     	} else {
@@ -122,7 +138,9 @@ public class TextFieldService extends PlainDocument {
     }
     
     public static String extrairCpfDaString(String stringRecebida) {
+    	
     	String pedaco = "";
+    	
     	if (stringRecebida.length() < 14) {
     		pedaco = stringRecebida;
     	} else {

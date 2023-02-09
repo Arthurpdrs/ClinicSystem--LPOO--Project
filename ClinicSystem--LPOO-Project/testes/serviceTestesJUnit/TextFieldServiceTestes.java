@@ -11,85 +11,188 @@ import javax.swing.JTextField;
 public class TextFieldServiceTestes {
 	
 	@Test
-	public void testValidarEmailOk() {
-		String emailValido = "email@discente.ifpe.edu.br";
-		assertTrue(TextFieldService.validarEmail(emailValido));
+	public void testeValidarEmailOk() {
+		
+		String email = "email@discente.ifpe.edu.br";
+		
+		assertTrue(TextFieldService.validarEmail(email));
+	}
+	
+	
+	@Test
+	public void testeValidarEmailNOK() {
+		
+		String email = "email@dominio";
+		
+		assertFalse(TextFieldService.validarEmail(email));
+	}
+	
+	
+	@Test
+	public void testeValidarEmailNull () {
+		
+		String email = "";
+		
+		assertFalse(TextFieldService.validarEmail(email));
+	}
+	
+	
+	@Test
+	public void testeValidarNumeroOk() {
+		
+		String numero = "12345678901";
+		
+		assertTrue(TextFieldService.validarNumero(numero));
+	}
+	
+	
+	@Test
+	public void testeValidarNumeroLengthNOK() {
+		
+		String numero = "123456789011";
+		
+		assertFalse(TextFieldService.validarNumero(numero));
 	}
 	
 	@Test
-	public void testValidarEmail() {
-		String emailInvalido = "email@dominio";
+	public void testeValidarNumeroMatchesNOK() {
 		
-		assertFalse(TextFieldService.validarEmail(emailInvalido));
+		String numero = "123456789JK";
+		
+		assertFalse(TextFieldService.validarNumero(numero));
+	}
+	
+	
+	@Test
+	public void testeValidarNumeroNull () {
+		
+		String numero = "";
+		
+		assertFalse(TextFieldService.validarNumero(numero));
+	}
+	
+	
+	@Test
+	public void testeValidarCRMOK() {
+		
+		String numero = "123456";
+		
+		assertTrue(TextFieldService.validarCRM(numero));
+	}
+	
+	
+	@Test
+	public void testeValidarCRMLengthNOK() {
+		
+		String numero = "12345";
+		
+		assertFalse(TextFieldService.validarCRM(numero));
+	}
+	
+	
+	@Test
+	public void testeValidarCRMMatchesNOK() {
+		
+		String numero = "A23456";
+		
+		assertFalse(TextFieldService.validarCRM(numero));
+	}
+	
+	
+	@Test
+	public void testeValidarCRMNull() {
+		
+		String numero = "";
+		
+		assertFalse(TextFieldService.validarCRM(numero));
+	}
+	
+	
+	@Test
+	public void testeValidarTextFieldNumericaOK() {
+		
+		JTextField textField = new JTextField("12345678901");
+		
+		assertTrue(TextFieldService.validarTextFieldNumerica(textField));
+	}
+	
+	
+	@Test
+	public void testeValidarTextFieldAlfaNumericaOK() {
+		
+		JTextField textField = new JTextField("A234");
+		
+		assertTrue(TextFieldService.validarTextFieldNumerica(textField));
+	}
+	
+	
+	@Test
+	public void testeValidarTextFieldAlfaNumericaNOK() {
+		
+		JTextField textField = new JTextField("1234567890A");
+		
+		assertFalse(TextFieldService.validarTextFieldNumerica(textField));
+	}
+	
+	
+	@Test
+	public void testeValidarTextFieldDataOk() {
+		
+		JTextField textField = new JTextField("01/01/2021");
+		
+		assertTrue(TextFieldService.validarTextFieldData(textField));
+	}
+	
+	
+	@Test
+	public void testeValidarDataOk() {
+		
+		String data = "01/01/2021";
+		
+		assertTrue(TextFieldService.validarData(data));
 	}
 	
 	@Test
-	public void testValidarNumeroOk() {
-		String numeroValido = "12345678901";
+	public void testeValidarDataLenghtNOK() {
 		
-		assertTrue(TextFieldService.validarNumero(numeroValido));
+		String data = "01/01/20211";
+		
+		assertFalse(TextFieldService.validarData(data));
 	}
 	
-	@Test
-	public void testValidarNumero() {
-		String numeroInvalido = "123456789011";
-		
-		assertFalse(TextFieldService.validarNumero(numeroInvalido));
-	}
 	
 	@Test
-	public void testValidarTextFieldNumericaOk() {
-		JTextField textFieldValido = new JTextField("12345678901");
+	public void testeValidarDataIsBlank() {
 		
-		assertTrue(TextFieldService.validarTextFieldNumerica(textFieldValido));
+		String data = "";
+		
+		assertFalse(TextFieldService.validarData(data));
 	}
 	
-	@Test
-	public void testValidarTextFieldNumerica() {
-		JTextField textFieldInvalido = new JTextField("1234567890a");
-		
-		assertFalse(TextFieldService.validarTextFieldNumerica(textFieldInvalido));
-	}
 	
 	@Test
-	public void testValidarTextFieldDataOk() {
-		JTextField textFieldValido = new JTextField("01/01/2021");
+	public void testeValidarDataNull() {
 		
-		assertTrue(TextFieldService.validarTextFieldData(textFieldValido));
+		assertThrows(NullPointerException.class,
+				() -> TextFieldService.validarData(null));
 	}
 	
-	@Test
-	public void testValidarTextFieldData() {
-		JTextField textFieldValido = new JTextField("01/01/2021");
-		
-		assertTrue(TextFieldService.validarTextFieldData(textFieldValido));
-	}
 	
 	@Test
-	public void testValidarDataOk() {
-		String dataValida = "01/01/2021";
+	public void testeValidarTextFieldHorarioOk() {
+	
+		JTextField textField = new JTextField("09:00");
 		
-		assertTrue(TextFieldService.validarData(dataValida));
+		assertTrue(TextFieldService.validarTextFieldHorario(textField));
 	}
 	
-	@Test
-	public void testValidarData() {
-		String dataInvalida = "01/01/20211";
-		
-		assertFalse(TextFieldService.validarData(dataInvalida));
-	}
 	
 	@Test
-	public void testValidarTextFieldHorarioOk() {
-		JTextField textFieldValido = new JTextField("09:00");
+	public void testeValidarTextFieldHorarioNOK() {
+	
+		JTextField textField = new JTextField("09:aa");
 		
-		assertTrue(TextFieldService.validarTextFieldHorario(textFieldValido));
+		assertFalse(TextFieldService.validarTextFieldHorario(textField));
 	}
 	
-	@Test
-	public void testValidarTextFieldHorario() {
-		JTextField textFieldInvalido = new JTextField("09:aa");
-		
-		assertFalse(TextFieldService.validarTextFieldHorario(textFieldInvalido));
-	}
 }

@@ -2,9 +2,6 @@ package serviceTestesJUnit;
 
 import static org.junit.Assert.*;
 import java.sql.SQLException;
-
-import javax.swing.JTable;
-
 import org.junit.Test;
 import core.services.FuncionarioService;
 
@@ -164,6 +161,7 @@ public class FuncionarioServiceTestes {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	@Test
 	public void testeExcluirCPFNull() {
