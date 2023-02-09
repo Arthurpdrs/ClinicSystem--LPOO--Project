@@ -139,10 +139,10 @@ public class PacienteDAO {
 		insert.setString(7, paciente.getEndereco());
 		insert.setString(8, paciente.getObservacao());
 		insert.setString(9, paciente.getTelefone());
-		insert.setString(10, paciente.getTelefone());
-		boolean execucao = insert.execute();
+		insert.setString(10, paciente.getEmail());
+	    insert.execute();
 		pacienteDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 	public boolean alterar(Paciente paciente, Responsavel responsavel) throws SQLException {
@@ -192,9 +192,9 @@ public class PacienteDAO {
 		String sql = "DELETE FROM Paciente WHERE CPF = ?";
 		PreparedStatement delete = pacienteDAO.getConexao().prepareStatement(sql);
 		delete.setString(1, cpf);
-		boolean execucao = delete.execute();
+		delete.execute();
 		pacienteDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 	
 

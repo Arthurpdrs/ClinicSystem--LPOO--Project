@@ -77,9 +77,9 @@ public class ProntuarioDAO {
 		stmt.setString(6, prontuario.getPrescricao());
 		stmt.setString(7, prontuario.getObservacao());
 		stmt.setString(8, prontuario.getData());
-		boolean execucao = stmt.execute();
+		stmt.execute();
 		prontuarioDAO.fecharConexao();
-		return execucao;
+		return true;
 	}
 
 }
