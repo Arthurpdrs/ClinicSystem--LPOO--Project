@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `BancoLPOO` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `bancolpoo` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `BancoLPOO`;
 -- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
--- Host: database-2.ckzqkucrjrxv.us-east-1.rds.amazonaws.com    Database: BancoLPOO
+-- Host: database-2.ckzqkucrjrxv.us-east-1.rds.amazonaws.com    Database: bancolpoo
 -- ------------------------------------------------------
 -- Server version	8.0.28
 
@@ -120,9 +120,9 @@ DROP TABLE IF EXISTS `Login`;
 CREATE TABLE `Login` (
   `Usuario` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `Cargo` varchar(100) NOT NULL,
-  `CPF` varchar(45) DEFAULT NULL,
+  `CPF` varchar(12) NOT NULL,
   `Senha` varchar(45) NOT NULL,
-  PRIMARY KEY (`Usuario`)
+  PRIMARY KEY (`Usuario`, `CPF`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
