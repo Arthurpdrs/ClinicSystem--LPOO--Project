@@ -266,8 +266,7 @@ DROP TABLE IF EXISTS `Responsavel`;
 CREATE TABLE `Responsavel` (
   `CPF` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `Nome` varchar(100) NOT NULL,
-  `Telefone` varchar(13) NOT NULL,
-  PRIMARY KEY (`CPF`)
+  `Telefone` varchar(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
