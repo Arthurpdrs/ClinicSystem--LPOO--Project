@@ -10,7 +10,7 @@ public class FabricaConexao {
 	
 	private static final String usuario = "admin";
 	private static final String senha = "12345678";
-	private static final String url = "jdbc:mysql:aws://database-2.ckzqkucrjrxv.us-east-1.rds.amazonaws.com:3306/BancoLPOO";
+	private static final String url = "jdbc:mysql://localhost:3306/bancolpoo";
 
 	Connection conexao = null;
 	
