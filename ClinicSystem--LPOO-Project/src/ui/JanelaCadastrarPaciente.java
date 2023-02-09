@@ -549,7 +549,7 @@ public class JanelaCadastrarPaciente {
 		cidadeLbl.setBounds(883, 257, 196, 24);
 		frmClinicsystem.getContentPane().add(cidadeLbl);
 		
-		cepTextField = new JTextField(new TextFieldService(20), null, 0);
+		cepTextField = new JTextField(new TextFieldService(8), null, 0);
 		cepTextField.setToolTipText("");
 		cepTextField.setMargin(new Insets(10, 10, 10, 10));
 		cepTextField.setHorizontalAlignment(SwingConstants.LEFT);
