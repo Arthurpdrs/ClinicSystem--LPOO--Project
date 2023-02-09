@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 import core.model.Medico;
 import core.model.Recepcionista;
+import core.services.ConsultaService;
 import core.services.FuncionarioService;
 import core.services.MedicoService;
 import core.services.PacienteService;
@@ -30,6 +31,9 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class JanelaVisualizarProfissionais {
 
@@ -255,7 +259,8 @@ public class JanelaVisualizarProfissionais {
 					if(funcionarioService.filtrar(profissionaisTable, cpf)) {
 						avisoLbl.setText("");
 					} else {
-						avisoLbl.setText("Não foi possível encontrar o paciente");
+						avisoLbl.setText("Não foi possível encontrar o profissional");
+						funcionarioService.visualizarProfissionais(profissionaisTable);
 					}
 				} catch (SQLException e) {
 					avisoLbl.setText("Ocorreu um erro inesperado");
@@ -277,6 +282,16 @@ public class JanelaVisualizarProfissionais {
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
 		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
+		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				try {
+					FuncionarioService funcionarioService = new FuncionarioService();
+					funcionarioService.visualizarProfissionais(profissionaisTable);
+				} catch(SQLException e) {
+					avisoLbl.setText("Ocorreu um erro inesperado");
+				}
+			}
+		});
 		
 	}
 }
