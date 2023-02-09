@@ -2,6 +2,8 @@ package daoTestesJUnit;
 
 import static org.junit.Assert.*;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.junit.Test;
 import core.model.Consulta;
 import core.model.Medico;

@@ -31,6 +31,4 @@ public class ClinicaDAOTestes {
 			e.printStackTrace();
 		}
 	}
-	
-	// falta os testes para quando lançar exceção
 }

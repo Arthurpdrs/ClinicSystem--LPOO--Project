@@ -2,6 +2,8 @@ package daoTestesJUnit;
 
 import static org.junit.Assert.*;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.junit.Test;
 import core.model.Medico;
 import dao.MedicoDAO;
@@ -80,5 +82,33 @@ public class MedicoDAOTestes {
 		}
 	}
 	
-	// falta testes para quando lançar exceção
+	@Test
+	public void testeInserirMedicoDuplicado() {
+		MedicoDAO medicoDAO = new MedicoDAO();
+		Medico medico = new Medico();
+		medico.setCpf("010101");
+		medico.setNome("joao");
+		medico.setTelefone("81 98888-8888");
+		medico.setEmail("joao@hotmail.com");
+		medico.setLogin("joaomario");
+		medico.setSenha("123321");
+		medico.setCrm("456654");
+		medico.setEspecialidade("OFTALMOLOGISTA");
+		try {
+			medicoDAO.inserir(medico);
+			medico.setCpf("010101");
+			medico.setNome("joao");
+			medico.setTelefone("81 98888-8888");
+			medico.setEmail("joao@hotmail.com");
+			medico.setLogin("joaomario");
+			medico.setSenha("123321");
+			medico.setCrm("456654");
+			medico.setEspecialidade("OFTALMOLOGISTA");
+			assertThrows(SQLIntegrityConstraintViolationException.class,
+					() -> medicoDAO.inserir(medico));
+			medicoDAO.excluir(medico);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

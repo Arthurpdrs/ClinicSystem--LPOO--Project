@@ -99,5 +99,4 @@ public class ProntuarioDAOTestes {
 			e.printStackTrace();
 		}
 	}
-	// falta os testes para quando lançar exceção
 }

@@ -2,9 +2,12 @@ package daoTestesJUnit;
 
 import static org.junit.Assert.*;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.junit.Test;
 import core.model.Admin;
 import dao.AdminDAO;
+
 
 public class AdminDAOTestes {
 	
@@ -72,5 +75,29 @@ public class AdminDAOTestes {
 		}
 	}
 	
-	// falta testes para quando lançar exceção
+	@Test
+	public void testeInserirAdminDuplicado() {
+		AdminDAO adminDAO = new AdminDAO();
+		Admin admin = new Admin();
+		admin.setCpf("121212");
+		admin.setNome("gabriel");
+		admin.setTelefone("303030");
+		admin.setEmail("gabriel@gmail.com");
+		admin.setLogin("gabriel3000");
+		admin.setSenha("010101");
+		try {
+			adminDAO.inserir(admin);
+			admin.setCpf("121212");
+			admin.setNome("gabriel");
+			admin.setTelefone("303030");
+			admin.setEmail("gabriel@gmail.com");
+			admin.setLogin("gabriel3000");
+			admin.setSenha("010101");
+			assertThrows(SQLIntegrityConstraintViolationException.class,
+					() -> adminDAO.inserir(admin));
+			adminDAO.remover(admin);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

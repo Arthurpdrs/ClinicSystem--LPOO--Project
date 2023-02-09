@@ -2,6 +2,8 @@ package daoTestesJUnit;
 
 import static org.junit.Assert.*;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.junit.Test;
 import core.model.Recepcionista;
 import dao.RecepcionistaDAO;
@@ -72,5 +74,29 @@ public class RecepcionistaDAOTestes {
 		}
 	}
 	
-	// falta testes para quando lançar exceção
+	@Test
+	public void testeInserirRecepcionistaDuplicada() {
+		RecepcionistaDAO recepcionistaDAO = new RecepcionistaDAO();
+		Recepcionista recepcionista = new Recepcionista();
+		recepcionista.setCpf("454545");
+		recepcionista.setNome("joana");
+		recepcionista.setTelefone("81 96666-6666");
+		recepcionista.setEmail("joana@gmail.com");
+		recepcionista.setLogin("joanamaria");
+		recepcionista.setSenha("33336666");
+		try {
+			recepcionistaDAO.inserir(recepcionista);
+			recepcionista.setCpf("454545");
+			recepcionista.setNome("joana");
+			recepcionista.setTelefone("81 96666-6666");
+			recepcionista.setEmail("joana@gmail.com");
+			recepcionista.setLogin("joanamaria");
+			recepcionista.setSenha("33336666");
+			assertThrows(SQLIntegrityConstraintViolationException.class,
+					() -> recepcionistaDAO.inserir(recepcionista));
+			recepcionistaDAO.excluir(recepcionista);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

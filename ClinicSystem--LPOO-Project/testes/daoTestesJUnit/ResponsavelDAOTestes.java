@@ -2,6 +2,8 @@ package daoTestesJUnit;
 
 import static org.junit.Assert.*;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.junit.Test;
 
 import core.model.Responsavel;
@@ -61,5 +63,23 @@ public class ResponsavelDAOTestes {
 		}
 	}
 	
-	// falta os testes para quando lançar exceção
+	@Test
+	public void testeInserirResponsavelDuplicado() {
+		ResponsavelDAO responsavelDAO = new ResponsavelDAO();
+		Responsavel responsavel = new Responsavel();
+		responsavel.setCpf("898989");
+		responsavel.setNome("lucas");
+		responsavel.setTelefone("81 97777-7777");
+		try {
+			responsavelDAO.inserir(responsavel);
+			responsavel.setCpf("898989");
+			responsavel.setNome("lucas");
+			responsavel.setTelefone("81 97777-7777");
+			assertThrows(SQLIntegrityConstraintViolationException.class,
+					() -> responsavelDAO.inserir(responsavel));
+			responsavelDAO.remover(responsavel);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
