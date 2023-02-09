@@ -16,6 +16,8 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
@@ -41,38 +43,14 @@ public class JanelaPrincipalRecepcionista {
 	private JLabel iconeRecepcionistasLbl;
 	private JButton menuVisualizarConsultasBtn;
 	 
-
-	/**
-	 * Launch the application.
-	 */
-	
 	public JFrame getJanela() {
 		return this.frmClinicsystem;
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaPrincipalRecepcionista window = new JanelaPrincipalRecepcionista();
-					window.frmClinicsystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public JanelaPrincipalRecepcionista() {
 		initialize();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize() {
 		frmClinicsystem = new JFrame();
 		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaPrincipalRecepcionista.class.getResource("/midia/icone.png")));
@@ -86,7 +64,7 @@ public class JanelaPrincipalRecepcionista {
 		iconeRecepcionistasLbl.setBounds(630, 267, 62, 62);
 		frmClinicsystem.getContentPane().add(iconeRecepcionistasLbl);
 		
-		final JLabel numeroPacientesLbl = new JLabel("");
+		final JLabel numeroPacientesLbl = new JLabel("-");
 		numeroPacientesLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroPacientesLbl.setForeground(Color.WHITE);
 		numeroPacientesLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -140,7 +118,7 @@ public class JanelaPrincipalRecepcionista {
 		mensagemJanelaPrincipalLbl.setBounds(300, 65, 586, 24);
 		frmClinicsystem.getContentPane().add(mensagemJanelaPrincipalLbl);
 		
-		//Botão
+		
 		menuCadastrarBtn = new JButton("  Cadastrar paciente");
 		menuCadastrarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuCadastrarBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -159,7 +137,7 @@ public class JanelaPrincipalRecepcionista {
 		    }
 		});
 		
-		//Botão
+		
 		menuVisualizarPacientesBtn = new JButton("  Visualizar pacientes");
 		menuVisualizarPacientesBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuVisualizarPacientesBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -178,7 +156,7 @@ public class JanelaPrincipalRecepcionista {
 		    }
 		});
 		
-		//Botão
+		
 		menuAgendarConsultaBtn = new JButton("  Agendar consulta");
 		menuAgendarConsultaBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuAgendarConsultaBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -204,7 +182,7 @@ public class JanelaPrincipalRecepcionista {
 		textoConsultasLbl.setBounds(385, 100, 191, 59);
 		frmClinicsystem.getContentPane().add(textoConsultasLbl);
 		
-		numeroConsultasLbl = new JLabel("20000");
+		numeroConsultasLbl = new JLabel("-");
 		numeroConsultasLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroConsultasLbl.setForeground(Color.WHITE);
 		numeroConsultasLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -232,7 +210,7 @@ public class JanelaPrincipalRecepcionista {
 		textoPacientesLbl.setBounds(725, 100, 130, 59);
 		frmClinicsystem.getContentPane().add(textoPacientesLbl);
 		
-		final JLabel numeroMedicosLbl = new JLabel("20000");
+		final JLabel numeroMedicosLbl = new JLabel("-");
 		numeroMedicosLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroMedicosLbl.setForeground(Color.WHITE);
 		numeroMedicosLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -254,7 +232,7 @@ public class JanelaPrincipalRecepcionista {
 		textoMedicosLbl.setBounds(415, 235, 130, 59);
 		frmClinicsystem.getContentPane().add(textoMedicosLbl);
 		
-		numeroRecepcionistasLbl = new JLabel("20000");
+		numeroRecepcionistasLbl = new JLabel("-");
 		numeroRecepcionistasLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroRecepcionistasLbl.setForeground(Color.WHITE);
 		numeroRecepcionistasLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -299,11 +277,13 @@ public class JanelaPrincipalRecepcionista {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		    	System.clearProperty("cargo");
                 System.clearProperty("cpf_logado");
-		    	System.exit(0);
+                JanelaLogin janelaLogin = new JanelaLogin();
+		    	janelaLogin.getJanela().setVisible(true);
+		    	frmClinicsystem.dispose();
 		    }
 		});
 		
-		//Botão
+		
 		menuVisualizarConsultasBtn = new JButton("  Visualizar consultas");
 		menuVisualizarConsultasBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuVisualizarConsultasBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -322,27 +302,31 @@ public class JanelaPrincipalRecepcionista {
 		    }
 		});
 		
-		frmClinicsystem.setBackground(new Color(255, 255, 255));
-		frmClinicsystem.setResizable(false);
-		frmClinicsystem.setBounds(100, 100, 1120, 680);
-		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
+		JButton visualizarBtn = new JButton("");
+		visualizarBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				try {
 					EstatisticaService.totalConsultasDia(numeroConsultasLbl);
 					EstatisticaService.totalPacientes(numeroPacientesLbl);
 					EstatisticaService.totalRecepcionista(numeroRecepcionistasLbl);
 					EstatisticaService.totalMedico(numeroMedicosLbl);
-				} catch (SQLException e) {
+				} catch (SQLException e1) {
 					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
 				}
+				
 			}
-			
-		
 		});
-	
-	
+		visualizarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		visualizarBtn.setIcon(new ImageIcon(JanelaPrincipalRecepcionista.class.getResource("/midia/olho.png")));
+		visualizarBtn.setBounds(846, 56, 40, 40);
+		visualizarBtn.setBorderPainted(false);
+		frmClinicsystem.getContentPane().add(visualizarBtn);
+		
+		frmClinicsystem.setBackground(new Color(255, 255, 255));
+		frmClinicsystem.setResizable(false);
+		frmClinicsystem.setBounds(100, 100, 1120, 680);
+		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 	
 	}
 }

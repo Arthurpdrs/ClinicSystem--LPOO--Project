@@ -64,37 +64,14 @@ public class JanelaNovoRegistro {
 	private JTextArea observacaoTextArea;
 	private JTextArea prescricaoTextArea;
 
-	/**
-	 * Launch the application.
-	 */
-	
 	public JFrame getJanela() {
 		return this.frmClinicsystem;
 	}
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaNovoRegistro window = new JanelaNovoRegistro();
-					window.frmClinicsystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
 	public JanelaNovoRegistro() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
 		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaNovoRegistro.class.getResource("/midia/icone.png")));
@@ -107,8 +84,7 @@ public class JanelaNovoRegistro {
 				frmClinicsystem.dispose();
 			}
 		});
-		
-		//Botão
+	
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaNovoRegistro.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));
@@ -185,7 +161,6 @@ public class JanelaNovoRegistro {
 		erroLbl.setBounds(415, 551, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
-		//Botão
 		JButton enviarBtn = new JButton("Enviar");
 		enviarBtn.setBorderPainted(false);
 		enviarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -242,8 +217,7 @@ public class JanelaNovoRegistro {
 		cpfTextField.setEditable(false);
 		cpfTextField.setBounds(22, 292, 380, 50);
 		frmClinicsystem.getContentPane().add(cpfTextField);
-		
-		//Botão
+	
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		limparBtn.setForeground(Color.GRAY);

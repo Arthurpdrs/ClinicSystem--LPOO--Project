@@ -40,37 +40,14 @@ public class JanelaVisualizarProntuarios {
 	private JTable prontuariosTable;
 	private JLabel avisoLbl;
 
-	/**
-	 * Launch the application.
-	 */
-	
 	public JFrame getJanela() {
 		return this.frmClinicsystem;
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaVisualizarProntuarios window = new JanelaVisualizarProntuarios();
-					window.frmClinicsystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public JanelaVisualizarProntuarios() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
 		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaVisualizarProntuarios.class.getResource("/midia/icone.png")));
@@ -143,7 +120,7 @@ public class JanelaVisualizarProntuarios {
 		codigoDoPacienteLbl.setBounds(32, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(codigoDoPacienteLbl);
 		
-		//Botão
+		
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarProntuarios.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));

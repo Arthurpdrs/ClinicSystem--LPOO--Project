@@ -42,37 +42,14 @@ public class JanelaVisualizarConsultas {
 	private JTable consultasTable;
 	private JLabel avisoLbl;
 
-	/**
-	 * Launch the application.
-	 */
-	
 	public JFrame getJanela() {
 		return this.frmClinicsystem;
 	}
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaVisualizarConsultas window = new JanelaVisualizarConsultas();
-					window.frmClinicsystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
 	public JanelaVisualizarConsultas() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
 		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaVisualizarConsultas.class.getResource("/midia/icone.png")));
@@ -294,7 +271,7 @@ public class JanelaVisualizarConsultas {
 		    }
 		});
 		
-		//Botão
+		
 		JButton cancelarBtn = new JButton("");
 		cancelarBtn.setIcon(new ImageIcon(JanelaVisualizarConsultas.class.getResource("/midia/block.png")));
 		cancelarBtn.setVerticalAlignment(SwingConstants.BOTTOM);

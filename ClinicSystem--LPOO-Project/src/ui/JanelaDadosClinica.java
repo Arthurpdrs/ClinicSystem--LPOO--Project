@@ -49,39 +49,15 @@ public class JanelaDadosClinica {
 	private JTextField enderecoTextField;
 	private JLabel enderecoDaClinicaLbl;
 	private JLabel logoMenu;
-
-	/**
-	 * Launch the application.
-	 */
 	
 	public JFrame getJanela() {
 		return this.frmClinicsystem;
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaDadosClinica window = new JanelaDadosClinica();
-					window.frmClinicsystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public JanelaDadosClinica() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
 		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaDadosClinica.class.getResource("/midia/icone.png")));

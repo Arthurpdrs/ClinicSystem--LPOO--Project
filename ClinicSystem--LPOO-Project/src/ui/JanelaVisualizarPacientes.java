@@ -42,37 +42,15 @@ public class JanelaVisualizarPacientes {
 	private JTable pacientesTable;
 	private JLabel avisoLbl;
 
-	/**
-	 * Launch the application.
-	 */
-	
 	public JFrame getJanela() {
 		return this.frmClinicsystem;
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaVisualizarPacientes window = new JanelaVisualizarPacientes();
-					window.frmClinicsystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
 	public JanelaVisualizarPacientes() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
 		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaVisualizarPacientes.class.getResource("/midia/icone.png")));

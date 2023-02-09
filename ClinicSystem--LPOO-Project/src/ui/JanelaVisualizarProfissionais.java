@@ -45,37 +45,14 @@ public class JanelaVisualizarProfissionais {
 	private JTable profissionaisTable;
 	private JLabel avisoLbl;
 
-	/**
-	 * Launch the application.
-	 */
-
 	public JFrame getJanela() {
 		return this.frmClinicsystem;
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaVisualizarProfissionais window = new JanelaVisualizarProfissionais();
-					window.frmClinicsystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public JanelaVisualizarProfissionais() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
 		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaVisualizarProfissionais.class.getResource("/midia/icone.png")));
@@ -208,7 +185,7 @@ public class JanelaVisualizarProfissionais {
 		codigoDoProfissionalLbl.setBounds(32, 65, 380, 24);
 		frmClinicsystem.getContentPane().add(codigoDoProfissionalLbl);
 		
-		//Botão
+		
 		JButton excluirBtn = new JButton("Excluir");
 		excluirBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		excluirBtn.setForeground(Color.GRAY);
@@ -259,7 +236,7 @@ public class JanelaVisualizarProfissionais {
 		    }
 		});
 		
-		//Botão
+		
 		pesquisarBtn = new JButton("");
 		pesquisarBtn.setIcon(new ImageIcon(JanelaVisualizarProfissionais.class.getResource("/midia/lupa.png")));
 		pesquisarBtn.setForeground(new Color(0, 102, 255));

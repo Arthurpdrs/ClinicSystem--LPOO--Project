@@ -29,16 +29,13 @@ public class JanelaLogin {
 	private JLabel erroLbl;
 	private JPasswordField senhaTextField;
 
-	/**
-	 * Create the application.
-	 */
+	public JFrame getJanela() {
+		return this.frmClinicsystem;
+	}
+	
 	public JanelaLogin() {
 		initialize();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
 		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaLogin.class.getResource("/midia/icone.png")));
@@ -108,7 +105,7 @@ public class JanelaLogin {
 		senhaLbl.setBounds(699, 376, 380, 14);
 		frmClinicsystem.getContentPane().add(senhaLbl);
 		
-		//Botão
+		
 		JButton entrarBtn = new JButton("Entrar");
 		entrarBtn.setBorderPainted(false);
 		entrarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -155,6 +152,6 @@ public class JanelaLogin {
 		frmClinicsystem.setBackground(new Color(255, 255, 255));
 		frmClinicsystem.setResizable(false);
 		frmClinicsystem.setBounds(100, 100, 1120, 680);
-		frmClinicsystem.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

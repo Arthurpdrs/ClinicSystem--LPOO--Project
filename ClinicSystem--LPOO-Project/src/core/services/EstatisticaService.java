@@ -35,7 +35,7 @@ public class EstatisticaService {
 			ConsultaDAO consultadao = new ConsultaDAO();
 			String totalconsultasdia = consultadao.TotalConsultasMedico(cpf);
 			if(totalconsultasdia.equals(null)) {
-				totalconsultasdia = "0";
+				label.setText("0");
 				return false;
 			}
 			label.setText(totalconsultasdia);

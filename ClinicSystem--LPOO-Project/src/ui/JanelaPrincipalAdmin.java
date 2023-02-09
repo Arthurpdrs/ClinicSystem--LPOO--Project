@@ -13,6 +13,8 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
@@ -37,37 +39,14 @@ public class JanelaPrincipalAdmin {
 	private JLabel iconePacientesLbl;
 	private JLabel iconeRecepcionistasLbl;
 
-	/**
-	 * Launch the application.
-	 */
 	
 	public JFrame getJanela() {
 		return this.frmClinicsystem;
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaPrincipalAdmin window = new JanelaPrincipalAdmin();
-					window.frmClinicsystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public JanelaPrincipalAdmin() {
 		initialize();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	
 	private void initialize() {
 		frmClinicsystem = new JFrame();
@@ -82,7 +61,7 @@ public class JanelaPrincipalAdmin {
 		iconeRecepcionistasLbl.setBounds(630, 267, 62, 62);
 		frmClinicsystem.getContentPane().add(iconeRecepcionistasLbl);
 		
-		final JLabel numeroPacientesLbl = new JLabel("20000");
+		final JLabel numeroPacientesLbl = new JLabel("-");
 		numeroPacientesLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroPacientesLbl.setForeground(Color.WHITE);
 		numeroPacientesLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -134,10 +113,10 @@ public class JanelaPrincipalAdmin {
 		mensagemJanelaPrincipalLbl.setForeground(new Color(0, 102, 255));
 		mensagemJanelaPrincipalLbl.setFont(new Font("Arial", Font.PLAIN, 14));
 		mensagemJanelaPrincipalLbl.setBackground(Color.WHITE);
-		mensagemJanelaPrincipalLbl.setBounds(300, 65, 586, 24);
+		mensagemJanelaPrincipalLbl.setBounds(300, 65, 546, 24);
 		frmClinicsystem.getContentPane().add(mensagemJanelaPrincipalLbl);
 		
-		//Botão
+		
 		menuCadastrarBtn = new JButton("  Cadastrar profissionais");
 		menuCadastrarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuCadastrarBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -156,7 +135,7 @@ public class JanelaPrincipalAdmin {
 		    }
 		});
 		
-		//Botão
+		
 		menuVisualizarProfissionaisBtn = new JButton("  Visualizar profissionais");
 		menuVisualizarProfissionaisBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuVisualizarProfissionaisBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -165,7 +144,7 @@ public class JanelaPrincipalAdmin {
 		menuVisualizarProfissionaisBtn.setContentAreaFilled(false);
 		menuVisualizarProfissionaisBtn.setBorderPainted(false);
 		menuVisualizarProfissionaisBtn.setBackground(Color.WHITE);
-		menuVisualizarProfissionaisBtn.setBounds(-1, 145, 276, 34);
+		menuVisualizarProfissionaisBtn.setBounds(-1, 145, 236, 34);
 		frmClinicsystem.getContentPane().add(menuVisualizarProfissionaisBtn);
 		
 		menuVisualizarProfissionaisBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -175,7 +154,7 @@ public class JanelaPrincipalAdmin {
 		    }
 		});
 		
-		//Botão
+		
 		menuConfiguracoesBtn = new JButton("  Configurações");
 		menuConfiguracoesBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuConfiguracoesBtn.setHorizontalAlignment(SwingConstants.LEFT);
@@ -201,7 +180,7 @@ public class JanelaPrincipalAdmin {
 		textoFuncionariosLbl.setBounds(415, 100, 130, 59);
 		frmClinicsystem.getContentPane().add(textoFuncionariosLbl);
 		
-		numeroFuncionariosLbl = new JLabel("20000");
+		numeroFuncionariosLbl = new JLabel("-");
 		numeroFuncionariosLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroFuncionariosLbl.setForeground(Color.WHITE);
 		numeroFuncionariosLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -229,7 +208,7 @@ public class JanelaPrincipalAdmin {
 		textoPacientesLbl.setBounds(725, 100, 130, 59);
 		frmClinicsystem.getContentPane().add(textoPacientesLbl);
 		
-		final JLabel numeroMedicosLbl = new JLabel("20000");
+		final JLabel numeroMedicosLbl = new JLabel("-");
 		numeroMedicosLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroMedicosLbl.setForeground(Color.WHITE);
 		numeroMedicosLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -251,7 +230,7 @@ public class JanelaPrincipalAdmin {
 		textoMedicosLbl.setBounds(415, 235, 130, 59);
 		frmClinicsystem.getContentPane().add(textoMedicosLbl);
 		
-		numeroRecepcionistasLbl = new JLabel("20000");
+		numeroRecepcionistasLbl = new JLabel("-");
 		numeroRecepcionistasLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		numeroRecepcionistasLbl.setForeground(Color.WHITE);
 		numeroRecepcionistasLbl.setFont(new Font("Arial", Font.BOLD, 22));
@@ -296,30 +275,38 @@ public class JanelaPrincipalAdmin {
 		    public void actionPerformed(java.awt.event.ActionEvent evt) {
 		    	System.clearProperty("cargo");
                 System.clearProperty("cpf_logado");
-		    	System.exit(0);
+		    	JanelaLogin janelaLogin = new JanelaLogin();
+		    	janelaLogin.getJanela().setVisible(true);
+		    	frmClinicsystem.dispose();
 		    }
 		});
 		
-		frmClinicsystem.setBackground(new Color(255, 255, 255));
-		frmClinicsystem.setResizable(false);
-		frmClinicsystem.setBounds(100, 100, 1120, 680);
-		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	
-		frmClinicsystem.getContentPane().addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
+		
+		JButton visualizarBtn = new JButton("");
+		visualizarBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				try {
 					
 					EstatisticaService.totalPacientes(numeroPacientesLbl);
 					EstatisticaService.totalRecepcionista(numeroRecepcionistasLbl);
 					EstatisticaService.totalMedico(numeroMedicosLbl);
 					EstatisticaService.totalFuncionario(numeroFuncionariosLbl);
-				} catch (SQLException e) {
+				} catch (SQLException e1) {
 					mensagemJanelaPrincipalLbl.setText("Ocorreu um erro inesperado");
 				}
+				
 			}
-			
-		
 		});
+		visualizarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		visualizarBtn.setIcon(new ImageIcon(JanelaPrincipalAdmin.class.getResource("/midia/olho.png")));
+		visualizarBtn.setBounds(846, 56, 40, 40);
+		visualizarBtn.setBorderPainted(false);
+		frmClinicsystem.getContentPane().add(visualizarBtn);
+		
+		frmClinicsystem.setBackground(new Color(255, 255, 255));
+		frmClinicsystem.setResizable(false);
+		frmClinicsystem.setBounds(100, 100, 1120, 680);
+		frmClinicsystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	}
 }

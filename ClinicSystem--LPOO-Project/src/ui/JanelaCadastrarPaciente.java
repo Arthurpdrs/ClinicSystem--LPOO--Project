@@ -75,37 +75,15 @@ public class JanelaCadastrarPaciente {
 	private JTextField cepTextField;
 	private JLabel cepLbl;
 
-	/**
-	 * Launch the application.
-	 */
 	
 	public JFrame getJanela() {
 		return this.frmClinicsystem;
 	}
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaCadastrarPaciente window = new JanelaCadastrarPaciente();
-					window.frmClinicsystem.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
 	public JanelaCadastrarPaciente() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmClinicsystem = new JFrame();
 		frmClinicsystem.setIconImage(Toolkit.getDefaultToolkit().getImage(JanelaCadastrarPaciente.class.getResource("/midia/icone.png")));
@@ -168,7 +146,7 @@ public class JanelaCadastrarPaciente {
 		erroLbl.setBounds(415, 508, 664, 14);
 		frmClinicsystem.getContentPane().add(erroLbl);
 		
-		//Botão
+		
 		JButton enviarBtn = new JButton("Enviar");
 		enviarBtn.setBorderPainted(false);
 		enviarBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -492,7 +470,7 @@ public class JanelaCadastrarPaciente {
 		cpfResponsavelLbl.setBounds(883, 353, 196, 24);
 		frmClinicsystem.getContentPane().add(cpfResponsavelLbl);
 		
-		//Botão
+		
 		JButton limparBtn = new JButton("Limpar");
 		limparBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		limparBtn.setForeground(Color.GRAY);
