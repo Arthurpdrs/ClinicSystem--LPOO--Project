@@ -482,7 +482,7 @@ public class JanelaAgendarConsulta {
 		valorTextField.setBounds(422, 484, 380, 50);
 		frmClinicsystem.getContentPane().add(valorTextField);
 		
-		valorLbl = new JLabel("Valor:");
+		valorLbl = new JLabel("*Valor:");
 		valorLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		valorLbl.setForeground(Color.GRAY);
 		valorLbl.setFont(new Font("Arial", Font.PLAIN, 16));
