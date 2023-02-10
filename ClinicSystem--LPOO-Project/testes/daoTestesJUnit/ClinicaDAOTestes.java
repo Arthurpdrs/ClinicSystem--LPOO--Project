@@ -14,7 +14,7 @@ public class ClinicaDAOTestes {
 		ClinicaDAO clinicaDAO = new ClinicaDAO();
 		Clinica clinica = new Clinica();
 		clinica.setNome("QQQQQQQQQQQQQQQQQQQQ");
-		clinica.setEmail("naoresponda_clinicdataoutlaook.com");
+		clinica.setEmail("naoresponda_clinicdata@outlook.com");
 		clinica.setSenha("clinicdata00_");
 		clinica.setTelefone("81 90000-0000");
 		clinica.setEndereco("Avenida Governador Agamenon Magalhães, 84, Santo Amaro, Recife, PE");
@@ -22,7 +22,7 @@ public class ClinicaDAOTestes {
 			boolean testeAlterarOk = clinicaDAO.alterar(clinica);
 			assertTrue(testeAlterarOk);
 			clinica.setNome("QQQQQQQQQQQQQQQQQQQQ");
-			clinica.setEmail("naoresponda_clinicdataoutlaook.com");
+			clinica.setEmail("naoresponda_clinicdata@outlook.com");
 			clinica.setSenha("clinicdata00_");
 			clinica.setTelefone("81 99999-9999");
 			clinica.setEndereco("Avenida Governador Agamenon Magalhães, 84, Santo Amaro, Recife, PE");
