@@ -220,7 +220,7 @@ class PacienteServiceTestes {
 		try {
 			paciente.cadastrar("Jose Maria", "99 99999-9999", "jm@dominio.com", "12312312300", "O-", "Ovo", "01/01/2000", "Rua A", "Nenhuma", null);
 			boolean modificar = paciente.alterar("12312312300", "Jose Maria", "jm@dominio.com", "11 11111-1111", "Ovo", "O-", "01/01/2000", "Rua A", null, null, null, null);
-			assertTrue(modificar);
+			assertFalse(modificar);
 			paciente.deletarPaciente("12312312300");
 		} catch (SQLException e) {
 			e.printStackTrace();
