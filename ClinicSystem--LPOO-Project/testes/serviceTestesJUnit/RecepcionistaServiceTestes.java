@@ -99,5 +99,44 @@ class RecepcionistaServiceTestes {
 				() -> recepcionista.alterar(null, null, null, null, null, null));
 	}
 	
+		
+	@Test
+	public void testeExcluirOK() {
+		
+		RecepcionistaService recepcionista = new RecepcionistaService();
+		
+		try {
+			recepcionista.cadastrar("Maria Jose", "99 99999-9999", "mj@dominio.com", "11111111100", "mjuser", "1234");
+			boolean excluirOK = recepcionista.excluir("11111111100");
+			assertTrue(excluirOK);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void testeExcluirCPFIsBlank() {
+		
+		RecepcionistaService recepcionista = new RecepcionistaService();
+		
+		try {
+			assertFalse(recepcionista.excluir(""));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
+	public void testeExcluirCPFNull() {
+		
+		RecepcionistaService recepcionista = new RecepcionistaService();
+
+		assertThrows(NullPointerException.class,
+				() -> recepcionista.excluir(null));
+			
+	}
+
 	
 }
