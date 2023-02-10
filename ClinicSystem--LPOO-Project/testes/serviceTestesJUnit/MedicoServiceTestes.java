@@ -23,7 +23,7 @@ class MedicoServiceTestes {
 	
 	
 	@Test
-	public void testeCadastrarIsBlank() {
+	public void testeCadastrarValoresIsBlank() {
 		
 		MedicoService medico = new MedicoService();	
 		
@@ -103,7 +103,7 @@ class MedicoServiceTestes {
 
 
 	@Test
-	public void testeAlterarIsBlank() {
+	public void testeAlterarValoresIsBlank() {
 		
 		MedicoService medico = new MedicoService();	
 		
@@ -116,7 +116,7 @@ class MedicoServiceTestes {
 	
 	
 	@Test
-	public void testeAlterarLengthNOK() {
+	public void testeAlterarEspecialidadeLengthNOK() {
 		
 		MedicoService medico = new MedicoService();
 		
@@ -130,7 +130,7 @@ class MedicoServiceTestes {
 	
 	
 	@Test
-	public void testeAlterarValorNull() {
+	public void testeAlterarValoresNull() {
 		
 		MedicoService medico = new MedicoService();
 		
